@@ -8,7 +8,7 @@
 
 import UIKit
 
-func addShadow(on view: UIView, using color: CGColor, and opacity: Float) {
+func addShadow(to view: UIView, usingColor color: CGColor, andOpacity opacity: Float) {
     view.layer.shadowColor = color
     view.layer.shadowOffset = CGSize(width: 0, height: 0)
     view.layer.shadowOpacity = opacity

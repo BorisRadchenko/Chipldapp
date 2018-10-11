@@ -22,6 +22,7 @@ class FancyHeader {
 // TODO: Вычислить экспериментально минимальные ширину и высоту
     var minDisplayAreaWidth: CGFloat = 0
     var minDisplayAreaHeight: CGFloat = 0
+    var indent: CGFloat = 20
     
     let artistFont = UIFont(name: "TimesNewRomanPS-BoldMT", size: 39)
     let artistMinFontSize = 15
@@ -39,8 +40,10 @@ class FancyHeader {
         self.displayArea = displayArea
         self.spaceLabel.font = spacersFont
         self.spaceLabel.text = " "
+        self.spaceLabel.sizeToFit()
         self.hyphenLabel.font = spacersFont
         self.hyphenLabel.text = "-"
+        self.hyphenLabel.sizeToFit()
     }
     
     func hasEnoughDisplayAreaSize() -> Bool {
@@ -49,27 +52,34 @@ class FancyHeader {
         return true
     }
     
-    func showTitle() {
+    func prepareTitleHeader() {
+        
         guard let title = title else {
-            print("There is no title to show")
+            print("There is no title to prepare")
             return
         }
-        let paragraph = FancyTextParagraph(container: displayArea, inset: 20, space: spaceLabel, interlineSpacing: 3)
-        var words: [String] = []
-        words = title.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
+        
+        let words: [String] = title.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
+        let paragraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel)//(container: displayArea, inset: 20, space: spaceLabel, interlineSpacing: 3)
+
         for word in words {
             let fancyWord = FancyWord()
             for letter in word {
-                let label = UILabel()
-                label.attributedText = FancyLetterStyle.decorate(letter)
-                label.sizeToFit() // нужно ли?
-                fancyWord.add(letter: label)
+                let letterLabel = UILabel()
+                letterLabel.attributedText = FancyLetterStyle.decorate(letter)
+                addShadow(to: letterLabel, usingColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), andOpacity: 0.7)
+                fancyWord.add(letter: letterLabel)
             }
             paragraph.addWord(fancyWord)
         }
         paragraph.finish()
-        paragraph.show()
+        
+        //        TODO: Подготовленный абзац с названием не должен сразу отображаться. Сначала его нужно совместить с блоком с именем исполнителя и проверить их суммарные габариты.
+        let paragraphTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: paragraph.getHeight())
+        paragraph.show(inside: displayArea, withIndent: indent, topY: paragraphTopY)
+        
     }
+    
     
     func showArtist() {
         guard let artist = artist else {
@@ -95,6 +105,7 @@ class FancyHeader {
     }
     
     func showPlaceholder() {
+        //        TODO: Реализовать аналогично заголовку с названием.
         let label = UILabel()
 //        label.text = shuffledPLaceholder
         label.attributedText = FancyLetterStyle.decorate(shuffledPLaceholder.first!)
@@ -107,7 +118,7 @@ class FancyHeader {
                                 height: label.bounds.height)
         label.frame = labelFrame
         displayArea.addSubview(label)
-        addShadow(on: label, using: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), and: 0.9)
+        addShadow(to: label, usingColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), andOpacity: 0.9)
     }
     
     func placeHeader() {

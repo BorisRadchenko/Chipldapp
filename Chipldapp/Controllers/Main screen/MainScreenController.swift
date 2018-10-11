@@ -12,7 +12,8 @@ class MainScreenController: UIViewController {
 
     @IBOutlet weak var topView: UIView!
     var fancyHeader: FancyHeader?
-    let titles = ["Baby (One More Time)", // Обычное название трека
+    let titles = ["Рейкьявик",
+        "Baby (One More Time)", // Обычное название трека
         "St Germain", // Нет исполнителя
         "Belly Bossanova",
         "A Way Too Long And Verbose Title", // Длинное название
@@ -20,7 +21,8 @@ class MainScreenController: UIViewController {
         "6&5", // Очень короткое название
         "", // Нет названия
         "Obsessed By (Feat. M. Of iamthemorning)"]  // Название с очень длинными словами
-    let artists = ["Britney Spears",
+    let artists = ["Маша и медведи",
+                   "Britney Spears",
                    "",
                    "Frank Popp Ensemble",
                    "Some Indie Pop Band featuring Some Guest Singer",
@@ -46,7 +48,6 @@ class MainScreenController: UIViewController {
         removeAllSubviews(from: topView)
         let randomIndex = Int.random(in: 0..<titles.count-1)
         fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
-//        fancyHeader = FancyHeader(title: "Рейкъявик", artist: "Маша и медведи", placeholder: "Чипльдук", displayArea: topView)
         
         if fancyHeader!.hasEnoughDisplayAreaSize() {
             print("'fancyHeader' has enough display area size (\(topView.bounds.width) x \(topView.bounds.height))")
@@ -55,7 +56,7 @@ class MainScreenController: UIViewController {
 //        fancyHeader!.showArtist()
 //        fancyHeader!.showPlaceholder()
 //        fancyHeader!.placeHeader()
-        fancyHeader!.showTitle()
+        fancyHeader!.prepareTitleHeader()
     }
     
 }

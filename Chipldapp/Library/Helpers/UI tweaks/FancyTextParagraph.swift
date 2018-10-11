@@ -11,25 +11,19 @@ import UIKit
 class FancyTextParagraph {
     var lines: [FancyTextLine] = []
     var lastLine = FancyTextLine()
-    var container: UIView
-    var containerWidth: CGFloat
-    var inset: CGFloat
-    var space: UILabel
-    var spaceWidth: CGFloat
+    var widthLimit: CGFloat
+    var spaceLabel: UILabel
     var interlineSpace: CGFloat
     
-    init(container: UIView, inset: CGFloat, space: UILabel, interlineSpacing: CGFloat) {
-        self.container = container
-        self.containerWidth = container.bounds.width
-        self.inset = inset
-        self.space = space
-        self.spaceWidth = space.bounds.width
+    init(widthLimit: CGFloat, interlineSpacing: CGFloat, spaceLabel: UILabel) {
+        self.widthLimit = widthLimit
         self.interlineSpace = interlineSpacing
+        self.spaceLabel = spaceLabel
     }
     
     func addWord(_ word: FancyWord) {
-        let widthLimit = containerWidth - inset * 2
-        
+        //        TODO: Оптимизировать проверки
+        let spaceWidth = spaceLabel.bounds.width
         if word.width > widthLimit { //a single current word is wider than the limit
             print("Oops!..")
         } else if lastLine.width + word.width + spaceWidth > widthLimit { // space after current word together with word itself does not fit the line
@@ -40,7 +34,7 @@ class FancyTextParagraph {
                 lines.append(lastLine.copy() as! FancyTextLine) //save gained line
                 lastLine.clear()
                 lastLine.add(word) //move word to the next line
-                lastLine.add(space)
+                lastLine.add(spaceLabel)
             } else { //only last space does not fit, the word itself fits
                 lastLine.add(word) //add word to line, do not add the last space
                 lines.append(lastLine.copy() as! FancyTextLine) //save gained line
@@ -48,7 +42,7 @@ class FancyTextParagraph {
             }
         } else { // current word and space after fit the line
             lastLine.add(word) //add word to line
-            lastLine.add(space) //add space to line
+            lastLine.add(spaceLabel) //add space to line
         }
     }
     
@@ -57,19 +51,27 @@ class FancyTextParagraph {
         lastLine.clear()
     }
     
-    func show() {
-        var lineY: CGFloat = 0
+    func show(inside container: UIView, withIndent indent: CGFloat, topY: CGFloat) {
+        var lineY = topY
         for line in lines {
-            var startX = round(containerWidth / 2) - round(line.width / 2)
+            var startX = CenteredRect.getLeftX(byContainerWidth: widthLimit, rectWidth: line.width)
             for label in line.letters {
-                let startY = lineY + round(line.height / 2) - round(label.bounds.height / 2)
-                let rect = CGRect(x: startX, y: startY, width: label.bounds.width, height: label.bounds.height)
-                label.frame = rect
+                let startY = CenteredRect.getTopY(byContainerHeight: line.height, rectHeight: label.bounds.height)
+                label.frame = CGRect(x: startX + indent, y: lineY + startY, width: label.bounds.width, height: label.bounds.height)
                 container.addSubview(label)
                 startX += label.bounds.width
             }
             lineY += line.height + interlineSpace
         }
+    }
+    
+    func getHeight()->CGFloat {
+        var height: CGFloat = 0
+        for line in lines {
+            height += line.height
+        }
+        height += interlineSpace * CGFloat(lines.count - 1)
+        return height
     }
     
 }

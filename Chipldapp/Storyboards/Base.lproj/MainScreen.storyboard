@@ -37,14 +37,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UK-Dh-phn" userLabel="bottomView">
                                 <rect key="frame" x="0.0" y="572" width="375" height="95"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottomPanel" translatesAutoresizingMaskIntoConstraints="NO" id="Kg0-sa-l9T">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottomPanel" translatesAutoresizingMaskIntoConstraints="NO" id="Kg0-sa-l9T">
                                         <rect key="frame" x="26.5" y="15" width="322" height="65"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNH-ke-G1J">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="76"/>
-                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.46339897260273971" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <state key="normal" title="ACTION!"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNH-ke-G1J">
+                                        <rect key="frame" x="26" y="15" width="323" height="65"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="2FU-oj-PAl"/>
+                                            <constraint firstAttribute="width" constant="323" id="BWq-s3-rUr"/>
+                                        </constraints>
+                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.80174443493150682" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <state key="normal" title="ACTION!" image="bottomPanel"/>
                                         <connections>
                                             <action selector="actionButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r6b-RM-mtp"/>
                                         </connections>
@@ -52,12 +55,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="95" id="5nK-Do-r49"/>
-                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" id="XQ8-Fe-DNG"/>
-                                    <constraint firstAttribute="bottom" secondItem="qNH-ke-G1J" secondAttribute="bottom" id="ahI-03-9LL"/>
+                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="7GR-9f-kag"/>
+                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="9Bk-zI-2wc"/>
                                     <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="cDW-VJ-vro"/>
-                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="top" secondItem="4UK-Dh-phn" secondAttribute="top" id="h5r-bM-4xU"/>
                                     <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="iR1-6R-Qez"/>
-                                    <constraint firstAttribute="trailing" secondItem="qNH-ke-G1J" secondAttribute="trailing" id="n0a-yi-Yca"/>
                                 </constraints>
                             </view>
                         </subviews>

@@ -18,6 +18,7 @@
 		C1D060E5216F1B1800002936 /* FancyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E4216F1B1800002936 /* FancyWord.swift */; };
 		C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E6216F1B7E00002936 /* FancyTextLine.swift */; };
 		C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */; };
+		C1D060EB216FE63400002936 /* CoordinateCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060EA216FE63400002936 /* CoordinateCalculations.swift */; };
 		C1F5EF282158B007008F8518 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C1F5EF272158B007008F8518 /* .gitignore */; };
 		C1F5EF2B2158DB52008F8518 /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */; };
 		C1F5EF31215916D0008F8518 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F5EF30215916D0008F8518 /* Shadow.swift */; };
@@ -37,6 +38,7 @@
 		C1D060E4216F1B1800002936 /* FancyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyWord.swift; sourceTree = "<group>"; };
 		C1D060E6216F1B7E00002936 /* FancyTextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextLine.swift; sourceTree = "<group>"; };
 		C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextParagraph.swift; sourceTree = "<group>"; };
+		C1D060EA216FE63400002936 /* CoordinateCalculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateCalculations.swift; sourceTree = "<group>"; };
 		C1F5EF272158B007008F8518 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		C1F5EF30215916D0008F8518 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		C1F5EF292158DAC2008F8518 /* UI tweaks */ = {
 			isa = PBXGroup;
 			children = (
+				C1D060EA216FE63400002936 /* CoordinateCalculations.swift */,
 				C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */,
 				C1D060E2216EE53700002936 /* RemoveSubviews.swift */,
 				C1F5EF30215916D0008F8518 /* Shadow.swift */,
@@ -291,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D060EB216FE63400002936 /* CoordinateCalculations.swift in Sources */,
 				C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */,
 				C187FD0821587D4E00D0F35A /* MainScreenController.swift in Sources */,
 				C1F5EF31215916D0008F8518 /* Shadow.swift in Sources */,
