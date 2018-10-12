@@ -8,8 +8,6 @@
 
 import UIKit
 
-// TODO: Сначала заголовок оформляется, а потом размещается с учётом его габаритов
-
 class FancyHeader {
     var title: String?
     var artist: String?
@@ -31,6 +29,9 @@ class FancyHeader {
     let spaceLabel = UILabel()
     let hyphenLabel = UILabel()
     
+    private var titleHeaderParagraph: FancyTextParagraph? = nil
+    private var artistHeaderLabel: UILabel? = nil
+    private let titlePartsSpace: CGFloat = 20
     
 // MARK: -
     init(title: String? = nil, artist: String? = nil, placeholder: String, displayArea: UIView) {
@@ -59,106 +60,94 @@ class FancyHeader {
             return
         }
         
+        titleHeaderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel)
+        
         let words: [String] = title.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
-        let paragraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel)//(container: displayArea, inset: 20, space: spaceLabel, interlineSpacing: 3)
 
         for word in words {
             let fancyWord = FancyWord()
             for letter in word {
                 let letterLabel = UILabel()
                 letterLabel.attributedText = FancyLetterStyle.decorate(letter)
-                addShadow(to: letterLabel, usingColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), andOpacity: 0.7)
+                letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+                letterLabel.layer.borderWidth = 0.3
                 fancyWord.add(letter: letterLabel)
             }
-            paragraph.addWord(fancyWord)
+            titleHeaderParagraph!.addWord(fancyWord)
         }
-        paragraph.finish()
-        
-        //        TODO: Подготовленный абзац с названием не должен сразу отображаться. Сначала его нужно совместить с блоком с именем исполнителя и проверить их суммарные габариты.
-        let paragraphTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: paragraph.getHeight())
-        paragraph.show(inside: displayArea, withIndent: indent, topY: paragraphTopY)
-        
+        titleHeaderParagraph!.finish()
     }
     
     
-    func showArtist() {
+    func prepareArtistHeader() {
         guard let artist = artist else {
             print("There is no artist name to show")
             return
         }
-        let label = UILabel()
-        label.text = artist
-        label.font = artistFont
-        label.numberOfLines = 0
-        label.textAlignment = .center
+        artistHeaderLabel = UILabel()
+        artistHeaderLabel!.text = artist
+        artistHeaderLabel!.font = artistFont
+        artistHeaderLabel!.numberOfLines = 0
+        artistHeaderLabel!.textAlignment = .center
         
-        label.frame = CGRect(x: 0, y: 0, width: displayArea.bounds.width, height: 0)
-        label.sizeToFit()
-// TODO: Строка ниже будет не нужна, когда заголовок будет размещаться исходя из размеров двух его частей
-        label.frame = CGRect(x: displayArea.bounds.width / 2 - label.bounds.width / 2,
-                             y: displayArea.bounds.height / 2 - label.bounds.height / 2,
-                             width: label.bounds.width,
-                             height: label.bounds.height)
-        label.layer.borderColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        label.layer.borderWidth = 1
-        displayArea.addSubview(label)
+        artistHeaderLabel!.frame = CGRect(x: 0, y: 0, width: displayArea.bounds.width - indent * 2, height: 0)
+        artistHeaderLabel!.sizeToFit()
+    }
+    
+    func showArtistHeader(topY: CGFloat) {
+        artistHeaderLabel!.frame = CGRect(x: CenteredRect.getLeftX(byContainerWidth: displayArea.bounds.width, rectWidth: artistHeaderLabel!.bounds.width),
+                                          y: topY,
+                                          width: artistHeaderLabel!.bounds.width,
+                                          height: artistHeaderLabel!.bounds.height)
+        displayArea.addSubview(artistHeaderLabel!)
+    }
+    
+    func getArtistHeaderHeight() -> CGFloat {
+        return artistHeaderLabel!.bounds.height
     }
     
     func showPlaceholder() {
-        //        TODO: Реализовать аналогично заголовку с названием.
-        let label = UILabel()
-//        label.text = shuffledPLaceholder
-        label.attributedText = FancyLetterStyle.decorate(shuffledPLaceholder.first!)
-//        label.font = UIFont(name: "TimesNewRomanPS-BoldMT", size: 39)
-        label.textAlignment = .center
-        label.sizeToFit()
-        let labelFrame = CGRect(x: displayArea.bounds.width / 2 - label.bounds.width / 2,
-                                y: displayArea.bounds.height / 2 - label.bounds.height / 2,
-                                width: label.bounds.width,
-                                height: label.bounds.height)
-        label.frame = labelFrame
-        displayArea.addSubview(label)
-        addShadow(to: label, usingColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), andOpacity: 0.9)
+        let placeholderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel)
+        
+        let words: [String] = shuffledPLaceholder.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
+        
+        for word in words {
+            let fancyWord = FancyWord()
+            for letter in word {
+                let letterLabel = UILabel()
+                letterLabel.attributedText = FancyLetterStyle.decorate(letter)
+                letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+                letterLabel.layer.borderWidth = 0.3
+                fancyWord.add(letter: letterLabel)
+            }
+            placeholderParagraph.addWord(fancyWord)
+        }
+        placeholderParagraph.finish()
+        var placeholderTopY: CGFloat = 0
+        if placeholderParagraph.getHeight() > UIScreen.main.bounds.height * 0.5 {
+            placeholderTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: placeholderParagraph.getHeight())
+        } else {
+            placeholderTopY = CenteredRect.getTopY(byRectCenterY: UIScreen.main.bounds.height * 0.33, rectHeight: placeholderParagraph.getHeight())
+        }
+        placeholderParagraph.show(inside: displayArea, withIndent: 20, topY: placeholderTopY)
     }
     
-    func placeHeader() {
-        // MOCK:
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-        view.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-        view.layer.borderWidth = 1
-        view.alpha = 0.7
-        let quotient = CGFloat.random(in: 0.25..<1)
-        let viewHeight = displayArea.bounds.height * quotient
-        print("viewHeight = \(viewHeight)")
-        
-        // REAL:
-//        TODO: Добавить проверку высоты заголовка (если превышает высоту контейнера, нужно сжимать содержимое)
-        var viewY = UIScreen.main.bounds.height * 0.33 - viewHeight / 2
-        if viewHeight > UIScreen.main.bounds.height * 0.66 {
-            print("viewHeight > \(UIScreen.main.bounds.height * 0.66)")
-            viewY = displayArea.bounds.height / 2 - viewHeight / 2
+    func showHeader() {
+        prepareTitleHeader()
+        let titleHeaderHeight = titleHeaderParagraph!.getHeight()
+        prepareArtistHeader()
+        let artistHeaderHeight = getArtistHeaderHeight()
+        let totalHeaderHeight = titleHeaderHeight + artistHeaderHeight
+        //        TODO: Добавить проверку высоты заголовка (если превышает высоту контейнера, нужно сжимать содержимое)
+        var titleTopY: CGFloat = 0
+        if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
+            titleTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: totalHeaderHeight)
+        } else {
+            titleTopY = CenteredRect.getTopY(byRectCenterY: UIScreen.main.bounds.height * 0.33, rectHeight: totalHeaderHeight)
         }
-        let viewFrame = CGRect(x: 0,
-                               y: viewY,
-                               width: displayArea.bounds.width,
-                               height: viewHeight)
-        view.frame = viewFrame
-        displayArea.addSubview(view)
-        
-        // MOCK:
-        let bottomHalf = UIView()
-        bottomHalf.layer.borderColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-        bottomHalf.layer.borderWidth = 1
-        bottomHalf.frame = CGRect(x: 0,
-                                  y: view.bounds.height / 2,
-                                  width: view.bounds.width,
-                                  height: view.bounds.height / 2)
-        view.addSubview(bottomHalf)
-        let label = UILabel()
-        label.text = String(Float(quotient))
-        label.sizeToFit()
-        view.addSubview(label)
+        let artistTopY = titleTopY + titleHeaderHeight + titlePartsSpace
+        titleHeaderParagraph!.show(inside: displayArea, withIndent: 20, topY: titleTopY)
+        showArtistHeader(topY: artistTopY)
     }
 }
 
