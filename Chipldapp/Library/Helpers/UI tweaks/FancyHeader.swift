@@ -60,7 +60,7 @@ class FancyHeader {
             return
         }
         
-        titleHeaderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel)
+        titleHeaderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
         
         let words: [String] = title.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
 
@@ -73,7 +73,7 @@ class FancyHeader {
                 letterLabel.layer.borderWidth = 0.3
                 fancyWord.add(letter: letterLabel)
             }
-            titleHeaderParagraph!.addWord(fancyWord)
+            titleHeaderParagraph!.addWord2(fancyWord)
         }
         titleHeaderParagraph!.finish()
     }
@@ -107,7 +107,7 @@ class FancyHeader {
     }
     
     func showPlaceholder() {
-        let placeholderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel)
+        let placeholderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
         
         let words: [String] = shuffledPLaceholder.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
         
@@ -120,7 +120,7 @@ class FancyHeader {
                 letterLabel.layer.borderWidth = 0.3
                 fancyWord.add(letter: letterLabel)
             }
-            placeholderParagraph.addWord(fancyWord)
+            placeholderParagraph.addWord2(fancyWord)
         }
         placeholderParagraph.finish()
         var placeholderTopY: CGFloat = 0
@@ -133,12 +133,12 @@ class FancyHeader {
     }
     
     func showHeader() {
+        //let headerView = UIView()
         prepareTitleHeader()
         let titleHeaderHeight = titleHeaderParagraph!.getHeight()
         prepareArtistHeader()
         let artistHeaderHeight = getArtistHeaderHeight()
-        let totalHeaderHeight = titleHeaderHeight + artistHeaderHeight
-        //        TODO: Добавить проверку высоты заголовка (если превышает высоту контейнера, нужно сжимать содержимое)
+        let totalHeaderHeight = titleHeaderHeight + titlePartsSpace + artistHeaderHeight
         var titleTopY: CGFloat = 0
         if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
             titleTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: totalHeaderHeight)
@@ -148,6 +148,10 @@ class FancyHeader {
         let artistTopY = titleTopY + titleHeaderHeight + titlePartsSpace
         titleHeaderParagraph!.show(inside: displayArea, withIndent: 20, topY: titleTopY)
         showArtistHeader(topY: artistTopY)
+        let scale = displayArea.bounds.height / totalHeaderHeight
+        if scale < 1 {
+            displayArea.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
     }
 }
 

@@ -12,6 +12,9 @@ class FancyTextLine: NSCopying {
     var letters: [UILabel] = []
     var height: CGFloat = 0
     var width: CGFloat = 0
+    var isNotEmpty: Bool { get {
+        return !letters.isEmpty
+        }}
     
     func add(_ word: FancyWord) {
         letters += word.letters
