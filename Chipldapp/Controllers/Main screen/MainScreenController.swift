@@ -7,14 +7,12 @@
 //
 
 import UIKit
-import MediaPlayer
-import FRadioPlayer
 
 class MainScreenController: UIViewController {
 
     @IBOutlet weak var topView: UIView!
-    // Singleton ref to player
-    let player: FRadioPlayer = FRadioPlayer.shared
+    let tuner: ChiplTuner = ChiplTuner.shared
+    var isOn: Bool = false
     
     var fancyHeader: FancyHeader?
     let titles = ["Way Too Long TitleWithNoSpacesInIt That Would NeverEverFitAny Line",
@@ -41,7 +39,6 @@ class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         paintBackgroundGradient()
-        player.delegate = self
     }
 
     func paintBackgroundGradient() {
@@ -53,7 +50,6 @@ class MainScreenController: UIViewController {
     }
 
     @IBAction func actionButtonPressed(_ sender: UIButton) {
-        playStream()
 //        topView.subviews.forEach{ $0.removeFromSuperview() }
 //        let randomIndex = Int.random(in: 0..<titles.count-1)
 //        fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
@@ -62,27 +58,10 @@ class MainScreenController: UIViewController {
               //     print("'fancyHeader' has enough display area size (\(topView.bounds.width) x \(topView.bounds.height))")
               // }
 //        fancyHeader!.showHeader() // fancyHeader!.showPlaceholder()
-    }
-    
-    func playStream() {
-        
-        player.radioURL = URL(string: "http://radio.4duk.ru/4duk128.mp3")
-        player.play()
-    }
-    
-}
-
-// MARK: - FRadioPlayerDelegate
-extension MainScreenController: FRadioPlayerDelegate {
-    func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
-        print(state.description)
-    }
-    
-    func radioPlayer(_ player: FRadioPlayer, playbackStateDidChange state: FRadioPlaybackState) {
-        print(player.isPlaying)
-    }
-
-    func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
-        print("\(artistName) - \(trackName)")
+        if isOn { tuner.stop() } else {
+            tuner.streamQuality = .highest
+            tuner.play()
+        }
+        isOn = !isOn
     }
 }
