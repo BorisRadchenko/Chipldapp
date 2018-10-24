@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import MediaPlayer
+import FRadioPlayer
 
 class MainScreenController: UIViewController {
 
     @IBOutlet weak var topView: UIView!
+    // Singleton ref to player
+    let player: FRadioPlayer = FRadioPlayer.shared
+    
     var fancyHeader: FancyHeader?
     let titles = ["Way Too Long TitleWithNoSpacesInIt That Would NeverEverFitAny Line",
                   "Рейкьявик",
@@ -36,6 +41,7 @@ class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         paintBackgroundGradient()
+        player.delegate = self
     }
 
     func paintBackgroundGradient() {
@@ -47,16 +53,36 @@ class MainScreenController: UIViewController {
     }
 
     @IBAction func actionButtonPressed(_ sender: UIButton) {
-        topView.subviews.forEach{ $0.removeFromSuperview() }
-        let randomIndex = Int.random(in: 0..<titles.count-1)
-        fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
-       // fancyHeader = FancyHeader(title: "Enormously Huge Endless Title Which Seems To Be Made Up By Some Talented Young Programmer", artist: "Just Another One Fake Artist Name Made Up For Testing Purposes Only. Do Not Expect Enything Else From This Artist.", placeholder: "Чипльдук", displayArea: topView)
-        // if fancyHeader!.hasEnoughDisplayAreaSize() {
-        //     print("'fancyHeader' has enough display area size (\(topView.bounds.width) x \(topView.bounds.height))")
-        // }
-        fancyHeader!.showHeader()
-       // fancyHeader!.showPlaceholder()
+        playStream()
+//        topView.subviews.forEach{ $0.removeFromSuperview() }
+//        let randomIndex = Int.random(in: 0..<titles.count-1)
+//        fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
+              // fancyHeader = FancyHeader(title: "Enormously Huge Endless Title Which Seems To Be Made Up By Some Talented Young Programmer", artist: "Just Another One Fake Artist Name Made Up For Testing Purposes Only. Do Not Expect Enything Else From This Artist.", placeholder: "Чипльдук", displayArea: topView)
+              // if fancyHeader!.hasEnoughDisplayAreaSize() {
+              //     print("'fancyHeader' has enough display area size (\(topView.bounds.width) x \(topView.bounds.height))")
+              // }
+//        fancyHeader!.showHeader() // fancyHeader!.showPlaceholder()
+    }
+    
+    func playStream() {
+        
+        player.radioURL = URL(string: "http://radio.4duk.ru/4duk128.mp3")
+        player.play()
     }
     
 }
 
+// MARK: - FRadioPlayerDelegate
+extension MainScreenController: FRadioPlayerDelegate {
+    func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
+        print(state.description)
+    }
+    
+    func radioPlayer(_ player: FRadioPlayer, playbackStateDidChange state: FRadioPlaybackState) {
+        print(player.isPlaying)
+    }
+
+    func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
+        print("\(artistName) - \(trackName)")
+    }
+}
