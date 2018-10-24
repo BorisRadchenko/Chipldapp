@@ -12,28 +12,25 @@ class FancyHeader {
     var title: String?
     var artist: String?
     private var placeholder: String
-    var shuffledPLaceholder: String {
-        get { return shuffleLetters(placeholder) }
-    }
-    
+    var shuffledPlaceholder: String { get { return shuffleLetters(placeholder) } }
+    // MARK: -
     var displayArea: UIView
-// TODO: Вычислить экспериментально минимальные ширину и высоту
+    // TODO: Вычислить экспериментально минимальные ширину и высоту
     var minDisplayAreaWidth: CGFloat = 0
     var minDisplayAreaHeight: CGFloat = 0
     var indent: CGFloat = 20
-    
+    // MARK: -
     let artistFont = UIFont(name: "TimesNewRomanPS-BoldMT", size: 39)
     let artistMinFontSize = 15
-    
     let spacersFont = UIFont(name: "Helvetica Neue", size: 25)
     let spaceLabel = UILabel()
     let hyphenLabel = UILabel()
-    
+    // MARK: -
     private var titleHeaderParagraph: FancyTextParagraph? = nil
     private var artistHeaderLabel: UILabel? = nil
     private let titlePartsSpace: CGFloat = 20
     
-// MARK: -
+    // MARK: - М Е Т О Д Ы:
     init(title: String? = nil, artist: String? = nil, placeholder: String, displayArea: UIView) {
         self.title = title
         self.artist = artist
@@ -54,7 +51,7 @@ class FancyHeader {
     }
     
     func prepareTitleHeader() {
-        
+        // TODO: Рефакторинг
         guard let title = title else {
             print("There is no title to prepare")
             return
@@ -68,18 +65,18 @@ class FancyHeader {
             let fancyWord = FancyWord()
             for letter in word {
                 let letterLabel = UILabel()
-                letterLabel.attributedText = FancyLetterStyle.decorate(letter)
+                letterLabel.attributedText = FancyLetterStyle.decorateRandomly(letter) //.decorateMinSize(letter)
                 letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
                 letterLabel.layer.borderWidth = 0.3
                 fancyWord.add(letter: letterLabel)
             }
-            titleHeaderParagraph!.addWord2(fancyWord)
+            titleHeaderParagraph!.addWord(fancyWord)
         }
         titleHeaderParagraph!.finish()
     }
     
-    
     func prepareArtistHeader() {
+        // TODO: Рефакторинг
         guard let artist = artist else {
             print("There is no artist name to show")
             return
@@ -95,6 +92,7 @@ class FancyHeader {
     }
     
     func showArtistHeader(topY: CGFloat) {
+        // TODO: Рефакторинг
         artistHeaderLabel!.frame = CGRect(x: CenteredRect.getLeftX(byContainerWidth: displayArea.bounds.width, rectWidth: artistHeaderLabel!.bounds.width),
                                           y: topY,
                                           width: artistHeaderLabel!.bounds.width,
@@ -107,20 +105,21 @@ class FancyHeader {
     }
     
     func showPlaceholder() {
+        // TODO: Рефакторинг
         let placeholderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
         
-        let words: [String] = shuffledPLaceholder.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
+        let words: [String] = shuffledPlaceholder.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
         
         for word in words {
             let fancyWord = FancyWord()
             for letter in word {
                 let letterLabel = UILabel()
-                letterLabel.attributedText = FancyLetterStyle.decorate(letter)
+                letterLabel.attributedText = FancyLetterStyle.decorateRandomly(letter)
                 letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
                 letterLabel.layer.borderWidth = 0.3
                 fancyWord.add(letter: letterLabel)
             }
-            placeholderParagraph.addWord2(fancyWord)
+            placeholderParagraph.addWord(fancyWord)
         }
         placeholderParagraph.finish()
         var placeholderTopY: CGFloat = 0
@@ -133,7 +132,7 @@ class FancyHeader {
     }
     
     func showHeader() {
-        //let headerView = UIView()
+        // TODO: Рефакторинг
         prepareTitleHeader()
         let titleHeaderHeight = titleHeaderParagraph!.getHeight()
         prepareArtistHeader()
@@ -155,8 +154,8 @@ class FancyHeader {
     }
 }
 
-// MARK: -
 private func shuffleLetters(_ string: String) -> String {
+    // TODO: Рефакторинг
     var chars = Array(String(string.shuffled()).lowercased())
     chars[0] = Character(String(chars[0]).uppercased())
     return String(chars)

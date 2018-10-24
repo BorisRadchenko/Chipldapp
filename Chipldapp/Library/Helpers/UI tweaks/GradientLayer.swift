@@ -6,8 +6,11 @@
 //  Copyright © 2018 KexitSoft. All rights reserved.
 //
 
+// Закраска слоя градиентной заливкой
+
 import UIKit
 
+// TODO: Подобрать более подходящее название и имена параметров
 func putGradientLayer(with startColor: CGColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), and endColor: CGColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), from startPoint: CGPoint = CGPoint(x: 0, y: 0), and endPoint: CGPoint = CGPoint(x: 1, y: 1), to view: UIView, at level: UInt32 = 0, using bounds: CGRect) {
     let layer = CAGradientLayer()
     layer.frame = bounds

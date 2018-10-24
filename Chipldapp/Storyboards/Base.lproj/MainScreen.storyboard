@@ -38,13 +38,15 @@
                                 <rect key="frame" x="0.0" y="572" width="375" height="95"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottomPanel" translatesAutoresizingMaskIntoConstraints="NO" id="Kg0-sa-l9T">
-                                        <rect key="frame" x="26.5" y="15" width="322" height="65"/>
+                                        <rect key="frame" x="26" y="15" width="323" height="65"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="323" id="j3p-LT-4wN"/>
+                                        </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNH-ke-G1J">
                                         <rect key="frame" x="26" y="15" width="323" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="2FU-oj-PAl"/>
-                                            <constraint firstAttribute="width" constant="323" id="BWq-s3-rUr"/>
                                         </constraints>
                                         <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.80174443493150682" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <state key="normal" title="ACTION!" image="bottomPanel"/>
@@ -54,6 +56,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="width" secondItem="Kg0-sa-l9T" secondAttribute="width" id="4nn-tZ-Ukx"/>
                                     <constraint firstAttribute="height" constant="95" id="5nK-Do-r49"/>
                                     <constraint firstItem="qNH-ke-G1J" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="7GR-9f-kag"/>
                                     <constraint firstItem="qNH-ke-G1J" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="9Bk-zI-2wc"/>

@@ -14,7 +14,6 @@
 		C187FD1021587D4F00D0F35A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0E21587D4F00D0F35A /* LaunchScreen.storyboard */; };
 		C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */; };
 		C1D060E1216EDA1800002936 /* FancyLetterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */; };
-		C1D060E3216EE53700002936 /* RemoveSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E2216EE53700002936 /* RemoveSubviews.swift */; };
 		C1D060E5216F1B1800002936 /* FancyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E4216F1B1800002936 /* FancyWord.swift */; };
 		C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E6216F1B7E00002936 /* FancyTextLine.swift */; };
 		C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */; };
@@ -34,7 +33,6 @@
 		C187FD1121587D4F00D0F35A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyHeader.swift; sourceTree = "<group>"; };
 		C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyLetterStyle.swift; sourceTree = "<group>"; };
-		C1D060E2216EE53700002936 /* RemoveSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveSubviews.swift; sourceTree = "<group>"; };
 		C1D060E4216F1B1800002936 /* FancyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyWord.swift; sourceTree = "<group>"; };
 		C1D060E6216F1B7E00002936 /* FancyTextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextLine.swift; sourceTree = "<group>"; };
 		C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextParagraph.swift; sourceTree = "<group>"; };
@@ -181,7 +179,6 @@
 			children = (
 				C1D060EA216FE63400002936 /* CoordinateCalculations.swift */,
 				C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */,
-				C1D060E2216EE53700002936 /* RemoveSubviews.swift */,
 				C1F5EF30215916D0008F8518 /* Shadow.swift */,
 				C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */,
 				C1D060E4216F1B1800002936 /* FancyWord.swift */,
@@ -299,7 +296,6 @@
 				C187FD0821587D4E00D0F35A /* MainScreenController.swift in Sources */,
 				C1F5EF31215916D0008F8518 /* Shadow.swift in Sources */,
 				C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */,
-				C1D060E3216EE53700002936 /* RemoveSubviews.swift in Sources */,
 				C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */,
 				C1F5EF2B2158DB52008F8518 /* GradientLayer.swift in Sources */,
 				C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */,

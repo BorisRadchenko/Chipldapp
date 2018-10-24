@@ -9,7 +9,6 @@
 import UIKit
 
 class FancyWord: NSCopying {
-    
     var letters: [UILabel] = []
     var height: CGFloat = 0
     var width: CGFloat = 0
@@ -24,11 +23,9 @@ class FancyWord: NSCopying {
         }
     }
     var letterCount: Int { get { return letters.count } }
-    
+    // MARK: - М Е Т О Д Ы:
     init (_ letters: [UILabel] = []) {
-        for letter in letters {
-            add(letter: letter)
-        }
+        letters.forEach{ add(letter: $0) }
     }
     
     init (letters: [UILabel], width: CGFloat, height: CGFloat) {
@@ -94,6 +91,7 @@ class FancyWord: NSCopying {
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
+        // TODO: Передавать копию массива letters, а не ссылку на него! (или нет?)
         let copy = FancyWord(letters: letters, width: width, height: height)
         return copy
     }
