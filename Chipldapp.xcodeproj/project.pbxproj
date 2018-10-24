@@ -12,7 +12,15 @@
 		C187FD0B21587D4E00D0F35A /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0921587D4E00D0F35A /* MainScreen.storyboard */; };
 		C187FD0D21587D4F00D0F35A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0C21587D4F00D0F35A /* Assets.xcassets */; };
 		C187FD1021587D4F00D0F35A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0E21587D4F00D0F35A /* LaunchScreen.storyboard */; };
+		C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */; };
+		C1D060E1216EDA1800002936 /* FancyLetterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */; };
+		C1D060E5216F1B1800002936 /* FancyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E4216F1B1800002936 /* FancyWord.swift */; };
+		C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E6216F1B7E00002936 /* FancyTextLine.swift */; };
+		C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */; };
+		C1D060EB216FE63400002936 /* CoordinateCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060EA216FE63400002936 /* CoordinateCalculations.swift */; };
 		C1F5EF282158B007008F8518 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C1F5EF272158B007008F8518 /* .gitignore */; };
+		C1F5EF2B2158DB52008F8518 /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */; };
+		C1F5EF31215916D0008F8518 /* Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F5EF30215916D0008F8518 /* Shadow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +31,15 @@
 		C187FD0C21587D4F00D0F35A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C187FD0F21587D4F00D0F35A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C187FD1121587D4F00D0F35A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyHeader.swift; sourceTree = "<group>"; };
+		C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyLetterStyle.swift; sourceTree = "<group>"; };
+		C1D060E4216F1B1800002936 /* FancyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyWord.swift; sourceTree = "<group>"; };
+		C1D060E6216F1B7E00002936 /* FancyTextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextLine.swift; sourceTree = "<group>"; };
+		C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextParagraph.swift; sourceTree = "<group>"; };
+		C1D060EA216FE63400002936 /* CoordinateCalculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateCalculations.swift; sourceTree = "<group>"; };
 		C1F5EF272158B007008F8518 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
+		C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
+		C1F5EF30215916D0008F8518 /* Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shadow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +130,9 @@
 		C187FD1D21587E0C00D0F35A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C1F5EF2C215915EF008F8518 /* Base objects extensions */,
+				C1F5EF2F2159163F008F8518 /* Constants */,
+				C1F5EF292158DAC2008F8518 /* UI tweaks */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -153,6 +172,51 @@
 				C187FD0721587D4E00D0F35A /* MainScreenController.swift */,
 			);
 			path = "Main screen";
+			sourceTree = "<group>";
+		};
+		C1F5EF292158DAC2008F8518 /* UI tweaks */ = {
+			isa = PBXGroup;
+			children = (
+				C1D060EA216FE63400002936 /* CoordinateCalculations.swift */,
+				C1F5EF2A2158DB52008F8518 /* GradientLayer.swift */,
+				C1F5EF30215916D0008F8518 /* Shadow.swift */,
+				C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */,
+				C1D060E4216F1B1800002936 /* FancyWord.swift */,
+				C1D060E6216F1B7E00002936 /* FancyTextLine.swift */,
+				C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */,
+				C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */,
+			);
+			path = "UI tweaks";
+			sourceTree = "<group>";
+		};
+		C1F5EF2C215915EF008F8518 /* Base objects extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C1F5EF2D21591606008F8518 /* Foundation */,
+				C1F5EF2E21591611008F8518 /* UIKit */,
+			);
+			path = "Base objects extensions";
+			sourceTree = "<group>";
+		};
+		C1F5EF2D21591606008F8518 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		C1F5EF2E21591611008F8518 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		C1F5EF2F2159163F008F8518 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,8 +291,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1D060EB216FE63400002936 /* CoordinateCalculations.swift in Sources */,
+				C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */,
 				C187FD0821587D4E00D0F35A /* MainScreenController.swift in Sources */,
+				C1F5EF31215916D0008F8518 /* Shadow.swift in Sources */,
 				C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */,
+				C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */,
+				C1F5EF2B2158DB52008F8518 /* GradientLayer.swift in Sources */,
+				C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */,
+				C1D060E1216EDA1800002936 /* FancyLetterStyle.swift in Sources */,
+				C1D060E5216F1B1800002936 /* FancyWord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
