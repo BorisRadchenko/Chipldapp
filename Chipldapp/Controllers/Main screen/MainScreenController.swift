@@ -12,6 +12,8 @@ class MainScreenController: UIViewController {
 
     @IBOutlet weak var topView: UIView!
     var fancyHeader: FancyHeader?
+    @IBOutlet weak var onOffButton: UIButton!
+    
     let titles = ["Way Too Long TitleWithNoSpacesInIt That Would NeverEverFitAny Line",
                   "Рейкьявик",
                   "Baby (One More Time)", // Обычное название трека
@@ -36,6 +38,7 @@ class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         paintBackgroundGradient()
+        addShadow(to: onOffButton, usingColor: #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1), andOpacity: 0.7)
     }
 
     func paintBackgroundGradient() {
@@ -56,6 +59,13 @@ class MainScreenController: UIViewController {
         // }
         fancyHeader!.showHeader()
        // fancyHeader!.showPlaceholder()
+    }
+    @IBAction func onOffButtonPressed(_ sender: UIButton) {
+        if sender.image(for: .normal) == UIImage(named: "playButton") {
+            sender.setImage(UIImage(named: "stopButton"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "playButton"), for: .normal)
+        }
     }
     
 }

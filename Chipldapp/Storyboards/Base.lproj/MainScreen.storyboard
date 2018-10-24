@@ -43,7 +43,7 @@
                                             <constraint firstAttribute="width" constant="323" id="j3p-LT-4wN"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNH-ke-G1J">
+                                    <button opaque="NO" alpha="0.10000000000000001" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNH-ke-G1J">
                                         <rect key="frame" x="26" y="15" width="323" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="2FU-oj-PAl"/>
@@ -54,6 +54,17 @@
                                             <action selector="actionButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r6b-RM-mtp"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siu-HK-fBe">
+                                        <rect key="frame" x="31" y="17.5" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="siu-HK-fBe" secondAttribute="height" multiplier="1:1" id="5W9-2V-P0H"/>
+                                            <constraint firstAttribute="width" constant="60" id="eEy-xC-xHO"/>
+                                        </constraints>
+                                        <state key="normal" title="Button" image="playButton"/>
+                                        <connections>
+                                            <action selector="onOffButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CZl-WH-X1v"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="qNH-ke-G1J" firstAttribute="width" secondItem="Kg0-sa-l9T" secondAttribute="width" id="4nn-tZ-Ukx"/>
@@ -62,6 +73,8 @@
                                     <constraint firstItem="qNH-ke-G1J" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="9Bk-zI-2wc"/>
                                     <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="cDW-VJ-vro"/>
                                     <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="iR1-6R-Qez"/>
+                                    <constraint firstItem="siu-HK-fBe" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="scl-No-57T"/>
+                                    <constraint firstItem="siu-HK-fBe" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="31" id="xus-Fg-2k8"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -84,6 +97,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="onOffButton" destination="siu-HK-fBe" id="gQs-eY-my8"/>
                         <outlet property="topView" destination="vVU-BD-LyL" id="1da-Nd-C7o"/>
                     </connections>
                 </viewController>
@@ -94,5 +108,6 @@
     </scenes>
     <resources>
         <image name="bottomPanel" width="322" height="65"/>
+        <image name="playButton" width="99" height="93"/>
     </resources>
 </document>
