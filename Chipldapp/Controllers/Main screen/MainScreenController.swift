@@ -10,6 +10,8 @@ import UIKit
 
 class MainScreenController: UIViewController {
 
+    @IBOutlet var qualityButtons: [UIButton]!
+    
     @IBOutlet weak var topView: UIView!
     var fancyHeader: FancyHeader?
     let titles = ["Way Too Long TitleWithNoSpacesInIt That Would NeverEverFitAny Line",
@@ -56,6 +58,28 @@ class MainScreenController: UIViewController {
         // }
         fancyHeader!.showHeader()
        // fancyHeader!.showPlaceholder()
+    }
+    
+    func markAsSelected(_ button: UIButton) {
+        button.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.4745098039, blue: 0.1411764706, alpha: 1)
+        if let text = button.titleLabel!.text {
+            let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+            button.setAttributedTitle(attributes, for: .normal)
+        }
+    }
+    
+    func markAsUnselected(_ button: UIButton) {
+        button.backgroundColor = button.backgroundColor!.withAlphaComponent(0)
+        if let text = button.titleLabel!.text {
+            let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+            button.setAttributedTitle(attributes, for: .normal)
+        }
+    }
+    
+    @IBAction func setChosenQualityAction(_ sender: UIButton) {
+        qualityButtons.filter{ $0 != sender }.forEach{ markAsUnselected($0) }
+        markAsSelected(sender)
+        // tuner.streamQuality = StreamQuality(rawValue: sender.tag)
     }
     
 }
