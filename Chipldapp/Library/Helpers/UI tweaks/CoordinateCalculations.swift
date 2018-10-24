@@ -11,17 +11,18 @@
 
 import UIKit
 
-struct CenteredRect {
-    static func getTopY(byRectCenterY rectCenterY: CGFloat, rectHeight: CGFloat) -> CGFloat {
-        return rectCenterY - rectHeight / 2
-    }
-    static func getTopY(byContainerHeight containerHeight: CGFloat, rectHeight: CGFloat) -> CGFloat {
-        return containerHeight / 2 - rectHeight / 2
-    }
-    static func getLeftX(byRectCenterX rectCenterX: CGFloat, rectWidth: CGFloat) -> CGFloat {
-        return rectCenterX - rectWidth / 2
-    }
-    static func getLeftX(byContainerWidth containerWidth: CGFloat, rectWidth: CGFloat) -> CGFloat {
-        return containerWidth / 2 - rectWidth / 2
-    }
+func topY(byOwnCenterY ownCenterY: CGFloat, ownHeight: CGFloat) -> CGFloat {
+    return ownCenterY - ownHeight / 2
+}
+
+func topY(byExternalHeight externalHeight: CGFloat, ownHeight: CGFloat) -> CGFloat {
+    return externalHeight / 2 - ownHeight / 2
+}
+
+func leadingX(byOwnCenterX ownCenterX: CGFloat, ownWidth: CGFloat) -> CGFloat {
+    return ownCenterX - ownWidth / 2
+}
+
+func leadingX(byExternalWidth externalWidth: CGFloat, ownWidth: CGFloat) -> CGFloat {
+    return externalWidth / 2 - ownWidth / 2
 }

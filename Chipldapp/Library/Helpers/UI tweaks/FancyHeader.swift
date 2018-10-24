@@ -93,7 +93,7 @@ class FancyHeader {
     
     func showArtistHeader(topY: CGFloat) {
         // TODO: Рефакторинг
-        artistHeaderLabel!.frame = CGRect(x: CenteredRect.getLeftX(byContainerWidth: displayArea.bounds.width, rectWidth: artistHeaderLabel!.bounds.width),
+        artistHeaderLabel!.frame = CGRect(x: leadingX(byExternalWidth: displayArea.bounds.width, ownWidth: artistHeaderLabel!.bounds.width),
                                           y: topY,
                                           width: artistHeaderLabel!.bounds.width,
                                           height: artistHeaderLabel!.bounds.height)
@@ -124,11 +124,11 @@ class FancyHeader {
         placeholderParagraph.finish()
         var placeholderTopY: CGFloat = 0
         if placeholderParagraph.getHeight() > UIScreen.main.bounds.height * 0.5 {
-            placeholderTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: placeholderParagraph.getHeight())
+            placeholderTopY = topY(byExternalHeight: displayArea.bounds.height, ownHeight: placeholderParagraph.getHeight())
         } else {
-            placeholderTopY = CenteredRect.getTopY(byRectCenterY: UIScreen.main.bounds.height * 0.33, rectHeight: placeholderParagraph.getHeight())
+            placeholderTopY = topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33, ownHeight: placeholderParagraph.getHeight())
         }
-        placeholderParagraph.show(inside: displayArea, withIndent: 20, topY: placeholderTopY)
+        placeholderParagraph.show(inContainer: displayArea, withIndent: 20, startY: placeholderTopY)
     }
     
     func showHeader() {
@@ -140,12 +140,12 @@ class FancyHeader {
         let totalHeaderHeight = titleHeaderHeight + titlePartsSpace + artistHeaderHeight
         var titleTopY: CGFloat = 0
         if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
-            titleTopY = CenteredRect.getTopY(byContainerHeight: displayArea.bounds.height, rectHeight: totalHeaderHeight)
+            titleTopY = topY(byExternalHeight: displayArea.bounds.height, ownHeight: totalHeaderHeight)
         } else {
-            titleTopY = CenteredRect.getTopY(byRectCenterY: UIScreen.main.bounds.height * 0.33, rectHeight: totalHeaderHeight)
+            titleTopY = topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33, ownHeight: totalHeaderHeight)
         }
         let artistTopY = titleTopY + titleHeaderHeight + titlePartsSpace
-        titleHeaderParagraph!.show(inside: displayArea, withIndent: 20, topY: titleTopY)
+        titleHeaderParagraph!.show(inContainer: displayArea, withIndent: 20, startY: titleTopY)
         showArtistHeader(topY: artistTopY)
         let scale = displayArea.bounds.height / totalHeaderHeight
         if scale < 1 {

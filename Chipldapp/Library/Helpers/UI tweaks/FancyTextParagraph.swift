@@ -98,13 +98,13 @@ class FancyTextParagraph {
         saveAndClearCurrentLine()
     }
     
-    func show(inside container: UIView, withIndent indent: CGFloat, topY: CGFloat) {
+    func show(inContainer container: UIView, withIndent indent: CGFloat, startY: CGFloat) {
         let labelsView = UIView()
-        var lineY = topY
+        var lineY = startY
         for line in lines {
-            var startX = CenteredRect.getLeftX(byContainerWidth: widthLimit, rectWidth: line.width)
+            var startX = leadingX(byExternalWidth: widthLimit, ownWidth: line.width)
             for label in line.letters {
-                let startY = CenteredRect.getTopY(byContainerHeight: line.height, rectHeight: label.bounds.height)
+                let startY = topY(byExternalHeight: line.height, ownHeight: label.bounds.height)
                 label.frame = CGRect(x: startX + indent, y: lineY + startY, width: label.bounds.width, height: label.bounds.height)
                 labelsView.addSubview(label)
                 startX += label.bounds.width
@@ -112,7 +112,7 @@ class FancyTextParagraph {
             lineY += line.height + interlineSpace
         }
         container.addSubview(labelsView)
-        addShadow(to: labelsView, usingColor: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), andOpacity: 0.7)
+        labelsView.addShadow(color: shadowColor, opacity: 0.7)
     }
     
     func getHeight()->CGFloat {
