@@ -11,8 +11,8 @@ import UIKit
 class MainScreenController: UIViewController {
 
     @IBOutlet var qualityButtons: [UIButton]!
-    
     @IBOutlet weak var topView: UIView!
+    
     var fancyHeader: FancyHeader?
     
     override func viewDidLoad() {
@@ -34,14 +34,6 @@ class MainScreenController: UIViewController {
         view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
     }
 
-    @IBAction func actionButtonPressed(_ sender: UIButton) {
-        topView.removeSubviews()
-        
-        let randomIndex = Int.random(in: 0..<titles.count-1)
-        fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
-        fancyHeader!.showHeader()
-    }
-    
     func markAsSelected(_ button: UIButton) {
         button.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.4745098039, blue: 0.1411764706, alpha: 1)
         if let text = button.titleLabel!.text {
@@ -62,6 +54,14 @@ class MainScreenController: UIViewController {
         qualityButtons.filter{ $0 != sender }.forEach{ markAsUnselected($0) }
         markAsSelected(sender)
         // tuner.streamQuality = StreamQuality(rawValue: sender.tag)
+    }
+    
+    @IBAction func actionButtonPressed(_ sender: UIButton) {
+        topView.removeSubviews()
+        
+        let randomIndex = Int.random(in: 0..<titles.count-1)
+        fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
+        fancyHeader!.showHeader()
     }
     
 }
