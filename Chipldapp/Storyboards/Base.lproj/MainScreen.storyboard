@@ -37,23 +37,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UK-Dh-phn" userLabel="bottomView">
                                 <rect key="frame" x="0.0" y="572" width="375" height="95"/>
                                 <subviews>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottomPanel" translatesAutoresizingMaskIntoConstraints="NO" id="Kg0-sa-l9T">
-                                        <rect key="frame" x="26" y="15" width="323" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="323" id="j3p-LT-4wN"/>
-                                        </constraints>
-                                    </imageView>
-                                    <button opaque="NO" alpha="0.10000000000000001" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qNH-ke-G1J">
-                                        <rect key="frame" x="26" y="15" width="323" height="65"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="2FU-oj-PAl"/>
-                                        </constraints>
-                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.80174443493150682" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                        <state key="normal" title="ACTION!" image="bottomPanel"/>
-                                        <connections>
-                                            <action selector="actionButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r6b-RM-mtp"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UlS-dh-VXz" userLabel="High Quality Button">
                                         <rect key="frame" x="108" y="45.5" width="86" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -195,22 +178,17 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="width" secondItem="Kg0-sa-l9T" secondAttribute="width" id="4nn-tZ-Ukx"/>
                                     <constraint firstAttribute="height" constant="95" id="5nK-Do-r49"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="top" secondItem="UlS-dh-VXz" secondAttribute="top" id="6h3-J7-9b2"/>
-                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="7GR-9f-kag"/>
-                                    <constraint firstItem="qNH-ke-G1J" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="9Bk-zI-2wc"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="width" secondItem="UlS-dh-VXz" secondAttribute="width" id="IA1-hj-aQJ"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="height" secondItem="UlS-dh-VXz" secondAttribute="height" id="Izk-u6-c2Q"/>
                                     <constraint firstItem="2Cn-sg-8KA" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="30" id="JLk-6I-Qbd"/>
                                     <constraint firstItem="v7Z-nP-eI1" firstAttribute="top" secondItem="UlS-dh-VXz" secondAttribute="top" id="QjZ-kI-Ihu"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="leading" secondItem="UlS-dh-VXz" secondAttribute="trailing" id="SfU-b7-tyI"/>
                                     <constraint firstItem="v7Z-nP-eI1" firstAttribute="leading" secondItem="vBe-jg-eeB" secondAttribute="trailing" id="TZR-3c-75W"/>
-                                    <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="cDW-VJ-vro"/>
                                     <constraint firstItem="UlS-dh-VXz" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="108" id="dMm-Of-sSp"/>
                                     <constraint firstAttribute="bottom" secondItem="UlS-dh-VXz" secondAttribute="bottom" constant="21.5" id="fxh-IN-jXA"/>
                                     <constraint firstItem="2Cn-sg-8KA" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="gGK-T3-8V7"/>
-                                    <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="iR1-6R-Qez"/>
                                     <constraint firstItem="v7Z-nP-eI1" firstAttribute="height" secondItem="UlS-dh-VXz" secondAttribute="height" id="mBv-Nl-9UG"/>
                                 </constraints>
                             </view>
@@ -234,6 +212,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="onOffButton" destination="2Cn-sg-8KA" id="LP3-k0-WR3"/>
                         <outlet property="topView" destination="vVU-BD-LyL" id="1da-Nd-C7o"/>
                         <outletCollection property="qualityButtons" destination="UlS-dh-VXz" collectionClass="NSMutableArray" id="chk-y1-HSg"/>
                         <outletCollection property="qualityButtons" destination="vBe-jg-eeB" collectionClass="NSMutableArray" id="V5s-MT-2Vj"/>
@@ -246,7 +225,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bottomPanel" width="322" height="65"/>
         <image name="playButton" width="99" height="93"/>
         <image name="speakerSign" width="21" height="18"/>
     </resources>

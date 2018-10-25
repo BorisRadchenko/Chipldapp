@@ -10,6 +10,7 @@ import UIKit
 
 class MainScreenController: UIViewController {
 
+    @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet var qualityButtons: [UIButton]!
     @IBOutlet weak var topView: UIView!
     let tuner: ChiplTuner = ChiplTuner.shared
@@ -20,7 +21,7 @@ class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fillBackground()
-        //addShadow(to: onOffButton, usingColor: #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1), andOpacity: 0.7)
+        onOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
     }
 
     func fillBackground() {
@@ -38,7 +39,7 @@ class MainScreenController: UIViewController {
     }
 
     func markAsSelected(_ button: UIButton) {
-        button.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.4745098039, blue: 0.1411764706, alpha: 1)
+        button.backgroundColor = highlitedButtonColor
         if let text = button.titleLabel!.text {
             let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
             button.setAttributedTitle(attributes, for: .normal)
@@ -56,27 +57,27 @@ class MainScreenController: UIViewController {
     @IBAction func setChosenQualityAction(_ sender: UIButton) {
         qualityButtons.filter{ $0 != sender }.forEach{ markAsUnselected($0) }
         markAsSelected(sender)
-        // tuner.streamQuality = StreamQuality(rawValue: sender.tag)
     }
     
-    @IBAction func actionButtonPressed(_ sender: UIButton) {
+    @IBAction func onOffButtonPressed(_ sender: UIButton) {
+        if isOn {
+            tuner.stop()
+            sender.setImage(UIImage(named: "playButton"), for: .normal)
+        } else {
+            tuner.streamQuality = .highest
+            tuner.play()
+            sender.setImage(UIImage(named: "stopButton"), for: .normal)
+        }
+        isOn = !isOn
+        showFakeHeader()
+    }
+    
+    func showFakeHeader(){
         topView.removeSubviews()
         
         let randomIndex = Int.random(in: 0..<titles.count-1)
         fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
         fancyHeader!.showHeader()
-        if isOn { tuner.stop() } else {
-            tuner.streamQuality = .highest
-            tuner.play()
-        }
-        isOn = !isOn
-    }
-    @IBAction func onOffButtonPressed(_ sender: UIButton) {
-        if sender.image(for: .normal) == UIImage(named: "playButton") {
-            sender.setImage(UIImage(named: "stopButton"), for: .normal)
-        } else {
-            sender.setImage(UIImage(named: "playButton"), for: .normal)
-        }
     }
     
 }
