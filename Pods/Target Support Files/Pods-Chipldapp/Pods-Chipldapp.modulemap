@@ -1,0 +1,6 @@
+framework module Pods_Chipldapp {
+  umbrella header "Pods-Chipldapp-umbrella.h"
+
+  export *
+  module * { export * }
+}

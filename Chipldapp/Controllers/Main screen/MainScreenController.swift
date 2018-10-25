@@ -12,6 +12,8 @@ class MainScreenController: UIViewController {
 
     @IBOutlet var qualityButtons: [UIButton]!
     @IBOutlet weak var topView: UIView!
+    let tuner: ChiplTuner = ChiplTuner.shared
+    var isOn: Bool = false
     
     var fancyHeader: FancyHeader?
     
@@ -63,6 +65,11 @@ class MainScreenController: UIViewController {
         let randomIndex = Int.random(in: 0..<titles.count-1)
         fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
         fancyHeader!.showHeader()
+        if isOn { tuner.stop() } else {
+            tuner.streamQuality = .highest
+            tuner.play()
+        }
+        isOn = !isOn
     }
     @IBAction func onOffButtonPressed(_ sender: UIButton) {
         if sender.image(for: .normal) == UIImage(named: "playButton") {
@@ -73,4 +80,3 @@ class MainScreenController: UIViewController {
     }
     
 }
-
