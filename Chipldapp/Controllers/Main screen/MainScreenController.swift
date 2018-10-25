@@ -18,6 +18,7 @@ class MainScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fillBackground()
+        //addShadow(to: onOffButton, usingColor: #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1), andOpacity: 0.7)
     }
 
     func fillBackground() {
@@ -62,6 +63,13 @@ class MainScreenController: UIViewController {
         let randomIndex = Int.random(in: 0..<titles.count-1)
         fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
         fancyHeader!.showHeader()
+    }
+    @IBAction func onOffButtonPressed(_ sender: UIButton) {
+        if sender.image(for: .normal) == UIImage(named: "playButton") {
+            sender.setImage(UIImage(named: "stopButton"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "playButton"), for: .normal)
+        }
     }
     
 }

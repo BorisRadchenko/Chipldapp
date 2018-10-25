@@ -221,6 +221,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="onOffButton" destination="siu-HK-fBe" id="gQs-eY-my8"/>
                         <outlet property="topView" destination="vVU-BD-LyL" id="1da-Nd-C7o"/>
                         <outletCollection property="qualityButtons" destination="UlS-dh-VXz" collectionClass="NSMutableArray" id="chk-y1-HSg"/>
                         <outletCollection property="qualityButtons" destination="vBe-jg-eeB" collectionClass="NSMutableArray" id="V5s-MT-2Vj"/>
