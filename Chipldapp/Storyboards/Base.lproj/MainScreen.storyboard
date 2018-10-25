@@ -182,6 +182,17 @@
                                             <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="speakerSign"/>
                                         </userDefinedRuntimeAttributes>
                                     </slider>
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cn-sg-8KA">
+                                        <rect key="frame" x="30" y="18.5" width="62" height="58"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="62" id="Ky2-73-q8p"/>
+                                            <constraint firstAttribute="width" secondItem="2Cn-sg-8KA" secondAttribute="height" multiplier="31:29" id="T2Q-BJ-JDp"/>
+                                        </constraints>
+                                        <state key="normal" image="playButton"/>
+                                        <connections>
+                                            <action selector="onOffButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fmb-pq-qxf"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="qNH-ke-G1J" firstAttribute="width" secondItem="Kg0-sa-l9T" secondAttribute="width" id="4nn-tZ-Ukx"/>
@@ -191,12 +202,14 @@
                                     <constraint firstItem="qNH-ke-G1J" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="9Bk-zI-2wc"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="width" secondItem="UlS-dh-VXz" secondAttribute="width" id="IA1-hj-aQJ"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="height" secondItem="UlS-dh-VXz" secondAttribute="height" id="Izk-u6-c2Q"/>
+                                    <constraint firstItem="2Cn-sg-8KA" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="30" id="JLk-6I-Qbd"/>
                                     <constraint firstItem="v7Z-nP-eI1" firstAttribute="top" secondItem="UlS-dh-VXz" secondAttribute="top" id="QjZ-kI-Ihu"/>
                                     <constraint firstItem="vBe-jg-eeB" firstAttribute="leading" secondItem="UlS-dh-VXz" secondAttribute="trailing" id="SfU-b7-tyI"/>
                                     <constraint firstItem="v7Z-nP-eI1" firstAttribute="leading" secondItem="vBe-jg-eeB" secondAttribute="trailing" id="TZR-3c-75W"/>
                                     <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerX" secondItem="4UK-Dh-phn" secondAttribute="centerX" id="cDW-VJ-vro"/>
                                     <constraint firstItem="UlS-dh-VXz" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="108" id="dMm-Of-sSp"/>
                                     <constraint firstAttribute="bottom" secondItem="UlS-dh-VXz" secondAttribute="bottom" constant="21.5" id="fxh-IN-jXA"/>
+                                    <constraint firstItem="2Cn-sg-8KA" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="gGK-T3-8V7"/>
                                     <constraint firstItem="Kg0-sa-l9T" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="iR1-6R-Qez"/>
                                     <constraint firstItem="v7Z-nP-eI1" firstAttribute="height" secondItem="UlS-dh-VXz" secondAttribute="height" id="mBv-Nl-9UG"/>
                                 </constraints>
@@ -221,7 +234,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="onOffButton" destination="siu-HK-fBe" id="gQs-eY-my8"/>
                         <outlet property="topView" destination="vVU-BD-LyL" id="1da-Nd-C7o"/>
                         <outletCollection property="qualityButtons" destination="UlS-dh-VXz" collectionClass="NSMutableArray" id="chk-y1-HSg"/>
                         <outletCollection property="qualityButtons" destination="vBe-jg-eeB" collectionClass="NSMutableArray" id="V5s-MT-2Vj"/>
@@ -235,6 +247,7 @@
     </scenes>
     <resources>
         <image name="bottomPanel" width="322" height="65"/>
+        <image name="playButton" width="99" height="93"/>
         <image name="speakerSign" width="21" height="18"/>
     </resources>
 </document>
