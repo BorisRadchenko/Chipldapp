@@ -29,6 +29,7 @@ class MainScreenController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tuner.showTitleHandler = showHeader
         fillBackground()
         onOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
         buttonsQuality = [middleQualityButton  : StreamQuality.middle,
@@ -68,21 +69,31 @@ class MainScreenController: UIViewController {
     }
     
     @IBAction func setChosenQualityAction(_ sender: UIButton) {
+        guard tuner.streamQuality != buttonsQuality![sender]! else {
+            return
+        }
         qualityButtons.filter{ $0 != sender }.forEach{ markAsUnselected($0) }
         markAsSelected(sender)
         tuner.streamQuality = buttonsQuality![sender]!
+        if isOn {
+            tuner.stop()
+            tuner.play()
+        }
     }
     
     @IBAction func onOffButtonPressed(_ sender: UIButton) {
         if isOn {
             tuner.stop()
             sender.setImage(UIImage(named: "playButton"), for: .normal)
+            tuner.title = ""
+            tuner.artist = ""
         } else {
             tuner.play()
             sender.setImage(UIImage(named: "stopButton"), for: .normal)
+            showHeader()
         }
         isOn = !isOn
-        showFakeHeader()
+        // showFakeHeader()
     }
     
     func showFakeHeader(){
@@ -90,6 +101,12 @@ class MainScreenController: UIViewController {
         
         let randomIndex = Int.random(in: 0..<titles.count-1)
         fancyHeader = FancyHeader(title: titles[randomIndex], artist: artists[randomIndex], placeholder: "Чипльдук", displayArea: topView)
+        fancyHeader!.showHeader()
+    }
+    
+    func showHeader() {
+        topView.removeSubviews()
+        fancyHeader = FancyHeader(title: tuner.title, artist: tuner.artist, placeholder: "Чипльдук", displayArea: topView)
         fancyHeader!.showHeader()
     }
     
