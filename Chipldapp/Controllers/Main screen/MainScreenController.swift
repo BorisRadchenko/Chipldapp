@@ -7,21 +7,35 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class MainScreenController: UIViewController {
 
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet var qualityButtons: [UIButton]!
+    @IBOutlet weak var middleQualityButton: UIButton!
+    @IBOutlet weak var highQualityButton: UIButton!
+    @IBOutlet weak var highestQualityButton: UIButton!
     @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var volumeParentView: UIView!
+    
     let tuner: ChiplTuner = ChiplTuner.shared
+    var buttonsQuality: [UIButton:StreamQuality]?
     var isOn: Bool = false
     
     var fancyHeader: FancyHeader?
+    
+    var mpVolumeSlider: UISlider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fillBackground()
         onOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
+        buttonsQuality = [qualityButtons[2]:StreamQuality.middle,
+                          qualityButtons[1]:StreamQuality.high,
+                          qualityButtons[0]:StreamQuality.highest]
+        // TODO: Volume
+        setupVolumeSlider()
     }
 
     func fillBackground() {
@@ -57,6 +71,7 @@ class MainScreenController: UIViewController {
     @IBAction func setChosenQualityAction(_ sender: UIButton) {
         qualityButtons.filter{ $0 != sender }.forEach{ markAsUnselected($0) }
         markAsSelected(sender)
+        tuner.streamQuality = buttonsQuality![sender]!
     }
     
     @IBAction func onOffButtonPressed(_ sender: UIButton) {
@@ -64,7 +79,6 @@ class MainScreenController: UIViewController {
             tuner.stop()
             sender.setImage(UIImage(named: "playButton"), for: .normal)
         } else {
-            tuner.streamQuality = .highest
             tuner.play()
             sender.setImage(UIImage(named: "stopButton"), for: .normal)
         }
@@ -80,4 +94,25 @@ class MainScreenController: UIViewController {
         fancyHeader!.showHeader()
     }
     
+    // TODO: Volume
+    func setupVolumeSlider() {
+        // Note: This slider implementation uses a MPVolumeView
+        // The volume slider only works in devices, not the simulator.
+        for subview in MPVolumeView().subviews {
+            guard let volumeSlider = subview as? UISlider else { continue }
+            mpVolumeSlider = volumeSlider
+        }
+        
+        guard let mpVolumeSlider = mpVolumeSlider else { return }
+        
+        volumeParentView.addSubview(mpVolumeSlider)
+        
+        mpVolumeSlider.translatesAutoresizingMaskIntoConstraints = false
+        mpVolumeSlider.leftAnchor.constraint(equalTo: volumeParentView.leftAnchor).isActive = true
+        mpVolumeSlider.rightAnchor.constraint(equalTo: volumeParentView.rightAnchor).isActive = true
+        mpVolumeSlider.centerYAnchor.constraint(equalTo: volumeParentView.centerYAnchor).isActive = true
+        
+        mpVolumeSlider.setThumbImage(#imageLiteral(resourceName: "speakerSign"), for: .normal)
+    }
 }
+

@@ -12,6 +12,7 @@ import FRadioPlayer
 class ChiplTuner {
     static let shared = ChiplTuner()
     private let tunerEngine = FRadioPlayer.shared
+    private var streamURL: URL? = nil
     
     var streamQuality: StreamQuality {
         didSet {
@@ -19,7 +20,9 @@ class ChiplTuner {
                                    StreamQuality.middle : URL(string: "http://radio.4duk.ru:80/4duk64.mp3")!,
                                    StreamQuality.high   : URL(string: "http://radio.4duk.ru:80/4duk128.mp3")!,
                                    StreamQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk256.mp3")!]
-            tunerEngine.radioURL = qualityLevelURL[streamQuality]
+            // tunerEngine.radioURL = qualityLevelURL[streamQuality]
+            streamURL = qualityLevelURL[streamQuality]
+            print(streamURL)
         }
     }
     
@@ -29,7 +32,13 @@ class ChiplTuner {
     }
     
     func play() {
-        tunerEngine.play()
+        if let streamURL = streamURL {
+            tunerEngine.radioURL = streamURL
+            print(streamURL)
+            tunerEngine.play()
+        } else {
+            print("No URL!")
+        }
     }
     
     func stop() {
