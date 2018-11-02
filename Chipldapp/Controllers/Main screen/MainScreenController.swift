@@ -24,17 +24,16 @@ class MainScreenController: UIViewController {
     var isOn: Bool = false
     
     var fancyHeader: FancyHeader?
-    
+
     var mpVolumeSlider: UISlider?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fillBackground()
         onOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
-        buttonsQuality = [qualityButtons[2]:StreamQuality.middle,
-                          qualityButtons[1]:StreamQuality.high,
-                          qualityButtons[0]:StreamQuality.highest]
-        // TODO: Volume
+        buttonsQuality = [middleQualityButton  : StreamQuality.middle,
+                          highQualityButton    : StreamQuality.high,
+                          highestQualityButton : StreamQuality.highest]
         setupVolumeSlider()
     }
 
@@ -94,7 +93,6 @@ class MainScreenController: UIViewController {
         fancyHeader!.showHeader()
     }
     
-    // TODO: Volume
     func setupVolumeSlider() {
         // Note: This slider implementation uses a MPVolumeView
         // The volume slider only works in devices, not the simulator.
@@ -102,17 +100,14 @@ class MainScreenController: UIViewController {
             guard let volumeSlider = subview as? UISlider else { continue }
             mpVolumeSlider = volumeSlider
         }
-        
         guard let mpVolumeSlider = mpVolumeSlider else { return }
-        
         volumeParentView.addSubview(mpVolumeSlider)
-        
         mpVolumeSlider.translatesAutoresizingMaskIntoConstraints = false
         mpVolumeSlider.leftAnchor.constraint(equalTo: volumeParentView.leftAnchor).isActive = true
         mpVolumeSlider.rightAnchor.constraint(equalTo: volumeParentView.rightAnchor).isActive = true
         mpVolumeSlider.centerYAnchor.constraint(equalTo: volumeParentView.centerYAnchor).isActive = true
-        
         mpVolumeSlider.setThumbImage(#imageLiteral(resourceName: "speakerSign"), for: .normal)
+        mpVolumeSlider.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
 }
 

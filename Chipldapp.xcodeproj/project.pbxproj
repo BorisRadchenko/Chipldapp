@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D09E7C18B2157BE482DC52E /* Pods_Chipldapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6D5DE59324A19E7ED2B835 /* Pods_Chipldapp.framework */; };
 		C13401672181143F007C0B94 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13401662181143F007C0B94 /* MockData.swift */; };
 		C134016921811621007C0B94 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016821811621007C0B94 /* Colors.swift */; };
 		C134016B218118D1007C0B94 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016A218118D1007C0B94 /* UIViewExtension.swift */; };
 		C134016D21812CA5007C0B94 /* CoordinateCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */; };
-		C134016F21814696007C0B94 /* ImprovedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016E21814696007C0B94 /* ImprovedSlider.swift */; };
-		5D09E7C18B2157BE482DC52E /* Pods_Chipldapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6D5DE59324A19E7ED2B835 /* Pods_Chipldapp.framework */; };
 		C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0521587D4E00D0F35A /* AppDelegate.swift */; };
 		C187FD0821587D4E00D0F35A /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0721587D4E00D0F35A /* MainScreenController.swift */; };
 		C187FD0B21587D4E00D0F35A /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0921587D4E00D0F35A /* MainScreen.storyboard */; };
@@ -35,7 +34,6 @@
 		C134016821811621007C0B94 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C134016A218118D1007C0B94 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Chipldapp/Library/Helpers/Constants/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCalculations.swift; sourceTree = "<group>"; };
-		C134016E21814696007C0B94 /* ImprovedSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImprovedSlider.swift; sourceTree = "<group>"; };
 		C187FD0221587D4E00D0F35A /* Chipldapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chipldapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C187FD0521587D4E00D0F35A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C187FD0721587D4E00D0F35A /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 		C1F5EF2E21591611008F8518 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				C134016E21814696007C0B94 /* ImprovedSlider.swift */,
 				C134016A218118D1007C0B94 /* UIViewExtension.swift */,
 			);
 			path = UIKit;
@@ -365,7 +362,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C134016F21814696007C0B94 /* ImprovedSlider.swift in Sources */,
 				C134016D21812CA5007C0B94 /* CoordinateCalculations.swift in Sources */,
 				C134016921811621007C0B94 /* Colors.swift in Sources */,
 				C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */,

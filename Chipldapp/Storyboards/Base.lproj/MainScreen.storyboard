@@ -37,205 +37,148 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UK-Dh-phn" userLabel="bottomView">
                                 <rect key="frame" x="0.0" y="572" width="375" height="95"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UlS-dh-VXz" userLabel="Highest Quality Button">
-                                        <rect key="frame" x="108" y="45.5" width="82" height="28"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WRu-G6-AZu" userLabel="Quality Parent View">
+                                        <rect key="frame" x="108" y="47.5" width="248" height="36"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UlS-dh-VXz" userLabel="Highest Quality Button">
+                                                <rect key="frame" x="0.0" y="4" width="76" height="28"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="76" id="7K8-rP-d4e"/>
+                                                    <constraint firstAttribute="height" constant="28" id="nnI-79-M5R"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Супер">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="18" name="CourierNewPS-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <state key="selected">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Высокое">
+                                                            <attributes>
+                                                                <color key="NSBackgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="13" name="CourierNewPS-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LPQ-6z-pzA"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v7Z-nP-eI1" userLabel="Middle Quality Button">
+                                                <rect key="frame" x="166" y="4" width="82" height="28"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="82" id="EbH-cD-Z1r"/>
+                                                    <constraint firstAttribute="height" constant="28" id="vzz-EY-ZOa"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Среднее">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="18" name="CourierNewPS-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <state key="selected">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Высокое">
+                                                            <attributes>
+                                                                <color key="NSBackgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="13" name="CourierNewPS-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hKz-pv-EkW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBe-jg-eeB" userLabel="High Quality Button">
+                                                <rect key="frame" x="77.5" y="4" width="86" height="28"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="FGB-B8-LpI"/>
+                                                    <constraint firstAttribute="width" constant="86" id="YLO-5f-VL1"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Высокое">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <font key="NSFont" size="18" name="CourierNewPS-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <state key="selected">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Высокое">
+                                                            <attributes>
+                                                                <color key="NSBackgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="13" name="CourierNewPS-BoldMT"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wfB-wg-Lvb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="28" id="sB4-QE-hUH"/>
-                                            <constraint firstAttribute="width" constant="82" id="zgj-Wy-7Da"/>
+                                            <constraint firstItem="UlS-dh-VXz" firstAttribute="top" secondItem="vBe-jg-eeB" secondAttribute="top" id="3fl-jO-Dhy"/>
+                                            <constraint firstItem="vBe-jg-eeB" firstAttribute="top" secondItem="WRu-G6-AZu" secondAttribute="top" constant="4" id="80f-Wp-4i3"/>
+                                            <constraint firstItem="v7Z-nP-eI1" firstAttribute="top" secondItem="vBe-jg-eeB" secondAttribute="top" id="IE2-XR-Z6P"/>
+                                            <constraint firstAttribute="height" constant="36" id="MUS-6T-iIb"/>
+                                            <constraint firstAttribute="trailing" secondItem="v7Z-nP-eI1" secondAttribute="trailing" id="T8G-ZB-HFg"/>
+                                            <constraint firstItem="vBe-jg-eeB" firstAttribute="centerX" secondItem="WRu-G6-AZu" secondAttribute="centerX" constant="-3.5" id="Vif-Jl-XLD"/>
+                                            <constraint firstAttribute="width" constant="248" id="l64-rg-sbQ"/>
+                                            <constraint firstItem="UlS-dh-VXz" firstAttribute="leading" secondItem="WRu-G6-AZu" secondAttribute="leading" id="mrX-Xm-r5D"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Супер">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="18" name="CourierNewPS-BoldMT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <state key="selected">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Высокое">
-                                                    <attributes>
-                                                        <color key="NSBackgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="13" name="CourierNewPS-BoldMT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LPQ-6z-pzA"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBe-jg-eeB" userLabel="High Quality Button">
-                                        <rect key="frame" x="190" y="45.5" width="82" height="28"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
-                                        <inset key="contentEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Высокое">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="18" name="CourierNewPS-BoldMT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                            <tabStops>
-                                                                <textTab alignment="left" location="28">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="56">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="84">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="112">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="140">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="168">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="196">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="224">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="252">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="280">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="308">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="336">
-                                                                    <options/>
-                                                                </textTab>
-                                                            </tabStops>
-                                                        </paragraphStyle>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <state key="selected">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Высокое">
-                                                    <attributes>
-                                                        <color key="NSBackgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="13" name="CourierNewPS-BoldMT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wfB-wg-Lvb"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v7Z-nP-eI1" userLabel="Middle Quality Button">
-                                        <rect key="frame" x="272" y="45.5" width="82" height="28"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="1"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="82" id="jrS-4k-XjW"/>
-                                        </constraints>
-                                        <inset key="contentEdgeInsets" minX="3" minY="0.0" maxX="3" maxY="0.0"/>
-                                        <state key="normal">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Среднее">
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <font key="NSFont" size="18" name="CourierNewPS-BoldMT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                            <tabStops>
-                                                                <textTab alignment="left" location="28">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="56">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="84">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="112">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="140">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="168">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="196">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="224">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="252">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="280">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="308">
-                                                                    <options/>
-                                                                </textTab>
-                                                                <textTab alignment="left" location="336">
-                                                                    <options/>
-                                                                </textTab>
-                                                            </tabStops>
-                                                        </paragraphStyle>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <state key="selected">
-                                            <attributedString key="attributedTitle">
-                                                <fragment content="Высокое">
-                                                    <attributes>
-                                                        <color key="NSBackgroundColor" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="13" name="CourierNewPS-BoldMT"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hKz-pv-EkW"/>
-                                        </connections>
-                                    </button>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Cn-sg-8KA">
                                         <rect key="frame" x="30" y="18.5" width="62" height="58"/>
                                         <constraints>
@@ -247,40 +190,23 @@
                                             <action selector="onOffButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fmb-pq-qxf"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cuL-tw-GKl">
-                                        <rect key="frame" x="108" y="0.0" width="245" height="49"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qkb-vz-EmU">
-                                                <rect key="frame" x="-2" y="11" width="249" height="31"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </slider>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuL-tw-GKl">
+                                        <rect key="frame" x="108" y="11.5" width="248" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="248" id="4vY-gz-7pY"/>
+                                            <constraint firstAttribute="height" constant="36" id="XO4-d2-bu3"/>
+                                        </constraints>
                                     </view>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="bbx-lu-nOv" customClass="ImprovedSlider" customModule="Chipldapp" customModuleProvider="target">
-                                        <rect key="frame" x="106" y="63" width="245" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="speakerSign"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </slider>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="cuL-tw-GKl" firstAttribute="leading" secondItem="2Cn-sg-8KA" secondAttribute="trailing" constant="16" id="2st-Fm-MsC"/>
                                     <constraint firstAttribute="height" constant="95" id="5nK-Do-r49"/>
-                                    <constraint firstItem="vBe-jg-eeB" firstAttribute="top" secondItem="UlS-dh-VXz" secondAttribute="top" id="6h3-J7-9b2"/>
-                                    <constraint firstItem="vBe-jg-eeB" firstAttribute="width" secondItem="UlS-dh-VXz" secondAttribute="width" id="IA1-hj-aQJ"/>
-                                    <constraint firstItem="vBe-jg-eeB" firstAttribute="height" secondItem="UlS-dh-VXz" secondAttribute="height" id="Izk-u6-c2Q"/>
+                                    <constraint firstItem="cuL-tw-GKl" firstAttribute="bottom" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="H3V-bo-BqV"/>
                                     <constraint firstItem="2Cn-sg-8KA" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="30" id="JLk-6I-Qbd"/>
-                                    <constraint firstItem="v7Z-nP-eI1" firstAttribute="top" secondItem="UlS-dh-VXz" secondAttribute="top" id="QjZ-kI-Ihu"/>
-                                    <constraint firstItem="vBe-jg-eeB" firstAttribute="leading" secondItem="UlS-dh-VXz" secondAttribute="trailing" id="SfU-b7-tyI"/>
-                                    <constraint firstItem="v7Z-nP-eI1" firstAttribute="leading" secondItem="vBe-jg-eeB" secondAttribute="trailing" id="TZR-3c-75W"/>
-                                    <constraint firstItem="UlS-dh-VXz" firstAttribute="leading" secondItem="4UK-Dh-phn" secondAttribute="leading" constant="108" id="dMm-Of-sSp"/>
-                                    <constraint firstAttribute="bottom" secondItem="UlS-dh-VXz" secondAttribute="bottom" constant="21.5" id="fxh-IN-jXA"/>
+                                    <constraint firstItem="WRu-G6-AZu" firstAttribute="top" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="RKy-TO-qtH"/>
+                                    <constraint firstItem="WRu-G6-AZu" firstAttribute="leading" secondItem="2Cn-sg-8KA" secondAttribute="trailing" constant="16" id="g85-wj-Ivn"/>
                                     <constraint firstItem="2Cn-sg-8KA" firstAttribute="centerY" secondItem="4UK-Dh-phn" secondAttribute="centerY" id="gGK-T3-8V7"/>
-                                    <constraint firstItem="v7Z-nP-eI1" firstAttribute="height" secondItem="UlS-dh-VXz" secondAttribute="height" id="mBv-Nl-9UG"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -321,6 +247,5 @@
     </scenes>
     <resources>
         <image name="playButton" width="99" height="93"/>
-        <image name="speakerSign" width="21" height="18"/>
     </resources>
 </document>
