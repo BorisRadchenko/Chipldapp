@@ -37,8 +37,6 @@ final class FancyHeader {
 	private let appearance = Appearance()
 	
     // MARK: -
-	
-	
     // TODO: Вычислить экспериментально минимальные ширину и высоту
 	
     var minDisplayAreaWidth: CGFloat = 0
@@ -46,7 +44,6 @@ final class FancyHeader {
     var indent: CGFloat = 20
 	
     // MARK: -
-	
 	
 	lazy var spaceLabel: UILabel = {
 		let view = UILabel()
@@ -189,7 +186,8 @@ final class FancyHeader {
             if scale < 1 {
                 displayArea.transform = CGAffineTransform(scaleX: scale, y: scale)
             }
-        } else {
+        }
+		else {
             showPlaceholder()
         }
     }

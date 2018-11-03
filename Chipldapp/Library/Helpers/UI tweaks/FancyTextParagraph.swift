@@ -22,9 +22,7 @@ class FancyTextParagraph {
         self.widthLimit = widthLimit
         self.interlineSpace = interlineSpacing
         self.spaceLabel = spaceLabel
-        // spaceLabel.sizeToFit()
         self.hyphenLabel = hyphenLabel
-        // hyphenLabel.sizeToFit()
     }
 	
 	// MARK: - М Е Т О Д Ы:
@@ -64,7 +62,8 @@ class FancyTextParagraph {
                 if word.letterCount > 0 { wordPart!.add(letter: hyphenCopy()) }
                 wordParts.append(wordPart!)
             }
-        } else {
+        }
+		else {
             wordParts.append(word)
         }
         for wordPart in wordParts {
@@ -127,7 +126,7 @@ class FancyTextParagraph {
     }
     
     func hyphenCopy() -> UILabel {
-        let copy = UILabel ()
+        let copy = UILabel()
         copy.text = hyphenLabel.text
         copy.font = hyphenLabel.font
         copy.sizeToFit()

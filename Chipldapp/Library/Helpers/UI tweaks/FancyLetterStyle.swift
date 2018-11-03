@@ -30,6 +30,7 @@ struct FancyLetterStyle {
         let foregroundColors = [#colorLiteral(red: 0.9725490196, green: 0.9725490196, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.9803921569, blue: 0.9411764706, alpha: 1), #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)]
         let backgroundColors = [#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), #colorLiteral(red: 0.2352941176, green: 0.2352941176, blue: 0.3137254902, alpha: 1), #colorLiteral(red: 0.2705882353, green: 0.3176470588, blue: 0.3960784314, alpha: 1), #colorLiteral(red: 1, green: 0.8745098039, blue: 0, alpha: 1)]
         let strokeColor = #colorLiteral(red: 0.6679443717, green: 0.473043263, blue: 0, alpha: 1)
+		
         self.size = CGFloat.random(in: minFontSize ..< maxFontSize)
         self.font = UIFont(name: fontNames.randomElement()!, size: self.size)!
         self.minFont = UIFont(name: fontNames[0], size: minFontSize)!
@@ -89,5 +90,4 @@ struct FancyLetterStyle {
         attributedString.addAttributes(FancyLetterStyle.maxSizeAttributes(), range: NSRange(location:0,length:1))
         return attributedString
     }
-
 }

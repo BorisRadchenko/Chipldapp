@@ -22,13 +22,13 @@ final class MainScreenController: UIViewController {
 	//MARK: - Public
 	
     let tuner: ChiplTuner = ChiplTuner.shared
-    var buttonsQuality: [UIButton:StreamQuality]?
+	var buttonsQuality: [UIButton: StreamQuality] = [:]
     var isOn: Bool = false
     var fancyHeader: FancyHeader?
     var mpVolumeSlider: UISlider?
 	
 	//MARK: - Lifecycle
-	
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tuner.showTitleHandler = showHeader
@@ -69,12 +69,12 @@ final class MainScreenController: UIViewController {
 	//MARK: - Handlers
     
     @IBAction private func setChosenQualityAction(_ sender: UIButton) {
-        guard tuner.streamQuality != buttonsQuality![sender]! else {
+        guard tuner.streamQuality != buttonsQuality[sender]! else {
             return
         }
         qualityButtons.filter{ $0 != sender }.forEach{ markAsUnselected($0) }
         markAsSelected(sender)
-        tuner.streamQuality = buttonsQuality![sender]!
+        tuner.streamQuality = buttonsQuality[sender]!
         if isOn {
             tuner.stop()
             tuner.play()
