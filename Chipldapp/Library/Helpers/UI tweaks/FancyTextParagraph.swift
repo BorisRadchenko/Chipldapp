@@ -15,7 +15,9 @@ class FancyTextParagraph {
     var spaceLabel: UILabel
     var hyphenLabel: UILabel
     var interlineSpace: CGFloat
-    // MARK: - М Е Т О Д Ы:
+	
+	//MARK: - Init
+	
     init(widthLimit: CGFloat, interlineSpacing: CGFloat, spaceLabel: UILabel, hyphenLabel: UILabel) {
         self.widthLimit = widthLimit
         self.interlineSpace = interlineSpacing
@@ -24,7 +26,9 @@ class FancyTextParagraph {
         self.hyphenLabel = hyphenLabel
         // hyphenLabel.sizeToFit()
     }
-    
+	
+	// MARK: - М Е Т О Д Ы:
+	
     func addWord(_ word: FancyWord) {
         //        1) Узнать длину текущей строки (если строка непустая)
         //        2) Проверить, не превышает ли слово ширину строки
@@ -129,5 +133,4 @@ class FancyTextParagraph {
         copy.sizeToFit()
         return copy
     }
-    
 }

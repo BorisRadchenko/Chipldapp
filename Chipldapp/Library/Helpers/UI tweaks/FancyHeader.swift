@@ -8,6 +8,16 @@
 
 import UIKit
 
+
+extension FancyHeader {
+	
+	struct Appearance {
+		let artistFont = UIFont(name: "TimesNewRomanPS-BoldMT", size: 39)
+		let artistMinFontSize = 15
+		let spacersFont = UIFont(name: "Helvetica Neue", size: 25)
+	}
+}
+
 final class FancyHeader {
 	
 	//MARK: - Public
@@ -19,14 +29,15 @@ final class FancyHeader {
 			return shuffleLetters(placeholder)
 		}
 	}
+	var displayArea: UIView
 	
 	//MARK: - Private
 	
 	private var placeholder: String
+	private let appearance = Appearance()
 	
     // MARK: -
 	
-    var displayArea: UIView
 	
     // TODO: Вычислить экспериментально минимальные ширину и высоту
 	
@@ -36,16 +47,35 @@ final class FancyHeader {
 	
     // MARK: -
 	
-    let artistFont = UIFont(name: "TimesNewRomanPS-BoldMT", size: 39)
-    let artistMinFontSize = 15
-    let spacersFont = UIFont(name: "Helvetica Neue", size: 25)
-    let spaceLabel = UILabel()
-    let hyphenLabel = UILabel()
+	
+	lazy var spaceLabel: UILabel = {
+		let view = UILabel()
+		view.font = appearance.spacersFont
+		view.text = " "
+		view.sizeToFit()
+		return view
+	}()
+	
+	lazy var hyphenLabel: UILabel = {
+		let view = UILabel()
+		view.font = appearance.spacersFont
+		view.text = "-"
+		view.sizeToFit()
+		return view
+	}()
+	
+	private lazy var artistHeaderLabel: UILabel = {
+		let view = UILabel()
+		view.font = appearance.artistFont
+		view.numberOfLines = 0
+		view.textAlignment = .center
+		return view
+	}()
 	
     // MARK: -
 	
     private var titleHeaderParagraph: FancyTextParagraph? = nil
-    private var artistHeaderLabel: UILabel? = nil
+	
     private let titlePartsSpace: CGFloat = 20
     
 	//MARK: - Init
@@ -55,12 +85,6 @@ final class FancyHeader {
         self.artist = artist
         self.placeholder = placeholder
         self.displayArea = displayArea
-        self.spaceLabel.font = spacersFont
-        self.spaceLabel.text = " "
-        self.spaceLabel.sizeToFit()
-        self.hyphenLabel.font = spacersFont
-        self.hyphenLabel.text = "-"
-        self.hyphenLabel.sizeToFit()
     }
 	
 	// MARK: - М Е Т О Д Ы:
@@ -102,27 +126,19 @@ final class FancyHeader {
             print("There is no artist name to show")
             return
         }
-        artistHeaderLabel = UILabel()
-        artistHeaderLabel!.text = artist
-        artistHeaderLabel!.font = artistFont
-        artistHeaderLabel!.numberOfLines = 0
-        artistHeaderLabel!.textAlignment = .center
-        
-        artistHeaderLabel!.frame = CGRect(x: 0, y: 0, width: displayArea.bounds.width - indent * 2, height: 0)
-        artistHeaderLabel!.sizeToFit()
+		artistHeaderLabel.text = artist
+        artistHeaderLabel.frame = CGRect(x: 0, y: 0, width: displayArea.bounds.width - indent * 2, height: 0)
+        artistHeaderLabel.sizeToFit()
     }
     
     func showArtistHeader(topY: CGFloat) {
         // TODO: Рефакторинг
-        artistHeaderLabel!.frame = CGRect(x: leadingX(byExternalWidth: displayArea.bounds.width, ownWidth: artistHeaderLabel!.bounds.width),
-                                          y: topY,
-                                          width: artistHeaderLabel!.bounds.width,
-                                          height: artistHeaderLabel!.bounds.height)
-        displayArea.addSubview(artistHeaderLabel!)
+        artistHeaderLabel.frame = CGRect(x: leadingX(byExternalWidth: displayArea.bounds.width, ownWidth: artistHeaderLabel.bounds.width), y: topY, width: artistHeaderLabel.bounds.width, height: artistHeaderLabel.bounds.height)
+        displayArea.addSubview(artistHeaderLabel)
     }
     
     func getArtistHeaderHeight() -> CGFloat {
-        return artistHeaderLabel!.bounds.height
+        return artistHeaderLabel.bounds.height
     }
     
     func showPlaceholder() {
@@ -185,4 +201,3 @@ private func shuffleLetters(_ string: String) -> String {
     chars[0] = Character(String(chars[0]).uppercased())
     return String(chars)
 }
-

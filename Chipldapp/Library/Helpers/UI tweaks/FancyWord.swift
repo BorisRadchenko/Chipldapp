@@ -23,7 +23,9 @@ class FancyWord: NSCopying {
         }
     }
     var letterCount: Int { get { return letters.count } }
-    // MARK: - М Е Т О Д Ы:
+	
+	//MARK: - Init
+	
     init (_ letters: [UILabel] = []) {
         letters.forEach{ add(letter: $0) }
     }
@@ -33,7 +35,9 @@ class FancyWord: NSCopying {
         self.width = width
         self.height = height
     }
-    
+	
+	// MARK: - Public
+	
     func add(letter: UILabel) {
         letter.sizeToFit()
         letters.append(letter)

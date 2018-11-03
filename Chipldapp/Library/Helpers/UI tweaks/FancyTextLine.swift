@@ -8,12 +8,27 @@
 
 import UIKit
 
-class FancyTextLine: NSCopying {
+final class FancyTextLine: NSCopying {
     var letters: [UILabel] = []
     var height: CGFloat = 0
     var width: CGFloat = 0
-    var isNotEmpty: Bool { get { return !letters.isEmpty }}
+	
+	var isNotEmpty: Bool {
+		get {
+			return !letters.isEmpty
+		}
+	}
+	
+	//MARK: - Init
+	
+	init(letters: [UILabel] = [], height: CGFloat = 0, width: CGFloat = 0){
+		self.letters = letters
+		self.height = height
+		self.width = width
+	}
+	
     // MARK: - М Е Т О Д Ы:
+	
     func add(_ word: FancyWord) {
         letters += word.letters
         width += word.width
@@ -35,13 +50,7 @@ class FancyTextLine: NSCopying {
         height = 0
         width = 0
     }
-    
-    init(letters: [UILabel] = [], height: CGFloat = 0, width: CGFloat = 0){
-        self.letters = letters
-        self.height = height
-        self.width = width
-    }
-    
+	
     func copy(with zone: NSZone? = nil) -> Any {
         let copy = FancyTextLine(letters: letters, height: height, width: width)
         return copy

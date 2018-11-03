@@ -20,7 +20,6 @@ class ChiplTuner {
                                    StreamQuality.middle : URL(string: "http://radio.4duk.ru:80/4duk64.mp3")!,
                                    StreamQuality.high   : URL(string: "http://radio.4duk.ru:80/4duk128.mp3")!,
                                    StreamQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk256.mp3")!]
-            // tunerEngine.radioURL = qualityLevelURL[streamQuality]
             streamURL = qualityLevelURL[streamQuality]
             print(streamURL)
         }
@@ -52,7 +51,9 @@ class ChiplTuner {
 }
 
 // MARK: - FRadioPlayerDelegate
+
 extension ChiplTuner: FRadioPlayerDelegate {
+	
     func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
         print(state.description)
     }
@@ -75,8 +76,5 @@ extension ChiplTuner: FRadioPlayerDelegate {
 }
 
 enum StreamQuality {
-    case low
-    case middle
-    case high
-    case highest
+    case low, middle, high, highest
 }

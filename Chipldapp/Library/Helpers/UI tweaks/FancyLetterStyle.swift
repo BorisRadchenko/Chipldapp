@@ -20,7 +20,9 @@ struct FancyLetterStyle {
     let backgroundColor: UIColor
     let strokeColor: UIColor
     let strokeWidth: NSNumber
-    // MARK: - М Е Т О Д Ы:
+	
+	//MARK: - Init
+	
     init() {
         let minFontSize: CGFloat = 25
         let maxFontSize: CGFloat = 67
@@ -42,7 +44,9 @@ struct FancyLetterStyle {
             self.strokeWidth = 0
         }
     }
-    
+	
+	// MARK: - Private 
+	
     private func attributes(font: UIFont) -> [NSAttributedString.Key : Any] {
         let style = FancyLetterStyle()
         let attributes = [NSAttributedString.Key.font             : font,

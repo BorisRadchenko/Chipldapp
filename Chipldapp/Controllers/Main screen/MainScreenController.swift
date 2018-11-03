@@ -9,24 +9,26 @@
 import UIKit
 import MediaPlayer
 
-class MainScreenController: UIViewController {
+final class MainScreenController: UIViewController {
 
-    @IBOutlet weak var onOffButton: UIButton!
-    @IBOutlet var qualityButtons: [UIButton]!
-    @IBOutlet weak var middleQualityButton: UIButton!
-    @IBOutlet weak var highQualityButton: UIButton!
-    @IBOutlet weak var highestQualityButton: UIButton!
-    @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var volumeParentView: UIView!
-    
+    @IBOutlet private var onOffButton: UIButton!
+    @IBOutlet private var qualityButtons: [UIButton]!
+    @IBOutlet private var middleQualityButton: UIButton!
+    @IBOutlet private var highQualityButton: UIButton!
+    @IBOutlet private var highestQualityButton: UIButton!
+    @IBOutlet private var topView: UIView!
+    @IBOutlet private var volumeParentView: UIView!
+	
+	//MARK: - Public
+	
     let tuner: ChiplTuner = ChiplTuner.shared
     var buttonsQuality: [UIButton:StreamQuality]?
     var isOn: Bool = false
-    
     var fancyHeader: FancyHeader?
-
     var mpVolumeSlider: UISlider?
-    
+	
+	//MARK: - Lifecycle
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         tuner.showTitleHandler = showHeader
@@ -38,16 +40,12 @@ class MainScreenController: UIViewController {
         setupVolumeSlider()
     }
 
+	//MARK: - Public
+	
     func fillBackground() {
         let bounds = view.bounds
-        let topBounds = CGRect(x: bounds.minX,
-                               y: bounds.minY,
-                               width: bounds.width,
-                               height: bounds.height * 0.6)
-        let bottomBounds = CGRect(x: bounds.minX,
-                                  y: bounds.height * 0.7,
-                                  width: bounds.width,
-                                  height: bounds.maxY - bounds.height * 0.7)
+        let topBounds = CGRect(x: bounds.minX, y: bounds.minY, width: bounds.width, height: bounds.height * 0.6)
+        let bottomBounds = CGRect(x: bounds.minX, y: bounds.height * 0.7, width: bounds.width, height: bounds.maxY - bounds.height * 0.7)
         view.addGradientLayer(rect: topBounds, startColor: UIColor.gradientEdgeColor, endColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
         view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: UIColor.gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
     }
@@ -67,8 +65,10 @@ class MainScreenController: UIViewController {
             button.setAttributedTitle(attributes, for: .normal)
         }
     }
+	
+	//MARK: - Handlers
     
-    @IBAction func setChosenQualityAction(_ sender: UIButton) {
+    @IBAction private func setChosenQualityAction(_ sender: UIButton) {
         guard tuner.streamQuality != buttonsQuality![sender]! else {
             return
         }
@@ -81,21 +81,23 @@ class MainScreenController: UIViewController {
         }
     }
     
-    @IBAction func onOffButtonPressed(_ sender: UIButton) {
+    @IBAction private func onOffButtonPressed(_ sender: UIButton) {
         if isOn {
             tuner.stop()
             sender.setImage(UIImage(named: "playButton"), for: .normal)
             tuner.title = ""
             tuner.artist = ""
-        } else {
+        }
+		else {
             tuner.play()
             sender.setImage(UIImage(named: "stopButton"), for: .normal)
             showHeader()
         }
         isOn = !isOn
-        // showFakeHeader()
     }
-    
+	
+	//MARK: -
+	
     func showFakeHeader(){
         topView.removeSubviews()
         
@@ -117,8 +119,10 @@ class MainScreenController: UIViewController {
             guard let volumeSlider = subview as? UISlider else { continue }
             mpVolumeSlider = volumeSlider
         }
+		
         guard let mpVolumeSlider = mpVolumeSlider else { return }
-        volumeParentView.addSubview(mpVolumeSlider)
+		
+		volumeParentView.addSubview(mpVolumeSlider)
         mpVolumeSlider.translatesAutoresizingMaskIntoConstraints = false
         mpVolumeSlider.leftAnchor.constraint(equalTo: volumeParentView.leftAnchor).isActive = true
         mpVolumeSlider.rightAnchor.constraint(equalTo: volumeParentView.rightAnchor).isActive = true
@@ -127,4 +131,3 @@ class MainScreenController: UIViewController {
         mpVolumeSlider.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     }
 }
-
