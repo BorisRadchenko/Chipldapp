@@ -31,7 +31,7 @@ class MainScreenController: UIViewController {
         super.viewDidLoad()
         tuner.showTitleHandler = showHeader
         fillBackground()
-        onOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
+        onOffButton.addShadow(color: UIColor.shadowColor, radius: 3, opacity: 0.7)
         buttonsQuality = [middleQualityButton  : StreamQuality.middle,
                           highQualityButton    : StreamQuality.high,
                           highestQualityButton : StreamQuality.highest]
@@ -48,12 +48,12 @@ class MainScreenController: UIViewController {
                                   y: bounds.height * 0.7,
                                   width: bounds.width,
                                   height: bounds.maxY - bounds.height * 0.7)
-        view.addGradientLayer(rect: topBounds, startColor: gradientEdgeColor, endColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
-        view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
+        view.addGradientLayer(rect: topBounds, startColor: UIColor.gradientEdgeColor, endColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
+        view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: UIColor.gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
     }
 
     func markAsSelected(_ button: UIButton) {
-        button.backgroundColor = highlitedButtonColor
+        button.backgroundColor = UIColor.highlitedButtonColor
         if let text = button.titleLabel!.text {
             let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
             button.setAttributedTitle(attributes, for: .normal)

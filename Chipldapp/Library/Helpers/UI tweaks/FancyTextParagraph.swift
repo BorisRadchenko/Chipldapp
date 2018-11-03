@@ -112,7 +112,7 @@ class FancyTextParagraph {
             lineY += line.height + interlineSpace
         }
         container.addSubview(labelsView)
-        labelsView.addShadow(color: shadowColor, opacity: 0.7)
+        labelsView.addShadow(color: UIColor.shadowColor, opacity: 0.7)
     }
     
     func getHeight()->CGFloat {
