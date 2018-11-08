@@ -36,6 +36,7 @@ class MainScreenController: UIViewController {
                           highQualityButton    : StreamQuality.high,
                           highestQualityButton : StreamQuality.highest]
         setupVolumeSlider()
+        showHeader()
     }
 
     func fillBackground() {
@@ -87,10 +88,10 @@ class MainScreenController: UIViewController {
             sender.setImage(UIImage(named: "playButton"), for: .normal)
             tuner.title = ""
             tuner.artist = ""
+            showHeader()
         } else {
             tuner.play()
             sender.setImage(UIImage(named: "stopButton"), for: .normal)
-            showHeader()
         }
         isOn = !isOn
         // showFakeHeader()

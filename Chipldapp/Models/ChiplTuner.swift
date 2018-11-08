@@ -67,9 +67,9 @@ extension ChiplTuner: FRadioPlayerDelegate {
         if metadata.count > 0 {
             artist = metadata.components(separatedBy: "/")[0]
             title = metadata.components(separatedBy: "/")[1]            
-        }
-        if let handler = showTitleHandler {
-            handler()
+            if let handler = showTitleHandler {
+                handler()
+            }
         }
     }
 }
