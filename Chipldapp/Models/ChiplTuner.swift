@@ -26,6 +26,10 @@ class ChiplTuner {
         }
     }
     
+    var artist = ""
+    var title = ""
+    var showTitleHandler: (()->Void)?
+    
     private init() {
         self.streamQuality = .low
         self.tunerEngine.delegate = self
@@ -59,6 +63,14 @@ extension ChiplTuner: FRadioPlayerDelegate {
     
     func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
         print("\(artistName ?? "")")
+        let metadata = artistName ?? ""
+        if metadata.count > 0 {
+            artist = metadata.components(separatedBy: "/")[0]
+            title = metadata.components(separatedBy: "/")[1]            
+            if let handler = showTitleHandler {
+                handler()
+            }
+        }
     }
 }
 

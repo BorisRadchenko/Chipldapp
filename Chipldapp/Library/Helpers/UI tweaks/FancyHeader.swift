@@ -133,23 +133,27 @@ class FancyHeader {
     
     func showHeader() {
         // TODO: Рефакторинг
-        prepareTitleHeader()
-        let titleHeaderHeight = titleHeaderParagraph!.getHeight()
-        prepareArtistHeader()
-        let artistHeaderHeight = getArtistHeaderHeight()
-        let totalHeaderHeight = titleHeaderHeight + titlePartsSpace + artistHeaderHeight
-        var titleTopY: CGFloat = 0
-        if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
-            titleTopY = topY(byExternalHeight: displayArea.bounds.height, ownHeight: totalHeaderHeight)
+        if title != "" {
+            prepareTitleHeader()
+            let titleHeaderHeight = titleHeaderParagraph!.getHeight()
+            prepareArtistHeader()
+            let artistHeaderHeight = getArtistHeaderHeight()
+            let totalHeaderHeight = titleHeaderHeight + titlePartsSpace + artistHeaderHeight
+            var titleTopY: CGFloat = 0
+            if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
+                titleTopY = topY(byExternalHeight: displayArea.bounds.height, ownHeight: totalHeaderHeight)
+            } else {
+                titleTopY = topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33, ownHeight: totalHeaderHeight)
+            }
+            let artistTopY = titleTopY + titleHeaderHeight + titlePartsSpace
+            titleHeaderParagraph!.show(inContainer: displayArea, withIndent: 20, startY: titleTopY)
+            showArtistHeader(topY: artistTopY)
+            let scale = displayArea.bounds.height / totalHeaderHeight
+            if scale < 1 {
+                displayArea.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
         } else {
-            titleTopY = topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33, ownHeight: totalHeaderHeight)
-        }
-        let artistTopY = titleTopY + titleHeaderHeight + titlePartsSpace
-        titleHeaderParagraph!.show(inContainer: displayArea, withIndent: 20, startY: titleTopY)
-        showArtistHeader(topY: artistTopY)
-        let scale = displayArea.bounds.height / totalHeaderHeight
-        if scale < 1 {
-            displayArea.transform = CGAffineTransform(scaleX: scale, y: scale)
+            showPlaceholder()
         }
     }
 }
