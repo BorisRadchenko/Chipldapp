@@ -23,6 +23,7 @@
 		C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E6216F1B7E00002936 /* FancyTextLine.swift */; };
 		C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */; };
 		C1E22AC72180D903004D0E05 /* ChiplTuner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E22AC62180D903004D0E05 /* ChiplTuner.swift */; };
+		C1F5EF282158B007008F8518 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = C1F5EF272158B007008F8518 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +32,7 @@
 		8D36B9219ECA38E0DD20C959 /* Pods-Chipldapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chipldapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chipldapp/Pods-Chipldapp.debug.xcconfig"; sourceTree = "<group>"; };
 		C13401662181143F007C0B94 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		C134016821811621007C0B94 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		C134016A218118D1007C0B94 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = "Chipldapp/Library/Helpers/Base objects extensions/UIKit/UIViewExtension.swift"; sourceTree = SOURCE_ROOT; };
+		C134016A218118D1007C0B94 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Chipldapp/Library/Helpers/Constants/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCalculations.swift; sourceTree = "<group>"; };
 		C187FD0221587D4E00D0F35A /* Chipldapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chipldapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C187FD0521587D4E00D0F35A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +47,7 @@
 		C1D060E6216F1B7E00002936 /* FancyTextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextLine.swift; sourceTree = "<group>"; };
 		C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextParagraph.swift; sourceTree = "<group>"; };
 		C1E22AC62180D903004D0E05 /* ChiplTuner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChiplTuner.swift; sourceTree = "<group>"; };
+		C1F5EF272158B007008F8518 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,25 +79,10 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A4354972218DFB5C001507C1 /* Base objects extensions */ = {
-			isa = PBXGroup;
-			children = (
-				A4354973218DFB62001507C1 /* UIKit */,
-			);
-			path = "Base objects extensions";
-			sourceTree = "<group>";
-		};
-		A4354973218DFB62001507C1 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				C134016A218118D1007C0B94 /* UIViewExtension.swift */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
 		C187FCF921587D4E00D0F35A = {
 			isa = PBXGroup;
 			children = (
+				C1F5EF272158B007008F8518 /* .gitignore */,
 				C187FD0421587D4E00D0F35A /* Chipldapp */,
 				C187FD0321587D4E00D0F35A /* Products */,
 				A130D2D7807CAD183534F4DB /* Pods */,
@@ -114,12 +101,13 @@
 		C187FD0421587D4E00D0F35A /* Chipldapp */ = {
 			isa = PBXGroup;
 			children = (
-				C187FD1921587D9100D0F35A /* Application */,
 				C187FD2121587E3300D0F35A /* Controllers */,
-				C187FD1B21587DF100D0F35A /* Library */,
 				C187FD2021587E2B00D0F35A /* Models */,
-				C187FD1721587D6900D0F35A /* Resources */,
+				C187FD1F21587E2400D0F35A /* Views */,
+				C187FD1B21587DF100D0F35A /* Library */,
 				C187FD1A21587DD300D0F35A /* Storyboards */,
+				C187FD1921587D9100D0F35A /* Application */,
+				C187FD1721587D6900D0F35A /* Resources */,
 			);
 			path = Chipldapp;
 			sourceTree = "<group>";
@@ -153,19 +141,42 @@
 		C187FD1B21587DF100D0F35A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				C187FD1E21587E1600D0F35A /* Base classes */,
 				C187FD1D21587E0C00D0F35A /* Helpers */,
+				C187FD1C21587E0100D0F35A /* Vendors */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		C187FD1C21587E0100D0F35A /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vendors;
 			sourceTree = "<group>";
 		};
 		C187FD1D21587E0C00D0F35A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				A4354972218DFB5C001507C1 /* Base objects extensions */,
+				C1F5EF2C215915EF008F8518 /* Base objects extensions */,
 				C1F5EF2F2159163F008F8518 /* Constants */,
 				C1F5EF292158DAC2008F8518 /* UI tweaks */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C187FD1E21587E1600D0F35A /* Base classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Base classes";
+			sourceTree = "<group>";
+		};
+		C187FD1F21587E2400D0F35A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C187FD2021587E2B00D0F35A /* Models */ = {
@@ -197,19 +208,43 @@
 			children = (
 				C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */,
 				C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */,
-				C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */,
+				C1D060E4216F1B1800002936 /* FancyWord.swift */,
 				C1D060E6216F1B7E00002936 /* FancyTextLine.swift */,
 				C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */,
-				C1D060E4216F1B1800002936 /* FancyWord.swift */,
+				C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */,
 			);
 			path = "UI tweaks";
+			sourceTree = "<group>";
+		};
+		C1F5EF2C215915EF008F8518 /* Base objects extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C1F5EF2D21591606008F8518 /* Foundation */,
+				C1F5EF2E21591611008F8518 /* UIKit */,
+			);
+			path = "Base objects extensions";
+			sourceTree = "<group>";
+		};
+		C1F5EF2D21591606008F8518 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		C1F5EF2E21591611008F8518 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				C134016A218118D1007C0B94 /* UIViewExtension.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 		C1F5EF2F2159163F008F8518 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				C134016821811621007C0B94 /* Colors.swift */,
 				C13401662181143F007C0B94 /* MockData.swift */,
+				C134016821811621007C0B94 /* Colors.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -274,6 +309,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1F5EF282158B007008F8518 /* .gitignore in Resources */,
 				C187FD1021587D4F00D0F35A /* LaunchScreen.storyboard in Resources */,
 				C187FD0D21587D4F00D0F35A /* Assets.xcassets in Resources */,
 				C187FD0B21587D4E00D0F35A /* MainScreen.storyboard in Resources */,

@@ -8,48 +8,29 @@
 
 import UIKit
 
-final class FancyHeader {
-	
-	//MARK: - Public
-	
+class FancyHeader {
     var title: String?
     var artist: String?
-    var shuffledPlaceholder: String {
-		get {
-			return shuffleLetters(placeholder)
-		}
-	}
-	
-	//MARK: - Private
-	
-	private var placeholder: String
-	
+    private var placeholder: String
+    var shuffledPlaceholder: String { get { return shuffleLetters(placeholder) } }
     // MARK: -
-	
     var displayArea: UIView
-	
     // TODO: Вычислить экспериментально минимальные ширину и высоту
-	
     var minDisplayAreaWidth: CGFloat = 0
     var minDisplayAreaHeight: CGFloat = 0
     var indent: CGFloat = 20
-	
     // MARK: -
-	
     let artistFont = UIFont(name: "TimesNewRomanPS-BoldMT", size: 39)
     let artistMinFontSize = 15
     let spacersFont = UIFont(name: "Helvetica Neue", size: 25)
     let spaceLabel = UILabel()
     let hyphenLabel = UILabel()
-	
     // MARK: -
-	
     private var titleHeaderParagraph: FancyTextParagraph? = nil
     private var artistHeaderLabel: UILabel? = nil
     private let titlePartsSpace: CGFloat = 20
     
-	//MARK: - Init
-	
+    // MARK: - М Е Т О Д Ы:
     init(title: String? = nil, artist: String? = nil, placeholder: String, displayArea: UIView) {
         self.title = title
         self.artist = artist
@@ -62,9 +43,7 @@ final class FancyHeader {
         self.hyphenLabel.text = "-"
         self.hyphenLabel.sizeToFit()
     }
-	
-	// MARK: - М Е Т О Д Ы:
-	
+    
     func hasEnoughDisplayAreaSize() -> Bool {
         guard displayArea.bounds.width >= minDisplayAreaWidth else { return false }
         guard displayArea.bounds.height >= minDisplayAreaHeight else { return false }
