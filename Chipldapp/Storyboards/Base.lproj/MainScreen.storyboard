@@ -72,14 +72,8 @@
                                                         </fragment>
                                                     </attributedString>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LPQ-6z-pzA"/>
+                                                    <action selector="switchQualityPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LPQ-6z-pzA"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v7Z-nP-eI1" userLabel="Middle Quality Button">
@@ -114,14 +108,8 @@
                                                         </fragment>
                                                     </attributedString>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hKz-pv-EkW"/>
+                                                    <action selector="switchQualityPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hKz-pv-EkW"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBe-jg-eeB" userLabel="High Quality Button">
@@ -156,14 +144,8 @@
                                                         </fragment>
                                                     </attributedString>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="0.0"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="setChosenQualityAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wfB-wg-Lvb"/>
+                                                    <action selector="switchQualityPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wfB-wg-Lvb"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -187,7 +169,7 @@
                                         </constraints>
                                         <state key="normal" image="playButton"/>
                                         <connections>
-                                            <action selector="onOffButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fmb-pq-qxf"/>
+                                            <action selector="switchOnOffPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fmb-pq-qxf"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cuL-tw-GKl">
@@ -232,7 +214,7 @@
                         <outlet property="highQualityButton" destination="vBe-jg-eeB" id="DIU-Jn-npR"/>
                         <outlet property="highestQualityButton" destination="UlS-dh-VXz" id="g4Y-bT-4uB"/>
                         <outlet property="middleQualityButton" destination="v7Z-nP-eI1" id="ZPY-2E-lXV"/>
-                        <outlet property="onOffButton" destination="2Cn-sg-8KA" id="LP3-k0-WR3"/>
+                        <outlet property="switchOnOffButton" destination="2Cn-sg-8KA" id="LP3-k0-WR3"/>
                         <outlet property="topView" destination="vVU-BD-LyL" id="1da-Nd-C7o"/>
                         <outlet property="volumeParentView" destination="cuL-tw-GKl" id="iXn-PI-g9t"/>
                         <outletCollection property="qualityButtons" destination="UlS-dh-VXz" collectionClass="NSMutableArray" id="chk-y1-HSg"/>
