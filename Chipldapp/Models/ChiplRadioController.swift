@@ -120,24 +120,35 @@ extension ChiplRadioController: FRadioPlayerDelegate {
         print(" = = = [\(self.className)] '\(state.description)'")
     }
     func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
-        guard let metadata = artistName else { // FIXME: Неплохо бы подстраховаться: если artistName пустой, попробовать получить данные из trackName
+        var metadata: String = ""
+        var metadataParts: [String] = []
+        var currentArtist: String = ""
+        var currentTitle: String = ""
+        if artistName != nil {
+            metadata = artistName!
+        }
+        if metadata == "" && trackName != nil { // Если artistName пустой, пробуем получить данные из trackName
+            metadata = trackName!
+        }
+        if metadata.count > 0 {
+            print(" = = = [\(self.className)] В эфире: '\(metadata)'.")
+            metadataParts = metadata.components(separatedBy: "/")
+            if metadataParts.count > 0 {
+                currentArtist = metadata.components(separatedBy: "/")[0]
+                if metadataParts.count > 1 {
+                    currentTitle = metadata.components(separatedBy: "/")[1]
+                }
+            }
+        } else {
             print(" = = = [\(self.className)] Не удалось прочитать метаданные из аудиопотока.")
-            return
         }
-        guard metadata.count > 0 else {
-            print(" = = = [\(self.className)] Метаданные отсутствуют.")
-            return
-        }
-        print(" = = = [\(self.className)] В эфире: '\(metadata)'.")
-        let currentArtist = metadata.components(separatedBy: "/")[0] // FIXME: Нужна защита от пустых / отсутствующих значений
-        let currentTitle = metadata.components(separatedBy: "/")[1]
         guard let handler = metadataDidChangeHandler else {
             print(" = = = [\(self.className)] Отсутствует обработчик обновления метаданных.")
             return
         }
-        handler(currentArtist, currentTitle)
-        }
+        handler(currentArtist, currentTitle) // FIXME: При включении радио до загрузки метаданных успевает вызваться обработчик и обновить заглушку. Это лишнее действие.
     }
+}
 // MARK: -
 enum SoundQuality: Int {
     case low = 40

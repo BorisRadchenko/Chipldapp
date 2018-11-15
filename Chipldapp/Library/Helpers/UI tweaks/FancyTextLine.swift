@@ -47,3 +47,13 @@ class FancyTextLine: NSCopying {
         return copy
     }
 }
+
+extension FancyTextLine { // FIXME: Объединить с расширением UIView
+    func leadingX(byOwnCenterX ownCenterX: CGFloat) -> CGFloat {
+        return ownCenterX - self.width / 2
+    }
+    
+    func leadingX(byExternalWidth externalWidth: CGFloat) -> CGFloat {
+        return externalWidth / 2 - self.width / 2
+    }
+}

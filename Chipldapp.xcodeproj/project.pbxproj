@@ -12,7 +12,6 @@
 		C13401672181143F007C0B94 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13401662181143F007C0B94 /* MockData.swift */; };
 		C134016921811621007C0B94 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016821811621007C0B94 /* Colors.swift */; };
 		C134016B218118D1007C0B94 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016A218118D1007C0B94 /* UIViewExtension.swift */; };
-		C134016D21812CA5007C0B94 /* CoordinateCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */; };
 		C15F8E06219A16BC003296D8 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F8E05219A16BC003296D8 /* NSObjectExtension.swift */; };
 		C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0521587D4E00D0F35A /* AppDelegate.swift */; };
 		C187FD0B21587D4E00D0F35A /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0921587D4E00D0F35A /* MainScreen.storyboard */; };
@@ -34,7 +33,6 @@
 		C13401662181143F007C0B94 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		C134016821811621007C0B94 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C134016A218118D1007C0B94 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Chipldapp/Library/Helpers/Constants/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
-		C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCalculations.swift; sourceTree = "<group>"; };
 		C15F8E05219A16BC003296D8 /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		C187FD0221587D4E00D0F35A /* Chipldapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chipldapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C187FD0521587D4E00D0F35A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -208,11 +206,10 @@
 		C1F5EF292158DAC2008F8518 /* UI tweaks */ = {
 			isa = PBXGroup;
 			children = (
-				C134016C21812CA4007C0B94 /* CoordinateCalculations.swift */,
 				C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */,
+				C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */,
 				C1D060E4216F1B1800002936 /* FancyWord.swift */,
 				C1D060E6216F1B7E00002936 /* FancyTextLine.swift */,
-				C1D060E8216F1BEA00002936 /* FancyTextParagraph.swift */,
 				C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */,
 			);
 			path = "UI tweaks";
@@ -367,7 +364,6 @@
 			files = (
 				C10F2199219C7E2A002CB334 /* MainScreenController.swift in Sources */,
 				C15F8E06219A16BC003296D8 /* NSObjectExtension.swift in Sources */,
-				C134016D21812CA5007C0B94 /* CoordinateCalculations.swift in Sources */,
 				C134016921811621007C0B94 /* Colors.swift in Sources */,
 				C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */,
 				C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */,

@@ -6,11 +6,15 @@
 //  Copyright © 2018 KexitSoft. All rights reserved.
 //
 
+// На основе текстовых значений title, artist и placeholder
+// создаёт визуальные элементы заголовка
+// и надлежащим образом размещает их в заданном view
+
 import UIKit
 
-class FancyHeader {
-    // MARK: - P R O P E R T I E S / public
-    // MARK: P R O P E R T I E S / private
+class FancyHeader: NSObject {
+    // MARK: P R O P E R T I E S / public
+    // MARK: - P R O P E R T I E S / private
     private var title: String?
     private var artist: String?
     private var placeholder: String
@@ -28,8 +32,8 @@ class FancyHeader {
     private let spaceLabel = UILabel()
     private let hyphenLabel = UILabel()
     
-    // MARK: - P R O P E R T I E S / private / outlets
-    // MARK: M E T H O D S / public
+    // MARK: P R O P E R T I E S / private / outlets
+    // MARK: - M E T H O D S / public
     init(title: String? = nil, artist: String? = nil, placeholder: String, displayArea: UIView) {
         self.title = title
         self.artist = artist
@@ -42,118 +46,82 @@ class FancyHeader {
         self.hyphenLabel.text = "-"
         self.hyphenLabel.sizeToFit()
     }
-    func hasEnoughDisplayAreaSize() -> Bool {
-        guard displayArea.bounds.width >= minDisplayAreaWidth else { return false }
-        guard displayArea.bounds.height >= minDisplayAreaHeight else { return false }
-        return true
-    }
-    func show() { // FIXME: Рефакторинг
-        // 1) displayArea имеет недостаточный размер -> ничего не делаем
-        // 2) title и artist равны nil или пустой строке -> показываем заглушку
-        // 3) только title равен nil или пустой строке -> показываем только artist
-        // 4) только artist равен nil или пустой строке -> показываем только title
-        // 5) есть и artist, и title -> показываем title и artist
-        if (title != "") && (title != nil) {
-            prepareTitleHeader()
-            let titleHeaderHeight = titleHeaderParagraph!.getHeight()
-            prepareArtistHeader()
-            let artistHeaderHeight = getArtistHeaderHeight()
-            let totalHeaderHeight = titleHeaderHeight + titlePartsSpace + artistHeaderHeight
-            var titleTopY: CGFloat = 0
-            if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
-                titleTopY = topY(byExternalHeight: displayArea.bounds.height, ownHeight: totalHeaderHeight)
-            } else {
-                titleTopY = topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33, ownHeight: totalHeaderHeight)
+    func show() { // FIXME: Добавить проверку соответствия displayArea минимальным размерам
+     // 1. Составить заголовок из artist, title, placeholder
+        var topY: CGFloat = 0 // верхний Y верхнего элемента заголовка
+        let headerView = UIView() // контейнер, в котором собирается содержимое заголовка, а затем отображается в displayArea
+        headerView.frame = displayArea.frame
+        var totalHeaderHeight: CGFloat = 0
+        var metadataIsEmpty = true
+        if title != nil && title != "" {
+            let titleHeader = FancyTextParagraph(text: title!, container: headerView, indent: indent, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
+            titleHeader.showInContainerAt(startY: topY)
+            topY += titleHeader.height + titlePartsSpace
+            totalHeaderHeight = titleHeader.height
+            metadataIsEmpty = false
+            print(" = = = [\(self.className)] Подготовлено название песни (\(title!)), высота = \(titleHeader.height).")
+        }
+        if artist != nil && artist != "" { // создать artist-часть заголовка
+            let artistHeader = createArtistHeader()
+            show(label: artistHeader, inContainer: headerView, atY: topY) // добавить artist-часть заголовка в headerView
+            if totalHeaderHeight > 0 {
+                totalHeaderHeight += titlePartsSpace
             }
-            let artistTopY = titleTopY + titleHeaderHeight + titlePartsSpace
-            titleHeaderParagraph!.show(inContainer: displayArea, withIndent: 20, startY: titleTopY)
-            showArtistHeader(topY: artistTopY)
-            let scale = displayArea.bounds.height / totalHeaderHeight
-            if scale < 1 {
-                displayArea.transform = CGAffineTransform(scaleX: scale, y: scale)
-            }
+            totalHeaderHeight += artistHeader.bounds.height
+            metadataIsEmpty = false
+            print(" = = = [\(self.className)] Подготовлен исполнитель (\(artist!)), высота = \(artistHeader.bounds.height).")
+        }
+        if metadataIsEmpty { // создать placeholder-заголовок
+            let placeholderHeader = FancyTextParagraph(text: shuffledPlaceholder, container: headerView, indent: indent, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
+            placeholderHeader.showInContainerAt(startY: topY)
+            totalHeaderHeight = placeholderHeader.height
+            print(" = = = [\(self.className)] Подготовлена заглушка, высота = \(placeholderHeader.height).")
+        }
+        headerView.frame.size.height = totalHeaderHeight
+        print(" = = = [\(self.className)] Общая высота заголовка = \(totalHeaderHeight).")
+        // 2. Разместить headerView в зависимости от его высоты по центру или по верхней трети
+        if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
+            headerView.frame.origin.y = headerView.topY(byExternalHeight: displayArea.bounds.height)
+            print(" = = = [\(self.className)] Общая высота заголовка больше половины высоты экрана, размещаем заголовок по центру верхней области (\(displayArea.bounds.height/2)).")
         } else {
-            showPlaceholder()
+            headerView.frame.origin.y = headerView.topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33)
+            print(" = = = [\(self.className)] Общая высота заголовка меньше половины высоты экрана, центрируем заголовок по верхней трети экрана (\(UIScreen.main.bounds.height * 0.33)).")
+        }
+        displayArea.addSubview(headerView)
+        // 3. При необходимости масштабировать headerView
+        let scale = displayArea.bounds.height / totalHeaderHeight
+        if scale < 1 {
+            headerView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            print(" = = = [\(self.className)] К заголовку применён коэффициент масштабирования = \(scale).")
         }
     }
     
-    // MARK: - M E T H O D S / public / actions
-    // MARK: M E T H O D S / private
-    private func prepareTitleHeader() { // FIXME: Рефакторинг
-        guard let title = title else {
-            print("There is no title to prepare")
-            return
-        }
-        titleHeaderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
-        let words: [String] = title.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
-        for word in words {
-            let fancyWord = FancyWord()
-            for letter in word {
-                let letterLabel = UILabel()
-                letterLabel.attributedText = FancyLetterStyle.decorateRandomly(letter) //.decorateMinSize(letter)
-                letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-                letterLabel.layer.borderWidth = 0.3
-                fancyWord.add(letter: letterLabel)
-            }
-            titleHeaderParagraph!.addWord(fancyWord)
-        }
-        titleHeaderParagraph!.finish()
-    }
-    private func prepareArtistHeader() { // FIXME: Рефакторинг
-        
-        guard let artist = artist else {
-            print("There is no artist name to show")
-            return
-        }
-        artistHeaderLabel = UILabel()
-        artistHeaderLabel!.text = artist
-        artistHeaderLabel!.font = artistFont
-        artistHeaderLabel!.numberOfLines = 0
-        artistHeaderLabel!.textAlignment = .center
-        
-        artistHeaderLabel!.frame = CGRect(x: 0, y: 0, width: displayArea.bounds.width - indent * 2, height: 0)
-        artistHeaderLabel!.sizeToFit()
-    }
-    private func showArtistHeader(topY: CGFloat) { // FIXME: Рефакторинг
-        artistHeaderLabel!.frame = CGRect(x: leadingX(byExternalWidth: displayArea.bounds.width, ownWidth: artistHeaderLabel!.bounds.width),
-                                          y: topY,
-                                          width: artistHeaderLabel!.bounds.width,
-                                          height: artistHeaderLabel!.bounds.height)
-        displayArea.addSubview(artistHeaderLabel!)
-    }
-    private func getArtistHeaderHeight() -> CGFloat {
-        return artistHeaderLabel!.bounds.height
-    }
-    private func showPlaceholder() { // FIXME: Рефакторинг
-        let placeholderParagraph = FancyTextParagraph(widthLimit: displayArea.bounds.width - indent * 2, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
-        
-        let words: [String] = shuffledPlaceholder.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
-        
-        for word in words {
-            let fancyWord = FancyWord()
-            for letter in word {
-                let letterLabel = UILabel()
-                letterLabel.attributedText = FancyLetterStyle.decorateRandomly(letter)
-                letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-                letterLabel.layer.borderWidth = 0.3
-                fancyWord.add(letter: letterLabel)
-            }
-            placeholderParagraph.addWord(fancyWord)
-        }
-        placeholderParagraph.finish()
-        var placeholderTopY: CGFloat = 0
-        if placeholderParagraph.getHeight() > UIScreen.main.bounds.height * 0.5 {
-            placeholderTopY = topY(byExternalHeight: displayArea.bounds.height, ownHeight: placeholderParagraph.getHeight())
-        } else {
-            placeholderTopY = topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33, ownHeight: placeholderParagraph.getHeight())
-        }
-        placeholderParagraph.show(inContainer: displayArea, withIndent: 20, startY: placeholderTopY)
-    }
+    // MARK: M E T H O D S / public / actions
+    // MARK: - M E T H O D S / private
     private func shuffleLetters(_ string: String) -> String {
-        // TODO: Рефакторинг
         var chars = Array(String(string.shuffled()).lowercased())
         chars[0] = Character(String(chars[0]).uppercased())
         return String(chars)
     }
+    private func createArtistHeader() -> UILabel {
+        let label = UILabel()
+        label.text = artist!
+        label.font = artistFont
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.sizeToFit()
+        return label
+    }
+    private func show(label: UILabel, inContainer container: UIView, atY startY: CGFloat) {
+        label.frame.size.width = container.bounds.width - indent * 2
+        label.frame.origin.y = startY
+        label.sizeToFit()
+        label.frame.origin.x = label.leadingX(byExternalWidth: container.bounds.width)
+        container.addSubview(label)
+    }
+    private func hasEnoughDisplayAreaSize() -> Bool {
+        guard displayArea.bounds.width >= minDisplayAreaWidth else { return false }
+        guard displayArea.bounds.height >= minDisplayAreaHeight else { return false }
+        return true
+    }
 }
-// MARK: -

@@ -19,8 +19,7 @@ import MediaPlayer
 class MainScreenController: UIViewController {
     // MARK: - P R O P E R T I E S / public
     // MARK: P R O P E R T I E S / private
-    private let tuner: ChiplRadioController = ChiplRadioController.shared
-    private var isOn: Bool = false // FIXME: Перенести в ChiplTuner в форме дженерика
+    private let tunerController: ChiplRadioController = ChiplRadioController.shared
     private var qualityByButton: [UIButton:SoundQuality] = [:]
     private var fancyHeader: FancyHeader?
     private var mpVolumeSlider: UISlider?
@@ -43,22 +42,19 @@ class MainScreenController: UIViewController {
         fillBackground()
         switchOnOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
         setupVolumeSlider()
-        tuner.qualityDidChangeHandler = displayCurrentQuality
-        tuner.metadataDidChangeHandler = showHeader
-        // showHeader()
+        tunerController.qualityDidChangeHandler = displayCurrentQuality
+        tunerController.metadataDidChangeHandler = showHeader
     }
     // MARK: - M E T H O D S / public / actions
-    @IBAction func switchOnOffPressed(_ sender: UIButton) { // FIXME: Заменить на player.togglePlaying()
-        // if isOn {
-        if tuner.isPlaying { // FIXME: 1
-            tuner.stop()
+    @IBAction func switchOnOffPressed(_ sender: UIButton) {
+        if tunerController.isPlaying {
+            tunerController.stop()
             sender.setImage(UIImage(named: "playButton"), for: .normal)
-            showHeader()
+            showHeader() // FIXME: Разве при остановке воспроизведения автоматом не запускается обработчик смены метаданных?
         } else {
-            tuner.play()
+            tunerController.play()
             sender.setImage(UIImage(named: "stopButton"), for: .normal)
         }
-        isOn = !isOn
     }
     @IBAction func switchQualityPressed(_ sender: UIButton) {
         // 1) Узнать выбранное качество исходя из нажатой кнопки
@@ -66,25 +62,25 @@ class MainScreenController: UIViewController {
             print(" = = = [\(self.className)] Невозможно определить уровень качества звука по нажатой кнопке.")
             return
         }
-        guard selectedQuality != tuner.soundQuality else {
+        guard selectedQuality != tunerController.soundQuality else {
         // 2) Если выбранное качество совпадает с текущим - покинуть метод
             print(" = = = [\(self.className)] Выбранный уровень качества звука не отличается от текущего.")
             return
         }
         // 3) Установить новое значение качества
-        tuner.soundQuality = selectedQuality
+        tunerController.soundQuality = selectedQuality
         // 4) Перезапустить приёмник
-        if isOn {
-            tuner.stop()
-            tuner.play()
+        if tunerController.isPlaying {
+            tunerController.stop()
+            tunerController.play()
         }
     }
     // MARK: - M E T H O D S / private
     private func displayCurrentQuality() {
         // 1) Зная tuner.streamQuality, получить соответствующую кнопку
-        let foundButton = qualityByButton.filter{ $0.value == tuner.soundQuality }.keys.first
+        let foundButton = qualityByButton.filter{ $0.value == tunerController.soundQuality }.keys.first
         guard let currentQualityButton = foundButton else {
-            print(" = = = [\(self.className)] Не удалось обнаружить кнопку, соответствующую заданному уровню качества (\(tuner.soundQuality)).")
+            print(" = = = [\(self.className)] Не удалось обнаружить кнопку, соответствующую заданному уровню качества (\(tunerController.soundQuality)).")
             return
         }
         // 2) эту кнопку пометить как выбранную, остальные - сбросить
@@ -93,9 +89,10 @@ class MainScreenController: UIViewController {
         markAsSelected(currentQualityButton)
         print(" = = = [\(self.className)] Выделена кнопка, соответствующая текущему уровню качества.")
     }
-    private func showHeader(currentArtist: String? = nil, currentTitle: String? = nil) { // FIXME: Перенести сюда плейсхолдер
+    private func showHeader(currentArtist: String? = nil, currentTitle: String? = nil) {
+        let placeholder = "Чипльдук"
         topView.removeSubviews()
-        fancyHeader = FancyHeader(title: currentTitle, artist: currentArtist, placeholder: "Чипльдук", displayArea: topView)
+        fancyHeader = FancyHeader(title: currentTitle, artist: currentArtist, placeholder: placeholder, displayArea: topView)
         fancyHeader!.show()
     }
     private func markAsSelected(_ button: UIButton) {
@@ -140,5 +137,17 @@ class MainScreenController: UIViewController {
         mpVolumeSlider.centerYAnchor.constraint(equalTo: volumeParentView.centerYAnchor).isActive = true
         mpVolumeSlider.setThumbImage(#imageLiteral(resourceName: "speakerSign"), for: .normal)
         mpVolumeSlider.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    }
+    // MARK: - T E S T:
+    var mockIndex = 0
+    @IBAction func mockHeadersButtonPushed(_ sender: UIButton) {
+        let placeholder = "Чипльдук"
+        topView.removeSubviews()
+        fancyHeader = FancyHeader(title: titles[mockIndex],
+                                  artist: artists[mockIndex],
+                                  placeholder: placeholder,
+                                  displayArea: topView)
+        fancyHeader!.show()
+        mockIndex = mockIndex == titles.count - 1 ? 0 : mockIndex + 1
     }
 }

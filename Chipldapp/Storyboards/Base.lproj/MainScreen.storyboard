@@ -180,6 +180,14 @@
                                             <constraint firstAttribute="height" constant="36" id="XO4-d2-bu3"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wX-eJ-sB3">
+                                        <rect key="frame" x="16" y="0.0" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="test"/>
+                                        <connections>
+                                            <action selector="mockHeadersButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WAi-mo-vAm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="cuL-tw-GKl" firstAttribute="leading" secondItem="2Cn-sg-8KA" secondAttribute="trailing" constant="16" id="2st-Fm-MsC"/>

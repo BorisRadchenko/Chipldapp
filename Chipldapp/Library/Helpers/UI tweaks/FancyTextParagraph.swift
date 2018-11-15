@@ -6,48 +6,79 @@
 //  Copyright © 2018 KexitSoft. All rights reserved.
 //
 
+//  Разбивает текст на слова, состоящие из label'ов, оформленных в разных стилях.
+//  Формирует из слов абзац, соответствующий ширине и полям контейнера.
+//  Слишком длинные слова разбиваются переносами.
+//  Показывает своё содержимое в контейнере, на указанной высоте.
+
 import UIKit
 
 class FancyTextParagraph {
-    var lines: [FancyTextLine] = []
-    var currentLine = FancyTextLine()
-    var widthLimit: CGFloat
-    var spaceLabel: UILabel
-    var hyphenLabel: UILabel
-    var interlineSpace: CGFloat
-    // MARK: - М Е Т О Д Ы:
-    init(widthLimit: CGFloat, interlineSpacing: CGFloat, spaceLabel: UILabel, hyphenLabel: UILabel) {
-        self.widthLimit = widthLimit
+    // MARK: - P R O P E R T I E S / public
+    var height: CGFloat { return getHeight() }
+    
+    // MARK: - P R O P E R T I E S / private
+    private var lines: [FancyTextLine] = []
+    private var currentLine = FancyTextLine()
+    private var container: UIView
+    private var width: CGFloat { return container.bounds.width }
+    private var indent: CGFloat
+    private var widthLimit: CGFloat { return width - indent * 2 }
+    private var spaceLabel: UILabel
+    private var hyphenLabel: UILabel
+    private var interlineSpace: CGFloat
+    private var text: String
+    
+    // MARK: P R O P E R T I E S / private / outlets
+    // MARK: - M E T H O D S / public
+    init(text: String, container: UIView, indent: CGFloat, interlineSpacing: CGFloat, spaceLabel: UILabel, hyphenLabel: UILabel) {
+        self.container = container
+        self.indent = indent
         self.interlineSpace = interlineSpacing
         self.spaceLabel = spaceLabel
-        // spaceLabel.sizeToFit()
         self.hyphenLabel = hyphenLabel
-        // hyphenLabel.sizeToFit()
+        self.text = text
+        fillLines(withText: text)
+    }
+    func showInContainerAt(startY: CGFloat) {
+        let visibleContent = UIView()
+        var lineY = startY
+        for line in lines {
+            var startX = line.leadingX(byExternalWidth: widthLimit) 
+            for label in line.letters {
+                let startY = label.topY(byExternalHeight: line.height)
+                label.frame = CGRect(x: startX + indent, y: lineY + startY, width: label.bounds.width, height: label.bounds.height)
+                visibleContent.addSubview(label)
+                startX += label.bounds.width
+            }
+            lineY += line.height + interlineSpace
+        }
+        container.addSubview(visibleContent)
+        visibleContent.addShadow(color: shadowColor, opacity: 0.7)
     }
     
-    func addWord(_ word: FancyWord) {
-        //        1) Узнать длину текущей строки (если строка непустая)
-        //        2) Проверить, не превышает ли слово ширину строки
-        //            Если превышает, то разбить слово переносами
-        //        Проверить, вмещается ли новое слово в текущую строку
-        //          Если не вмещается, то разбить на несколько слов с помощью переносов
-        //        Метод "начать новую строку"
-        //        Метод "дополнить текущую строку"
-        //        Метод "узнать объём свободного места в текущей строке"
+    // MARK: M E T H O D S / public / actions
+    // MARK: - M E T H O D S / private
+    private func fillLines(withText text: String) {
+        let words: [String] = text.components(separatedBy: .whitespacesAndNewlines).filter {!$0.isEmpty}
+        for word in words {
+            let fancyWord = FancyWord()
+            for letter in word {
+                let letterLabel = UILabel()
+                letterLabel.attributedText = FancyLetterStyle.decorateRandomly(letter) //.decorateMinSize(letter)
+                letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+                letterLabel.layer.borderWidth = 0.3
+                fancyWord.add(letter: letterLabel)
+            }
+            addWord(fancyWord)
+        }
+        finish()
+    }
+    private func addWord(_ word: FancyWord) {
         var wordParts: [FancyWord] = []
         if word.width > widthLimit {
-            // Переносы необходимы, если word.width > widthLimit
-            // Разделить длинное слово на части
-            //  - в текущую строку попробовать добавить начало слова
-            //      - часть должна состоять из как минимум трёх букв
-            //      - если не вмещается, значит первая часть слова будет размещаться не на текущей, а на следующей строке
-            //  - двигаясь слева направо, отсекать от слова как можно большие фрагменты, способные вместиться вместе с символом переноса в установленную ширину
-            // Каждую часть плюс дефис добавить в абзац так же, как если бы это было отдельное слово
             if currentLine.isNotEmpty {
-                //  - в текущую строку попробовать добавить начало слова
-                // Зная ширину свободного места в строке, подобрать максимальную возможную часть слова
                 let wordPart = word.prefixByWidthLimit(getEmptySpaceInCurrentLine()-hyphenLabel.bounds.width)
-                //      - часть должна состоять из как минимум трёх букв
                 if wordPart!.letterCount > 2 {
                     word.removePart(length: wordPart!.letterCount)
                     wordPart!.add(letter: hyphenCopy())
@@ -75,59 +106,34 @@ class FancyTextParagraph {
             currentLine.add(spacedWord)
         }
     }
-    
     private func getEmptySpaceInCurrentLine() -> CGFloat {
         return widthLimit - currentLine.width
     }
-    
     private func addFirstWordToCurrentLine(_ word: FancyWord) {
         currentLine.add(word)
     }
-    
     private func addNextWordToCurrentLine(_ word: FancyWord) {
         currentLine.add(spaceLabel)
         currentLine.add(word)
     }
-    
     private func saveAndClearCurrentLine() {
         lines.append(currentLine.copy() as! FancyTextLine)
         currentLine.clear()
     }
-    
-    func finish() {
+    private func finish() {
         saveAndClearCurrentLine()
     }
-    
-    func show(inContainer container: UIView, withIndent indent: CGFloat, startY: CGFloat) {
-        let labelsView = UIView()
-        var lineY = startY
-        for line in lines {
-            var startX = leadingX(byExternalWidth: widthLimit, ownWidth: line.width)
-            for label in line.letters {
-                let startY = topY(byExternalHeight: line.height, ownHeight: label.bounds.height)
-                label.frame = CGRect(x: startX + indent, y: lineY + startY, width: label.bounds.width, height: label.bounds.height)
-                labelsView.addSubview(label)
-                startX += label.bounds.width
-            }
-            lineY += line.height + interlineSpace
-        }
-        container.addSubview(labelsView)
-        labelsView.addShadow(color: shadowColor, opacity: 0.7)
-    }
-    
-    func getHeight()->CGFloat {
+    private func getHeight() -> CGFloat {
         var height: CGFloat = 0
         lines.forEach{ height += $0.height}
         height += interlineSpace * CGFloat(lines.count - 1)
         return height
     }
-    
-    func hyphenCopy() -> UILabel {
+    private func hyphenCopy() -> UILabel {
         let copy = UILabel ()
         copy.text = hyphenLabel.text
         copy.font = hyphenLabel.font
         copy.sizeToFit()
         return copy
     }
-    
 }
