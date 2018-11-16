@@ -59,7 +59,7 @@ class FancyHeader: NSObject {
             topY += titleHeader.height + titlePartsSpace
             totalHeaderHeight = titleHeader.height
             metadataIsEmpty = false
-            print(" = = = [\(self.className)] Подготовлено название песни (\(title!)), высота = \(titleHeader.height).")
+            print("~ \(Date()) ~ \(self.className) ~ Подготовлено название песни (\(title!)), высота = \(titleHeader.height).")
         }
         if artist != nil && artist != "" { // создать artist-часть заголовка
             let artistHeader = createArtistHeader()
@@ -69,30 +69,30 @@ class FancyHeader: NSObject {
             }
             totalHeaderHeight += artistHeader.bounds.height
             metadataIsEmpty = false
-            print(" = = = [\(self.className)] Подготовлен исполнитель (\(artist!)), высота = \(artistHeader.bounds.height).")
+            print("~ \(Date()) ~ \(self.className) ~ Подготовлен исполнитель (\(artist!)), высота = \(artistHeader.bounds.height).")
         }
         if metadataIsEmpty { // создать placeholder-заголовок
             let placeholderHeader = FancyTextParagraph(text: shuffledPlaceholder, container: headerView, indent: indent, interlineSpacing: 3, spaceLabel: spaceLabel, hyphenLabel: hyphenLabel)
             placeholderHeader.showInContainerAt(startY: topY)
             totalHeaderHeight = placeholderHeader.height
-            print(" = = = [\(self.className)] Подготовлена заглушка, высота = \(placeholderHeader.height).")
+            print("~ \(Date()) ~ \(self.className) ~ Подготовлена заглушка, высота = \(placeholderHeader.height).")
         }
         headerView.frame.size.height = totalHeaderHeight
-        print(" = = = [\(self.className)] Общая высота заголовка = \(totalHeaderHeight).")
+        print("~ \(Date()) ~ \(self.className) ~ Общая высота заголовка = \(totalHeaderHeight).")
         // 2. Разместить headerView в зависимости от его высоты по центру или по верхней трети
         if totalHeaderHeight > UIScreen.main.bounds.height * 0.5 {
             headerView.frame.origin.y = headerView.topY(byExternalHeight: displayArea.bounds.height)
-            print(" = = = [\(self.className)] Общая высота заголовка больше половины высоты экрана, размещаем заголовок по центру верхней области (\(displayArea.bounds.height/2)).")
+            print("~ \(Date()) ~ \(self.className) ~ Общая высота заголовка больше половины высоты экрана, размещаем заголовок по центру верхней области (\(displayArea.bounds.height/2)).")
         } else {
             headerView.frame.origin.y = headerView.topY(byOwnCenterY: UIScreen.main.bounds.height * 0.33)
-            print(" = = = [\(self.className)] Общая высота заголовка меньше половины высоты экрана, центрируем заголовок по верхней трети экрана (\(UIScreen.main.bounds.height * 0.33)).")
+            print("~ \(Date()) ~ \(self.className) ~ Общая высота заголовка меньше половины высоты экрана, центрируем заголовок по верхней трети экрана (\(UIScreen.main.bounds.height * 0.33)).")
         }
         displayArea.addSubview(headerView)
         // 3. При необходимости масштабировать headerView
         let scale = displayArea.bounds.height / totalHeaderHeight
         if scale < 1 {
             headerView.transform = CGAffineTransform(scaleX: scale, y: scale)
-            print(" = = = [\(self.className)] К заголовку применён коэффициент масштабирования = \(scale).")
+            print("~ \(Date()) ~ \(self.className) ~ К заголовку применён коэффициент масштабирования = \(scale).")
         }
     }
     

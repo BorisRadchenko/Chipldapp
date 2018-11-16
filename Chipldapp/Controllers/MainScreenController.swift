@@ -17,7 +17,7 @@ import UIKit
 import MediaPlayer
 
 class MainScreenController: UIViewController {
-    // MARK: - P R O P E R T I E S / public
+    // MARK: - P R O P E R T I E S / public    
     // MARK: P R O P E R T I E S / private
     private let tunerController: ChiplRadioController = ChiplRadioController.shared
     private var qualityByButton: [UIButton:SoundQuality] = [:]
@@ -40,10 +40,13 @@ class MainScreenController: UIViewController {
                            highQualityButton    : SoundQuality.high,
                            highestQualityButton : SoundQuality.highest]
         fillBackground()
-        switchOnOffButton.addShadow(color: shadowColor, radius: 3, opacity: 0.7)
+        switchOnOffButton.addShadow(color: .shadowColor, radius: 3, opacity: 0.7)
         setupVolumeSlider()
         tunerController.qualityDidChangeHandler = displayCurrentQuality
         tunerController.metadataDidChangeHandler = showHeader
+    }
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     // MARK: - M E T H O D S / public / actions
     @IBAction func switchOnOffPressed(_ sender: UIButton) {
@@ -59,12 +62,12 @@ class MainScreenController: UIViewController {
     @IBAction func switchQualityPressed(_ sender: UIButton) {
         // 1) Узнать выбранное качество исходя из нажатой кнопки
         guard let selectedQuality = qualityByButton[sender] else {
-            print(" = = = [\(self.className)] Невозможно определить уровень качества звука по нажатой кнопке.")
+            print("~ \(Date()) ~ \(self.className) ~ Невозможно определить уровень качества звука по нажатой кнопке.")
             return
         }
         guard selectedQuality != tunerController.soundQuality else {
         // 2) Если выбранное качество совпадает с текущим - покинуть метод
-            print(" = = = [\(self.className)] Выбранный уровень качества звука не отличается от текущего.")
+            print("~ \(Date()) ~ \(self.className) ~ Выбранный уровень качества звука не отличается от текущего.")
             return
         }
         // 3) Установить новое значение качества
@@ -80,14 +83,14 @@ class MainScreenController: UIViewController {
         // 1) Зная tuner.streamQuality, получить соответствующую кнопку
         let foundButton = qualityByButton.filter{ $0.value == tunerController.soundQuality }.keys.first
         guard let currentQualityButton = foundButton else {
-            print(" = = = [\(self.className)] Не удалось обнаружить кнопку, соответствующую заданному уровню качества (\(tunerController.soundQuality)).")
+            print("~ \(Date()) ~ \(self.className) ~ Не удалось обнаружить кнопку, соответствующую заданному уровню качества (\(tunerController.soundQuality)).")
             return
         }
         // 2) эту кнопку пометить как выбранную, остальные - сбросить
         qualityButtons.filter{ $0 != currentQualityButton }.forEach{ markAsUnselected($0) }
-        print(" = = = [\(self.className)] Снято выделение остальных кнопок качества.")
+        print("~ \(Date()) ~ \(self.className) ~ Снято выделение остальных кнопок качества.")
         markAsSelected(currentQualityButton)
-        print(" = = = [\(self.className)] Выделена кнопка, соответствующая текущему уровню качества.")
+        print("~ \(Date()) ~ \(self.className) ~ Выделена кнопка, соответствующая текущему уровню качества.")
     }
     private func showHeader(currentArtist: String? = nil, currentTitle: String? = nil) {
         let placeholder = "Чипльдук"
@@ -96,7 +99,7 @@ class MainScreenController: UIViewController {
         fancyHeader!.show()
     }
     private func markAsSelected(_ button: UIButton) {
-        button.backgroundColor = highlitedButtonColor
+        button.backgroundColor = .highlitedButtonColor
         if let text = button.titleLabel!.text {
             let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
             button.setAttributedTitle(attributes, for: .normal)
@@ -119,8 +122,8 @@ class MainScreenController: UIViewController {
                                   y: bounds.height * 0.7,
                                   width: bounds.width,
                                   height: bounds.maxY - bounds.height * 0.7)
-        view.addGradientLayer(rect: topBounds, startColor: gradientEdgeColor, endColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
-        view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
+        view.addGradientLayer(rect: topBounds, startColor: .gradientEdgeColor, endColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
+        view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: .gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
     }
     private func setupVolumeSlider() {
         // Note: This slider implementation uses a MPVolumeView

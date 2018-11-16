@@ -54,7 +54,7 @@ class FancyTextParagraph {
             lineY += line.height + interlineSpace
         }
         container.addSubview(visibleContent)
-        visibleContent.addShadow(color: shadowColor, opacity: 0.7)
+        visibleContent.addShadow(color: .shadowColor, opacity: 0.7)
     }
     
     // MARK: M E T H O D S / public / actions
@@ -66,7 +66,7 @@ class FancyTextParagraph {
             for letter in word {
                 let letterLabel = UILabel()
                 letterLabel.attributedText = FancyLetterStyle.decorateRandomly(letter) //.decorateMinSize(letter)
-                letterLabel.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+                letterLabel.layer.borderColor = .letterBorderColor
                 letterLabel.layer.borderWidth = 0.3
                 fancyWord.add(letter: letterLabel)
             }

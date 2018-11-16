@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // MPNowPlayingInfoCenter
+        UIApplication.shared.beginReceivingRemoteControlEvents()
         return true
     }
 
@@ -39,7 +41,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        UIApplication.shared.endReceivingRemoteControlEvents()
     }
+    // MARK: - Remote Controls
+    
+    // override func remoteControlReceived(with event: UIEvent?) {
+    //     super.remoteControlReceived(with: event)
+    //
+    //     guard let event = event, event.type == UIEvent.EventType.remoteControl else { return }
+    //
+    //     switch event.subtype {
+    //     case .remoteControlPlay:
+    //         //FRadioPlayer.shared.play()
+    //         ChiplRadioController.shared.play()
+    //     case .remoteControlPause:
+    //         //FRadioPlayer.shared.pause()
+    //         ChiplRadioController.shared.stop()
+    //     // case .remoteControlTogglePlayPause:
+    //         //FRadioPlayer.shared.togglePlaying()
+    //     //case .remoteControlNextTrack:
+    //         //stationsViewController?.didPressNextButton()
+    //     //case .remoteControlPreviousTrack:
+    //         //stationsViewController?.didPressPreviousButton()
+    //     default:
+    //         break
+    //     }
+    // }
 
 
 }

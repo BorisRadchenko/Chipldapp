@@ -10,9 +10,9 @@
 		5D09E7C18B2157BE482DC52E /* Pods_Chipldapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6D5DE59324A19E7ED2B835 /* Pods_Chipldapp.framework */; };
 		C10F2199219C7E2A002CB334 /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0721587D4E00D0F35A /* MainScreenController.swift */; };
 		C13401672181143F007C0B94 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13401662181143F007C0B94 /* MockData.swift */; };
-		C134016921811621007C0B94 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016821811621007C0B94 /* Colors.swift */; };
 		C134016B218118D1007C0B94 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016A218118D1007C0B94 /* UIViewExtension.swift */; };
 		C15F8E06219A16BC003296D8 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F8E05219A16BC003296D8 /* NSObjectExtension.swift */; };
+		C16AAB57219E11A30095B09E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16AAB56219E11A30095B09E /* ColorExtension.swift */; };
 		C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0521587D4E00D0F35A /* AppDelegate.swift */; };
 		C187FD0B21587D4E00D0F35A /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0921587D4E00D0F35A /* MainScreen.storyboard */; };
 		C187FD0D21587D4F00D0F35A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0C21587D4F00D0F35A /* Assets.xcassets */; };
@@ -31,9 +31,9 @@
 		7B6D5DE59324A19E7ED2B835 /* Pods_Chipldapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chipldapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D36B9219ECA38E0DD20C959 /* Pods-Chipldapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chipldapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chipldapp/Pods-Chipldapp.debug.xcconfig"; sourceTree = "<group>"; };
 		C13401662181143F007C0B94 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
-		C134016821811621007C0B94 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C134016A218118D1007C0B94 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Chipldapp/Library/Helpers/Constants/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		C15F8E05219A16BC003296D8 /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		C16AAB56219E11A30095B09E /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorExtension.swift; path = "Chipldapp/Library/Helpers/Base objects extensions/Foundation/ColorExtension.swift"; sourceTree = SOURCE_ROOT; };
 		C187FD0221587D4E00D0F35A /* Chipldapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chipldapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C187FD0521587D4E00D0F35A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C187FD0721587D4E00D0F35A /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
@@ -182,7 +182,6 @@
 		C187FD2021587E2B00D0F35A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C1E22AC62180D903004D0E05 /* ChiplRadioController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -190,17 +189,10 @@
 		C187FD2121587E3300D0F35A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C187FD2221587E4300D0F35A /* Main screen */,
+				C187FD0721587D4E00D0F35A /* MainScreenController.swift */,
+				C1E22AC62180D903004D0E05 /* ChiplRadioController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		C187FD2221587E4300D0F35A /* Main screen */ = {
-			isa = PBXGroup;
-			children = (
-				C187FD0721587D4E00D0F35A /* MainScreenController.swift */,
-			);
-			path = "Main screen";
 			sourceTree = "<group>";
 		};
 		C1F5EF292158DAC2008F8518 /* UI tweaks */ = {
@@ -236,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				C134016A218118D1007C0B94 /* UIViewExtension.swift */,
+				C16AAB56219E11A30095B09E /* ColorExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -244,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				C13401662181143F007C0B94 /* MockData.swift */,
-				C134016821811621007C0B94 /* Colors.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -283,6 +275,11 @@
 				TargetAttributes = {
 					C187FD0121587D4E00D0F35A = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -364,10 +361,10 @@
 			files = (
 				C10F2199219C7E2A002CB334 /* MainScreenController.swift in Sources */,
 				C15F8E06219A16BC003296D8 /* NSObjectExtension.swift in Sources */,
-				C134016921811621007C0B94 /* Colors.swift in Sources */,
 				C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */,
 				C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */,
 				C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */,
+				C16AAB57219E11A30095B09E /* ColorExtension.swift in Sources */,
 				C1E22AC72180D903004D0E05 /* ChiplRadioController.swift in Sources */,
 				C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */,
 				C134016B218118D1007C0B94 /* UIViewExtension.swift in Sources */,
@@ -530,7 +527,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = KexitSoft.Chipldapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -549,7 +546,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = KexitSoft.Chipldapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
