@@ -127,15 +127,15 @@ class MainScreenController: UIViewController {
                                   y: bounds.height * 0.7,
                                   width: bounds.width,
                                   height: bounds.maxY - bounds.height * 0.7)
-        view.addGradientLayer(rect: topBounds, startColor: .gradientEdgeColor, endColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
-        view.addGradientLayer(rect: bottomBounds, startColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), endColor: .gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
+        view.addGradientLayer(rect: topBounds, startColor: .gradientEdgeColor, endColor: .whiteColor, startXY: CGPoint(x: 0, y: 0), endXY: CGPoint(x: 0, y: 0.6), atLevel: 0)
+        view.addGradientLayer(rect: bottomBounds, startColor: .whiteColor, endColor: .gradientEdgeColor, startXY: CGPoint(x: 0, y: 0.62), endXY: CGPoint(x: 0, y: 1), atLevel: 1)
     }
     private func setupVolumeSlider() {
         // Note: This slider implementation uses a MPVolumeView
         // The volume slider only works in devices, not the simulator.
         for subview in MPVolumeView().subviews {
             guard let volumeSlider = subview as? UISlider else { continue }
-            mpVolumeSlider = volumeSlider
+            mpVolumeSlider = volumeSlider // FIXME: Кажется, это здесь лишнее
         }
         guard let mpVolumeSlider = mpVolumeSlider else { return }
         volumeParentView.addSubview(mpVolumeSlider)
@@ -144,7 +144,7 @@ class MainScreenController: UIViewController {
         mpVolumeSlider.rightAnchor.constraint(equalTo: volumeParentView.rightAnchor).isActive = true
         mpVolumeSlider.centerYAnchor.constraint(equalTo: volumeParentView.centerYAnchor).isActive = true
         mpVolumeSlider.setThumbImage(#imageLiteral(resourceName: "speakerSign"), for: .normal)
-        mpVolumeSlider.tintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        mpVolumeSlider.tintColor = .blackColor
     }
     // MARK: - T E S T:
     var mockIndex = 0
