@@ -18,6 +18,7 @@
 		C187FD0D21587D4F00D0F35A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0C21587D4F00D0F35A /* Assets.xcassets */; };
 		C187FD1021587D4F00D0F35A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C187FD0E21587D4F00D0F35A /* LaunchScreen.storyboard */; };
 		C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */; };
+		C1C9AF02219E95F000A422A4 /* MessageScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C9AF01219E95F000A422A4 /* MessageScreenController.swift */; };
 		C1D060E1216EDA1800002936 /* FancyLetterStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */; };
 		C1D060E5216F1B1800002936 /* FancyWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E4216F1B1800002936 /* FancyWord.swift */; };
 		C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D060E6216F1B7E00002936 /* FancyTextLine.swift */; };
@@ -42,6 +43,7 @@
 		C187FD0F21587D4F00D0F35A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C187FD1121587D4F00D0F35A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C1C9ADB1216EABEF00BBA87E /* FancyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyHeader.swift; sourceTree = "<group>"; };
+		C1C9AF01219E95F000A422A4 /* MessageScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageScreenController.swift; sourceTree = "<group>"; };
 		C1D060E0216EDA1800002936 /* FancyLetterStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyLetterStyle.swift; sourceTree = "<group>"; };
 		C1D060E4216F1B1800002936 /* FancyWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyWord.swift; sourceTree = "<group>"; };
 		C1D060E6216F1B7E00002936 /* FancyTextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FancyTextLine.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 			children = (
 				C187FD0721587D4E00D0F35A /* MainScreenController.swift */,
 				C1E22AC62180D903004D0E05 /* ChiplRadioController.swift */,
+				C1C9AF01219E95F000A422A4 /* MessageScreenController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				C1E22AC72180D903004D0E05 /* ChiplRadioController.swift in Sources */,
 				C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */,
 				C134016B218118D1007C0B94 /* UIViewExtension.swift in Sources */,
+				C1C9AF02219E95F000A422A4 /* MessageScreenController.swift in Sources */,
 				C1D060E1216EDA1800002936 /* FancyLetterStyle.swift in Sources */,
 				C13401672181143F007C0B94 /* MockData.swift in Sources */,
 				C1D060E5216F1B1800002936 /* FancyWord.swift in Sources */,

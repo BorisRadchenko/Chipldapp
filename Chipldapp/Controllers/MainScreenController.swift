@@ -94,9 +94,13 @@ class MainScreenController: UIViewController {
     }
     private func showHeader(currentArtist: String? = nil, currentTitle: String? = nil) {
         let placeholder = "Чипльдук"
-        topView.removeSubviews()
-        fancyHeader = FancyHeader(title: currentTitle, artist: currentArtist, placeholder: placeholder, displayArea: topView)
-        fancyHeader!.show()
+        topView.fadeOut(completion: {
+            (finished: Bool) -> () in
+            self.topView.removeSubviews()
+            self.fancyHeader = FancyHeader(title: currentTitle, artist: currentArtist, placeholder: placeholder, displayArea: self.topView)
+            self.fancyHeader!.show()
+            self.topView.fadeIn()
+        })
     }
     private func markAsSelected(_ button: UIButton) {
         button.backgroundColor = .highlitedButtonColor
@@ -145,12 +149,16 @@ class MainScreenController: UIViewController {
     var mockIndex = 0
     @IBAction func mockHeadersButtonPushed(_ sender: UIButton) {
         let placeholder = "Чипльдук"
-        topView.removeSubviews()
-        fancyHeader = FancyHeader(title: titles[mockIndex],
-                                  artist: artists[mockIndex],
-                                  placeholder: placeholder,
-                                  displayArea: topView)
-        fancyHeader!.show()
-        mockIndex = mockIndex == titles.count - 1 ? 0 : mockIndex + 1
+        topView.fadeOut(completion: {
+            (finished: Bool) -> () in
+            self.topView.removeSubviews()
+            self.fancyHeader = FancyHeader(title: titles[self.mockIndex],
+                                      artist: artists[self.mockIndex],
+                                      placeholder: placeholder,
+                                      displayArea: self.topView)
+            self.fancyHeader!.show()
+            self.topView.fadeIn()
+            self.mockIndex = self.mockIndex == titles.count - 1 ? 0 : self.mockIndex + 1
+        })
     }
 }

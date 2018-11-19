@@ -35,7 +35,18 @@ extension UIView {
     func removeSubviews() {
         self.subviews.forEach{ $0.removeFromSuperview() }
     }
+
+    func fadeIn(_ duration: TimeInterval = 0.1, delay: TimeInterval = 0.2, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
+        UIView.animate(withDuration: duration, delay: delay, options: .curveEaseIn, animations: {
+            self.alpha = 1.0
+        }, completion: completion)  }
     
+    func fadeOut(_ duration: TimeInterval = 0.1, delay: TimeInterval = 0.0, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in}) {
+        UIView.animate(withDuration: duration, delay: delay, options: .curveEaseIn, animations: {
+            self.alpha = 0.0
+        }, completion: completion)
+    }
+
     func topY(byOwnCenterY ownCenterY: CGFloat) -> CGFloat {
         return ownCenterY - self.bounds.height / 2
     }

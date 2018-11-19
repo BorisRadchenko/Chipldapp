@@ -151,12 +151,16 @@ class ChiplRadioController: NSObject {
 // MARK: - E X T / ChiplTuner : FRadioPlayerDelegate
 extension ChiplRadioController: FRadioPlayerDelegate {
     func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
-        print("~ \(Date()) ~ \(self.className) ~ '\(state.description)'")
+        print("~ \(Date()) ~ \(self.className) ~ Player state = '\(state.description)'")
     }
     func radioPlayer(_ player: FRadioPlayer, playbackStateDidChange state: FRadioPlaybackState) {
-        print("~ \(Date()) ~ \(self.className) ~ '\(state.description)'")
+        print("~ \(Date()) ~ \(self.className) ~ Playback state = '\(state.description)'")
     }
     func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
+        print("~ \(Date()) ~ \(self.className) ~ Player metadata = '\(artistName ?? "-")' '\(trackName ?? "-")'.")
+        guard player.state == .loadingFinished, player.playbackState == .playing else {
+            return
+        }
         var metadata: String = ""
         var metadataParts: [String] = []
         var currentArtist: String = ""
@@ -171,9 +175,9 @@ extension ChiplRadioController: FRadioPlayerDelegate {
             print("~ \(Date()) ~ \(self.className) ~ В эфире: '\(metadata)'.")
             metadataParts = metadata.components(separatedBy: "/")
             if metadataParts.count > 0 {
-                currentArtist = metadata.components(separatedBy: "/")[0]
+                currentArtist = metadataParts[0]
                 if metadataParts.count > 1 {
-                    currentTitle = metadata.components(separatedBy: "/")[1]
+                    currentTitle = metadataParts[1]
                 }
             }
         } else {
@@ -183,7 +187,7 @@ extension ChiplRadioController: FRadioPlayerDelegate {
             print("~ \(Date()) ~ \(self.className) ~ Отсутствует обработчик обновления метаданных.")
             return
         }
-        handler(currentArtist, currentTitle) // FIXME: При включении радио до загрузки метаданных успевает вызваться обработчик и обновить заглушку. Это лишнее действие.
+        handler(currentArtist, currentTitle)
         updateLockScreen(artist: currentArtist, title: currentTitle)
     }
 }

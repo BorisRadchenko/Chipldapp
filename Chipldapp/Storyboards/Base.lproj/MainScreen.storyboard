@@ -188,6 +188,14 @@
                                             <action selector="mockHeadersButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WAi-mo-vAm"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLm-e4-Zem">
+                                        <rect key="frame" x="332" y="0.0" width="38" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="crash"/>
+                                        <connections>
+                                            <segue destination="DDA-2n-eUc" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="hJI-0a-fVD"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="cuL-tw-GKl" firstAttribute="leading" secondItem="2Cn-sg-8KA" secondAttribute="trailing" constant="16" id="2st-Fm-MsC"/>
@@ -233,6 +241,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="53.600000000000001" y="27.436281859070466"/>
+        </scene>
+        <!--Message Screen Controller-->
+        <scene sceneID="Ctw-xo-rHF">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="DDA-2n-eUc" customClass="MessageScreenController" customModule="Chipldapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lI9-4f-E17">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lDr-l3-xWK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgj-yj-T4C">
+                                <rect key="frame" x="13" y="254" width="349.5" height="159"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sбой. Бывает." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gkf-4K-hmU">
+                                        <rect key="frame" x="10" y="50" width="329.5" height="59"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="329.5" id="KiJ-qv-M2f"/>
+                                            <constraint firstAttribute="height" constant="59" id="pAQ-e9-cV1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="53"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.79500214039999995" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.4022902397" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Gkf-4K-hmU" secondAttribute="trailing" constant="10" id="1Gn-Hy-X7r"/>
+                                    <constraint firstItem="Gkf-4K-hmU" firstAttribute="leading" secondItem="Lgj-yj-T4C" secondAttribute="leading" constant="10" id="Mxu-Ny-00s"/>
+                                    <constraint firstItem="Gkf-4K-hmU" firstAttribute="centerY" secondItem="Lgj-yj-T4C" secondAttribute="centerY" id="Nn3-6h-1U5"/>
+                                    <constraint firstAttribute="height" constant="159" id="aoc-x3-yo4"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAU-JC-tKE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <action selector="closeScreen:" destination="DDA-2n-eUc" eventType="touchUpInside" id="lVI-Jg-qPo"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lDr-l3-xWK" firstAttribute="top" secondItem="lI9-4f-E17" secondAttribute="top" id="1Cy-IP-A34"/>
+                            <constraint firstItem="dAU-JC-tKE" firstAttribute="trailing" secondItem="BnY-ka-iUT" secondAttribute="trailing" id="KYX-GW-3BX"/>
+                            <constraint firstItem="dAU-JC-tKE" firstAttribute="leading" secondItem="BnY-ka-iUT" secondAttribute="leading" id="R23-hn-McY"/>
+                            <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerX" secondItem="lI9-4f-E17" secondAttribute="centerX" id="TIH-sg-k7Y"/>
+                            <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerY" secondItem="lI9-4f-E17" secondAttribute="centerY" id="V9X-HA-mZU"/>
+                            <constraint firstItem="dAU-JC-tKE" firstAttribute="top" secondItem="lI9-4f-E17" secondAttribute="top" id="a7N-Ok-rRc"/>
+                            <constraint firstItem="BnY-ka-iUT" firstAttribute="bottom" secondItem="lDr-l3-xWK" secondAttribute="bottom" id="e9u-rX-KjX"/>
+                            <constraint firstItem="lDr-l3-xWK" firstAttribute="leading" secondItem="BnY-ka-iUT" secondAttribute="leading" id="rm1-n7-UXT"/>
+                            <constraint firstItem="dAU-JC-tKE" firstAttribute="bottom" secondItem="BnY-ka-iUT" secondAttribute="bottom" id="uI9-u6-GYo"/>
+                            <constraint firstItem="BnY-ka-iUT" firstAttribute="trailing" secondItem="lDr-l3-xWK" secondAttribute="trailing" id="uM9-B2-TGI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BnY-ka-iUT"/>
+                    </view>
+                    <connections>
+                        <outlet property="smallFrame" destination="Lgj-yj-T4C" id="EnO-0G-PdW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FY4-dg-EPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="27"/>
         </scene>
     </scenes>
     <resources>
