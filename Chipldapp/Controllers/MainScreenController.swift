@@ -44,6 +44,7 @@ class MainScreenController: UIViewController {
         setupVolumeSlider()
         tunerController.qualityDidChangeHandler = displayCurrentQuality
         tunerController.metadataDidChangeHandler = showHeader
+        tunerController.errorDidHappenHandler = showError
     }
     override var prefersStatusBarHidden: Bool {
         return true
@@ -161,4 +162,12 @@ class MainScreenController: UIViewController {
             self.mockIndex = self.mockIndex == titles.count - 1 ? 0 : self.mockIndex + 1
         })
     }
+    @IBAction func crashButtonPressed(_ sender: UIButton) {
+        showError()
+    }
+    func showError() {
+        topView.removeSubviews()
+        performSegue(withIdentifier: "errorSegue", sender: self)
+    }
+    
 }

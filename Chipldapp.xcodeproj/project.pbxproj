@@ -11,6 +11,7 @@
 		C10F2199219C7E2A002CB334 /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0721587D4E00D0F35A /* MainScreenController.swift */; };
 		C13401672181143F007C0B94 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C13401662181143F007C0B94 /* MockData.swift */; };
 		C134016B218118D1007C0B94 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C134016A218118D1007C0B94 /* UIViewExtension.swift */; };
+		C136AB5021A325BD0000A49C /* BackgroundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C136AB4F21A325BD0000A49C /* BackgroundTimer.swift */; };
 		C15F8E06219A16BC003296D8 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15F8E05219A16BC003296D8 /* NSObjectExtension.swift */; };
 		C16AAB57219E11A30095B09E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16AAB56219E11A30095B09E /* ColorExtension.swift */; };
 		C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C187FD0521587D4E00D0F35A /* AppDelegate.swift */; };
@@ -33,6 +34,7 @@
 		8D36B9219ECA38E0DD20C959 /* Pods-Chipldapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chipldapp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chipldapp/Pods-Chipldapp.debug.xcconfig"; sourceTree = "<group>"; };
 		C13401662181143F007C0B94 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		C134016A218118D1007C0B94 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Chipldapp/Library/Helpers/Constants/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
+		C136AB4F21A325BD0000A49C /* BackgroundTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimer.swift; sourceTree = "<group>"; };
 		C15F8E05219A16BC003296D8 /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		C16AAB56219E11A30095B09E /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorExtension.swift; path = "Chipldapp/Library/Helpers/Base objects extensions/Foundation/ColorExtension.swift"; sourceTree = SOURCE_ROOT; };
 		C187FD0221587D4E00D0F35A /* Chipldapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chipldapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +165,7 @@
 				C1F5EF2C215915EF008F8518 /* Base objects extensions */,
 				C1F5EF2F2159163F008F8518 /* Constants */,
 				C1F5EF292158DAC2008F8518 /* UI tweaks */,
+				C136AB4F21A325BD0000A49C /* BackgroundTimer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				C1D060E7216F1B7E00002936 /* FancyTextLine.swift in Sources */,
 				C187FD0621587D4E00D0F35A /* AppDelegate.swift in Sources */,
 				C1C9ADB2216EABEF00BBA87E /* FancyHeader.swift in Sources */,
+				C136AB5021A325BD0000A49C /* BackgroundTimer.swift in Sources */,
 				C16AAB57219E11A30095B09E /* ColorExtension.swift in Sources */,
 				C1E22AC72180D903004D0E05 /* ChiplRadioController.swift in Sources */,
 				C1D060E9216F1BEA00002936 /* FancyTextParagraph.swift in Sources */,

@@ -193,7 +193,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="crash"/>
                                         <connections>
-                                            <segue destination="DDA-2n-eUc" kind="presentation" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="hJI-0a-fVD"/>
+                                            <action selector="crashButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ygl-CS-elz"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -236,6 +236,7 @@
                         <outletCollection property="qualityButtons" destination="UlS-dh-VXz" collectionClass="NSMutableArray" id="chk-y1-HSg"/>
                         <outletCollection property="qualityButtons" destination="vBe-jg-eeB" collectionClass="NSMutableArray" id="V5s-MT-2Vj"/>
                         <outletCollection property="qualityButtons" destination="v7Z-nP-eI1" collectionClass="NSMutableArray" id="5oo-FV-ghA"/>
+                        <segue destination="DDA-2n-eUc" kind="presentation" identifier="errorSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="j6d-zC-Vgy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -255,7 +256,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgj-yj-T4C">
-                                <rect key="frame" x="13" y="254" width="349.5" height="159"/>
+                                <rect key="frame" x="13" y="140.5" width="349.5" height="159"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sбой. Бывает." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gkf-4K-hmU">
                                         <rect key="frame" x="10" y="50" width="329.5" height="59"/>
@@ -289,7 +290,7 @@
                             <constraint firstItem="dAU-JC-tKE" firstAttribute="trailing" secondItem="BnY-ka-iUT" secondAttribute="trailing" id="KYX-GW-3BX"/>
                             <constraint firstItem="dAU-JC-tKE" firstAttribute="leading" secondItem="BnY-ka-iUT" secondAttribute="leading" id="R23-hn-McY"/>
                             <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerX" secondItem="lI9-4f-E17" secondAttribute="centerX" id="TIH-sg-k7Y"/>
-                            <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerY" secondItem="lI9-4f-E17" secondAttribute="centerY" id="V9X-HA-mZU"/>
+                            <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerY" secondItem="lI9-4f-E17" secondAttribute="bottom" multiplier="0.33" id="V9X-HA-mZU"/>
                             <constraint firstItem="dAU-JC-tKE" firstAttribute="top" secondItem="lI9-4f-E17" secondAttribute="top" id="a7N-Ok-rRc"/>
                             <constraint firstItem="BnY-ka-iUT" firstAttribute="bottom" secondItem="lDr-l3-xWK" secondAttribute="bottom" id="e9u-rX-KjX"/>
                             <constraint firstItem="lDr-l3-xWK" firstAttribute="leading" secondItem="BnY-ka-iUT" secondAttribute="leading" id="rm1-n7-UXT"/>

@@ -56,6 +56,7 @@ class ChiplRadioController: NSObject {
             print("~ \(Date()) ~ \(self.className) ~ ...обработчик изменения качества звука выполнен.")
         }
     }
+    var errorDidHappenHandler: (()->())?
     
     // MARK: - P R O P E R T I E S / private
     private let radioPlayer = FRadioPlayer.shared
@@ -64,11 +65,12 @@ class ChiplRadioController: NSObject {
     private let urlBySoundQuality = [SoundQuality.low    : URL(string: "http://radio.4duk.ru:80/4duk40.mp3")!,
                                      SoundQuality.middle : URL(string: "http://radio.4duk.ru:80/4duk64.mp3")!,
                                      SoundQuality.high   : URL(string: "http://radio.4duk.ru:80/4duk128.mp3")!,
-                                     SoundQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk256.mp3")!]
+                                     SoundQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk2560.mp3")!]
     private var streamURL: URL? {
         let soundQuality = self.soundQuality ?? self.defaultSoundQuality
         return urlBySoundQuality[soundQuality]
     }
+    private var loadingTimer: BackgroundTimer?
     
     // MARK: - P R O P E R T I E S / private / outlets
     // MARK: M E T H O D S / public
@@ -85,7 +87,7 @@ class ChiplRadioController: NSObject {
         print("~ \(Date()) ~ \(self.className) ~ Прекращение воспроизведения аудиопотока.")
         radioPlayer.stop()
     }
-    @objc func doNothing(){
+    @objc func doNothing(){ // Needed to disable buttons on Lock Screen
     }
     
     // MARK: - M E T H O D S / public / actions
@@ -152,6 +154,21 @@ class ChiplRadioController: NSObject {
 extension ChiplRadioController: FRadioPlayerDelegate {
     func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
         print("~ \(Date()) ~ \(self.className) ~ Player state = '\(state.description)'")
+        if player.state == .error {
+            if let handler = errorDidHappenHandler {
+                handler()
+                return
+            }
+        }
+        if player.state == .loading {
+            loadingTimer = BackgroundTimer(timeInterval: 10)
+            loadingTimer!.eventHandler = errorDidHappenHandler
+            loadingTimer!.resume()
+            return
+        }
+        if player.state == .loadingFinished {
+            loadingTimer = nil
+        }
     }
     func radioPlayer(_ player: FRadioPlayer, playbackStateDidChange state: FRadioPlaybackState) {
         print("~ \(Date()) ~ \(self.className) ~ Playback state = '\(state.description)'")
