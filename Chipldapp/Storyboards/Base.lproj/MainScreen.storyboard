@@ -180,7 +180,7 @@
                                             <constraint firstAttribute="height" constant="36" id="XO4-d2-bu3"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wX-eJ-sB3">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4wX-eJ-sB3">
                                         <rect key="frame" x="16" y="0.0" width="30" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="test"/>
@@ -188,7 +188,7 @@
                                             <action selector="mockHeadersButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WAi-mo-vAm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLm-e4-Zem">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLm-e4-Zem">
                                         <rect key="frame" x="332" y="0.0" width="38" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="crash"/>
@@ -256,7 +256,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgj-yj-T4C">
-                                <rect key="frame" x="13" y="140.5" width="349.5" height="159"/>
+                                <rect key="frame" x="13" y="254" width="349.5" height="159"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sбой. Бывает." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gkf-4K-hmU">
                                         <rect key="frame" x="10" y="50" width="329.5" height="59"/>
@@ -290,7 +290,7 @@
                             <constraint firstItem="dAU-JC-tKE" firstAttribute="trailing" secondItem="BnY-ka-iUT" secondAttribute="trailing" id="KYX-GW-3BX"/>
                             <constraint firstItem="dAU-JC-tKE" firstAttribute="leading" secondItem="BnY-ka-iUT" secondAttribute="leading" id="R23-hn-McY"/>
                             <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerX" secondItem="lI9-4f-E17" secondAttribute="centerX" id="TIH-sg-k7Y"/>
-                            <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerY" secondItem="lI9-4f-E17" secondAttribute="bottom" multiplier="0.33" id="V9X-HA-mZU"/>
+                            <constraint firstItem="Lgj-yj-T4C" firstAttribute="centerY" secondItem="lI9-4f-E17" secondAttribute="centerY" id="V9X-HA-mZU"/>
                             <constraint firstItem="dAU-JC-tKE" firstAttribute="top" secondItem="lI9-4f-E17" secondAttribute="top" id="a7N-Ok-rRc"/>
                             <constraint firstItem="BnY-ka-iUT" firstAttribute="bottom" secondItem="lDr-l3-xWK" secondAttribute="bottom" id="e9u-rX-KjX"/>
                             <constraint firstItem="lDr-l3-xWK" firstAttribute="leading" secondItem="BnY-ka-iUT" secondAttribute="leading" id="rm1-n7-UXT"/>

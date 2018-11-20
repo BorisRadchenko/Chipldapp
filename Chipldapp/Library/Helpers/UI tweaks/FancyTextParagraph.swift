@@ -40,16 +40,19 @@ class FancyTextParagraph {
         self.text = text
         fillLines(withText: text)
     }
-    func showInContainerAt(startY: CGFloat) {
+    func placeInParentViewAt(startY: CGFloat) {
         let visibleContent = UIView()
         var lineY = startY
         for line in lines {
             var startX = line.leadingX(byExternalWidth: widthLimit) 
-            for label in line.letters {
-                let startY = label.topY(byExternalHeight: line.height)
-                label.frame = CGRect(x: startX + indent, y: lineY + startY, width: label.bounds.width, height: label.bounds.height)
-                visibleContent.addSubview(label)
-                startX += label.bounds.width
+            for letterLabel in line.letters {
+                let insideLineY = letterLabel.topY(byExternalHeight: line.height)
+                letterLabel.frame = CGRect(x: startX + indent,
+                                           y: lineY + insideLineY,
+                                           width: letterLabel.bounds.width,
+                                           height: letterLabel.bounds.height)
+                visibleContent.addSubview(letterLabel)
+                startX += letterLabel.bounds.width
             }
             lineY += line.height + interlineSpace
         }

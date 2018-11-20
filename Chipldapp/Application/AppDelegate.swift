@@ -47,15 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // override func remoteControlReceived(with event: UIEvent?) {
     //     super.remoteControlReceived(with: event)
-    //
+    // 
     //     guard let event = event, event.type == UIEvent.EventType.remoteControl else { return }
-    //
+    // 
     //     switch event.subtype {
     //     case .remoteControlPlay:
     //         //FRadioPlayer.shared.play()
     //         ChiplRadioController.shared.play()
-    //     case .remoteControlPause:
+    //     // case .remoteControlPause:
     //         //FRadioPlayer.shared.pause()
+    //     case .remoteControlStop:
     //         ChiplRadioController.shared.stop()
     //     // case .remoteControlTogglePlayPause:
     //         //FRadioPlayer.shared.togglePlaying()

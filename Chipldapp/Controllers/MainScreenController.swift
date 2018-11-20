@@ -18,10 +18,12 @@ import MediaPlayer
 
 class MainScreenController: UIViewController {
     // MARK: - P R O P E R T I E S / public    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     // MARK: P R O P E R T I E S / private
     private let tunerController: ChiplRadioController = ChiplRadioController.shared
     private var qualityByButton: [UIButton:SoundQuality] = [:]
-    private var fancyHeader: FancyHeader?
     private var mpVolumeSlider: UISlider?
     
     // MARK: - P R O P E R T I E S / private / outlets
@@ -36,28 +38,24 @@ class MainScreenController: UIViewController {
     // MARK: - M E T H O D S / public
     override func viewDidLoad() {
         super.viewDidLoad()
-        qualityByButton = [middleQualityButton  : SoundQuality.middle,
-                           highQualityButton    : SoundQuality.high,
-                           highestQualityButton : SoundQuality.highest]
-        fillBackground()
-        switchOnOffButton.addShadow(color: .shadowColor, radius: 3, opacity: 0.7)
-        setupVolumeSlider()
-        tunerController.qualityDidChangeHandler = displayCurrentQuality
-        tunerController.metadataDidChangeHandler = showHeader
-        tunerController.errorDidHappenHandler = showError
+        setup()
     }
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+
     // MARK: - M E T H O D S / public / actions
     @IBAction func switchOnOffPressed(_ sender: UIButton) {
-        if tunerController.isPlaying {
-            tunerController.stop()
-            sender.setImage(UIImage(named: "playButton"), for: .normal)
-            showHeader() // FIXME: Разве при остановке воспроизведения автоматом не запускается обработчик смены метаданных?
-        } else {
+        switch tunerController.state {
+        case .idle:
             tunerController.play()
-            sender.setImage(UIImage(named: "stopButton"), for: .normal)
+        case .loading:
+            tunerController.stop()
+            showPlaceholder()
+        case .error:
+            tunerController.play()
+        case .playing:
+            tunerController.stop()
+            showPlaceholder()
+        case .stopping:
+            tunerController.play()
         }
     }
     @IBAction func switchQualityPressed(_ sender: UIButton) {
@@ -74,32 +72,71 @@ class MainScreenController: UIViewController {
         // 3) Установить новое значение качества
         tunerController.soundQuality = selectedQuality
         // 4) Перезапустить приёмник
-        if tunerController.isPlaying {
+        if tunerController.state == .playing { // FIXME: Предусмотреть и другие состояния
             tunerController.stop()
             tunerController.play()
         }
     }
+    
     // MARK: - M E T H O D S / private
+    private func setup() {
+        qualityByButton = [middleQualityButton  : SoundQuality.middle,
+                           highQualityButton    : SoundQuality.high,
+                           highestQualityButton : SoundQuality.highest]
+        fillBackground()
+        switchOnOffButton.addShadow(color: .shadowColor, radius: 3, opacity: 0.7)
+        setupVolumeSlider()
+        tunerController.qualityDidChangeHandler = displayCurrentQuality
+        displayCurrentQuality() // Показать исходный уровень качества
+        tunerController.metadataDidChangeHandler = showHeader // TODO: [ 1 ]
+        showPlaceholder() // Показать заглушку, пока ещё нет данных о песне и исполнителе
+        tunerController.errorDidHappenHandler = showError
+        tunerController.playbackStateDidChangeHandler = displayCurrentPlaybackState
+    }
+    private func displayCurrentPlaybackState() {
+        print("ОБРАБОТЧИК НОВОГО СОСТОЯНИЯ: \(tunerController.state)")
+        switch tunerController.state {
+        case .idle:
+            switchOnOffButton.setImage(UIImage(named: "playButton"), for: .normal)
+        case .loading:
+            switchOnOffButton.setImage(UIImage(named: "stopButton"), for: .normal)
+            /* switchOnOffButton.fadeOut(1.0, delay: 0.1) { (finished: Bool) in
+                self.switchOnOffButton.fadeIn(1.0, delay: 0.1, completion: { (finished: Bool) in
+                })
+            } */
+        case .error:
+            switchOnOffButton.setImage(UIImage(named: "playButton"), for: .normal)
+        case .playing:
+            switchOnOffButton.setImage(UIImage(named: "stopButton"), for: .normal)
+        case .stopping:
+            switchOnOffButton.setImage(UIImage(named: "playButton"), for: .normal)
+        }
+    }
     private func displayCurrentQuality() {
-        // 1) Зная tuner.streamQuality, получить соответствующую кнопку
-        let foundButton = qualityByButton.filter{ $0.value == tunerController.soundQuality }.keys.first
-        guard let currentQualityButton = foundButton else {
-            print("~ \(Date()) ~ \(self.className) ~ Не удалось обнаружить кнопку, соответствующую заданному уровню качества (\(tunerController.soundQuality)).")
+        let foundButton = qualityByButton.filter{ $0.value == tunerController.soundQuality }.keys.first // По tunerController.soundQuality получить соответствующую кнопку
+        guard let currentQualityButton = foundButton else { // Не удалось обнаружить кнопку, соответствующую заданному уровню качества
             return
         }
-        // 2) эту кнопку пометить как выбранную, остальные - сбросить
-        qualityButtons.filter{ $0 != currentQualityButton }.forEach{ markAsUnselected($0) }
-        print("~ \(Date()) ~ \(self.className) ~ Снято выделение остальных кнопок качества.")
-        markAsSelected(currentQualityButton)
-        print("~ \(Date()) ~ \(self.className) ~ Выделена кнопка, соответствующая текущему уровню качества.")
+        qualityButtons.filter{ $0 != currentQualityButton }.forEach{ markAsUnselected($0) } // Снято выделение остальных кнопок качества
+        markAsSelected(currentQualityButton) // Выделена кнопка, соответствующая текущему уровню качества
+    }
+    private func showPlaceholder() {
+        let placeholder = "Чипльдук"
+        topView.fadeOut(completion: {
+            (finished: Bool) -> () in
+            self.topView.removeSubviews()
+            let fancyHeader = FancyHeader(placeholderText: placeholder, parentView: self.topView)
+            fancyHeader.showPlaceholder()
+            self.topView.fadeIn()
+        })
     }
     private func showHeader(currentArtist: String? = nil, currentTitle: String? = nil) {
         let placeholder = "Чипльдук"
         topView.fadeOut(completion: {
             (finished: Bool) -> () in
             self.topView.removeSubviews()
-            self.fancyHeader = FancyHeader(title: currentTitle, artist: currentArtist, placeholder: placeholder, displayArea: self.topView)
-            self.fancyHeader!.show()
+            let fancyHeader = FancyHeader(title: currentTitle, artist: currentArtist, placeholderText: placeholder, parentView: self.topView)
+            fancyHeader.showTitleAndArtist()
             self.topView.fadeIn()
         })
     }
@@ -153,11 +190,11 @@ class MainScreenController: UIViewController {
         topView.fadeOut(completion: {
             (finished: Bool) -> () in
             self.topView.removeSubviews()
-            self.fancyHeader = FancyHeader(title: titles[self.mockIndex],
-                                      artist: artists[self.mockIndex],
-                                      placeholder: placeholder,
-                                      displayArea: self.topView)
-            self.fancyHeader!.show()
+            let fancyHeader = FancyHeader(title: titles[self.mockIndex],
+                                          artist: artists[self.mockIndex],
+                                          placeholderText: placeholder,
+                                          parentView: self.topView)
+            fancyHeader.showTitleAndArtist()
             self.topView.fadeIn()
             self.mockIndex = self.mockIndex == titles.count - 1 ? 0 : self.mockIndex + 1
         })
@@ -165,9 +202,9 @@ class MainScreenController: UIViewController {
     @IBAction func crashButtonPressed(_ sender: UIButton) {
         showError()
     }
-    func showError() {
-        topView.removeSubviews()
+    private func showError() {
         performSegue(withIdentifier: "errorSegue", sender: self)
+        showPlaceholder()
     }
     
 }

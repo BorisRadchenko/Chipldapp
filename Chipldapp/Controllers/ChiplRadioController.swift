@@ -13,79 +13,75 @@ import MediaPlayer
 class ChiplRadioController: NSObject {
     // MARK: P R O P E R T I E S / public
     static let shared = ChiplRadioController()
-    var soundQuality: SoundQuality? = nil {
-        didSet {
-            guard let soundQuality = self.soundQuality else {
-                print("~ \(Date()) ~ \(self.className) ~ Установлено качество: 'nil'. Обработчик смены качества не будет вызван, новое значение не будет сохранено.")
-                return
-            }
-            print("~ \(Date()) ~ \(self.className) ~ Установлено качество: \(soundQuality). Соответствующий URL: \(String(describing: self.streamURL)).")
-            if let handler = qualityDidChangeHandler {
-                print("~ \(Date()) ~ \(self.className) ~ Запуск обработчика смены качества...")
-                handler()
-                print("~ \(Date()) ~ \(self.className) ~ ...обработчик выполнен.")
-            }
-            if oldValue != nil {
-                let userDefaults = UserDefaults.standard
-                userDefaults.set(soundQuality.rawValue, forKey: soundQualityKey)
-                print("~ \(Date()) ~ \(self.className) ~ Новое значение качества сохранено в UserDefaults.")
+    var soundQuality: SoundQuality {
+        didSet { // Обработчик наблюдателя значения
+            if oldValue != soundQuality { // Новое значение отличается от предыдущего
+                UserDefaults.standard.set(soundQuality.rawValue, forKey: soundQualityKey) // Новое значение сохранено в UserDefaults
+                if let handler = qualityDidChangeHandler { // Запуск обработчика смены качества
+                    handler()
+                }
             }
         }
     }
-    var isPlaying: Bool {
-        return radioPlayer.isPlaying
-    }
-    var metadataDidChangeHandler: ((_ currentArtist: String?,_ currentTitle: String?) -> ())? {
+    var state: ChiplPlayerState = .idle {
         didSet {
-            guard let handler = metadataDidChangeHandler else {
-                print("~ \(Date()) ~ \(self.className) ~ Не удалось назначить обработчик обновления метаданных.")
-                return
+            if oldValue != state {
+                print("\(Date()) CHIPL PLAYER NEW STATE = \(state)")
+                switch state {
+                case .loading:
+                    loadingCountdown = BackgroundTimer(timeInterval: 15)
+                    guard let countdown = loadingCountdown else { return }
+                    countdown.eventHandler = {
+                        DispatchQueue.main.async {
+                            self.state = .error // нельзя из background вызывать обновление UI!
+                        }
+                        self.loadingCountdown = nil
+                    }
+                    countdown.resume()
+                case .error:
+                    if let handler = errorDidHappenHandler {
+                            handler()
+                    }
+                    loadingCountdown = nil
+                    DispatchQueue.main.async {
+                        self.stop()
+                    }
+                case .playing:
+                    loadingCountdown = nil
+                case .idle:
+                    loadingCountdown = nil
+                case .stopping:
+                    loadingCountdown = nil
+                }
+                if let handler = playbackStateDidChangeHandler {
+                    handler()
+                }
             }
-            print("~ \(Date()) ~ \(self.className) ~ Назначен обработчик обновления метаданных. Первый вызов обработчика...")
-            handler(nil, nil)
-            print("~ \(Date()) ~ \(self.className) ~ ...обработчик обновления метаданных выполнен.")
         }
     }
-    var qualityDidChangeHandler: (()->())? {
-        didSet {
-            guard let handler = qualityDidChangeHandler else {
-                return
-            }
-            print("~ \(Date()) ~ \(self.className) ~ Назначен обработчик изменения качества звука. Первый вызов обработчика...")
-            handler()
-            print("~ \(Date()) ~ \(self.className) ~ ...обработчик изменения качества звука выполнен.")
-        }
-    }
+    var metadataDidChangeHandler: ((_ currentArtist: String?,_ currentTitle: String?) -> ())?
+    var qualityDidChangeHandler: (()->())? 
     var errorDidHappenHandler: (()->())?
+    var playbackStateDidChangeHandler: (()->())?
     
     // MARK: - P R O P E R T I E S / private
     private let radioPlayer = FRadioPlayer.shared
-    private let defaultSoundQuality = SoundQuality.middle
-    private let soundQualityKey = "soundQuality"
-    private let urlBySoundQuality = [SoundQuality.low    : URL(string: "http://radio.4duk.ru:80/4duk40.mp3")!,
-                                     SoundQuality.middle : URL(string: "http://radio.4duk.ru:80/4duk64.mp3")!,
-                                     SoundQuality.high   : URL(string: "http://radio.4duk.ru:80/4duk128.mp3")!,
-                                     SoundQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk2560.mp3")!]
-    private var streamURL: URL? {
-        let soundQuality = self.soundQuality ?? self.defaultSoundQuality
-        return urlBySoundQuality[soundQuality]
-    }
-    private var loadingTimer: BackgroundTimer?
+    private var defaultSoundQuality: SoundQuality
+    private var soundQualityKey: String
+    private var urlBySoundQuality: [SoundQuality:URL]
+    private var loadingCountdown: BackgroundTimer?
     
     // MARK: - P R O P E R T I E S / private / outlets
     // MARK: M E T H O D S / public
     func play() {
-        guard let streamURL = streamURL else {
-            print("~ \(Date()) ~ \(self.className) ~ Воспроизведение аудиопотока невозможно, отсутствует URL потока.")
-            return
-        }
-        radioPlayer.radioURL = streamURL
-        print("~ \(Date()) ~ \(self.className) ~ Воспроизводится аудиопоток '\(streamURL)'.")
+        radioPlayer.radioURL = urlBySoundQuality[soundQuality]!
+        state = .loading
         radioPlayer.play()
     }
     func stop() {
-        print("~ \(Date()) ~ \(self.className) ~ Прекращение воспроизведения аудиопотока.")
+        state = .stopping
         radioPlayer.stop()
+        state = .idle
     }
     @objc func doNothing(){ // Needed to disable buttons on Lock Screen
     }
@@ -93,27 +89,24 @@ class ChiplRadioController: NSObject {
     // MARK: - M E T H O D S / public / actions
     // MARK: M E T H O D S / private
     private override init() {
+        // default values:
+        urlBySoundQuality = [SoundQuality.low    : URL(string: "http://radio.4duk.ru:80/4duk40.mp3")!,
+                             SoundQuality.middle : URL(string: "http://radio.4duk.ru:80/4duk64.mp3")!,
+                             SoundQuality.high   : URL(string: "http://radio.4duk.ru:80/4duk128.mp3")!,
+                             SoundQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk256.mp3")!] 
+        soundQualityKey = "soundQuality"
+        defaultSoundQuality = SoundQuality.middle
+        soundQuality = defaultSoundQuality
+        // last saved values:
+        if let lastSavedQualityRawValue = UserDefaults.standard.object(forKey: soundQualityKey) as? Int {
+            if let lastSavedQuality = SoundQuality(rawValue: lastSavedQualityRawValue) {
+                soundQuality = lastSavedQuality // Установлено значение из UserDefaults, didSet из init'а вызван не будет
+            }
+        }
+        // super:
         super.init()
-        loadStateFromUserDefaults()
+        // delegate:
         radioPlayer.delegate = self
-
-        print("~ \(Date()) ~ \(self.className) ~ Завершение инициализации.")
-    }
-    private func loadStateFromUserDefaults() {
-        print("~ \(Date()) ~ \(self.className) ~ Загрузка состояния приложения на момент его прошлого использования.")
-        let userDefaults = UserDefaults.standard
-        guard let lastSavedQualityRawValue = userDefaults.object(forKey: soundQualityKey) as? Int else {
-            print("~ \(Date()) ~ \(self.className) ~ Не удалось загрузить последний сохранённый уровень качества. Будет использовано значение по умолчанию: '\(self.defaultSoundQuality)'.")
-            self.soundQuality = self.defaultSoundQuality
-            return
-        }
-        guard let lastSavedQuality = SoundQuality(rawValue: lastSavedQualityRawValue) else {
-            print("~ \(Date()) ~ \(self.className) ~ Прочитано неккоректное значение уровня качества. Будет использовано значение по умолчанию: '\(self.defaultSoundQuality)'.")
-            self.soundQuality = self.defaultSoundQuality
-            return
-        }
-        print("~ \(Date()) ~ \(self.className) ~ Загружен последний сохранённый уровень качества: '\(lastSavedQuality)'.")
-        self.soundQuality = lastSavedQuality
     }
     private func updateLockScreen(artist: String?, title: String?) {
         var nowPlayingInfo = [String : Any]()
@@ -141,9 +134,9 @@ class ChiplRadioController: NSObject {
          center.ratingCommand,
          center.likeCommand,
          center.dislikeCommand,
-         center.bookmarkCommand,
          center.playCommand,
-         center.stopCommand].forEach {
+         center.stopCommand,
+         center.bookmarkCommand].forEach {
             $0.addTarget(self, action: #selector(doNothing))
             $0.isEnabled = false
         }
@@ -152,30 +145,24 @@ class ChiplRadioController: NSObject {
 
 // MARK: - E X T / ChiplTuner : FRadioPlayerDelegate
 extension ChiplRadioController: FRadioPlayerDelegate {
-    func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
-        print("~ \(Date()) ~ \(self.className) ~ Player state = '\(state.description)'")
-        if player.state == .error {
-            if let handler = errorDidHappenHandler {
-                handler()
-                return
-            }
-        }
-        if player.state == .loading {
-            loadingTimer = BackgroundTimer(timeInterval: 10)
-            loadingTimer!.eventHandler = errorDidHappenHandler
-            loadingTimer!.resume()
-            return
-        }
-        if player.state == .loadingFinished {
-            loadingTimer = nil
+    func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) { // print("~ \(Date()) ~ \(self.className) ~ Player state = '\(state.description)'")
+        switch player.state {
+        case .error:
+            self.state = .error
+        case .loading:
+            self.state = .loading
+        case.loadingFinished:
+            self.state = .playing
+        default:
+            loadingCountdown = nil
         }
     }
     func radioPlayer(_ player: FRadioPlayer, playbackStateDidChange state: FRadioPlaybackState) {
-        print("~ \(Date()) ~ \(self.className) ~ Playback state = '\(state.description)'")
+        // print("~ \(Date()) ~ Playback state = '\(state.description)'")
     }
     func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
-        print("~ \(Date()) ~ \(self.className) ~ Player metadata = '\(artistName ?? "-")' '\(trackName ?? "-")'.")
-        guard player.state == .loadingFinished, player.playbackState == .playing else {
+        print("~ \(Date()) ~ Stream metadata = '\(artistName ?? "-")', '\(trackName ?? "-")'.")
+        guard self.state != .stopping, player.state == .loadingFinished, player.playbackState == .playing else {
             return
         }
         var metadata: String = ""
@@ -189,8 +176,7 @@ extension ChiplRadioController: FRadioPlayerDelegate {
             metadata = trackName!
         }
         if metadata.count > 0 {
-            print("~ \(Date()) ~ \(self.className) ~ В эфире: '\(metadata)'.")
-            metadataParts = metadata.components(separatedBy: "/")
+             metadataParts = metadata.components(separatedBy: "/")
             if metadataParts.count > 0 {
                 currentArtist = metadataParts[0]
                 if metadataParts.count > 1 {
@@ -198,10 +184,10 @@ extension ChiplRadioController: FRadioPlayerDelegate {
                 }
             }
         } else {
-            print("~ \(Date()) ~ \(self.className) ~ Не удалось прочитать метаданные из аудиопотока.")
+            print("~ \(Date()) ~ Не удалось прочитать метаданные из аудиопотока.")
         }
         guard let handler = metadataDidChangeHandler else {
-            print("~ \(Date()) ~ \(self.className) ~ Отсутствует обработчик обновления метаданных.")
+            print("~ \(Date()) ~ Отсутствует обработчик обновления метаданных.")
             return
         }
         handler(currentArtist, currentTitle)
@@ -214,4 +200,11 @@ enum SoundQuality: Int {
     case middle = 64
     case high = 128
     case highest = 256
+}
+enum ChiplPlayerState {
+    case idle
+    case loading
+    case error
+    case playing
+    case stopping
 }
