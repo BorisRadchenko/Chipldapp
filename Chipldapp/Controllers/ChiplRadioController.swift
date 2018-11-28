@@ -29,7 +29,7 @@ class ChiplRadioController: NSObject {
                 print("\(Date()) CHIPL PLAYER NEW STATE = \(state)")
                 switch state {
                 case .loading:
-                    loadingCountdown = BackgroundTimer(timeInterval: 15)
+                    loadingCountdown = BackgroundTimer(timeInterval: 6)
                     guard let countdown = loadingCountdown else { return }
                     countdown.eventHandler = {
                         DispatchQueue.main.async {

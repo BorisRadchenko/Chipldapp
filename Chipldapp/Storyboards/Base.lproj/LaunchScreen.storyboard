@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,26 +14,36 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="spiral" translatesAutoresizingMaskIntoConstraints="NO" id="KyZ-SP-iRr">
-                                <rect key="frame" x="-80" y="247" width="241" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PatternBackgroundNew" translatesAutoresizingMaskIntoConstraints="NO" id="KyZ-SP-iRr" userLabel="PatternBackgr">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="appTitle" translatesAutoresizingMaskIntoConstraints="NO" id="EkL-C8-ZCJ">
-                                <rect key="frame" x="67" y="270" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Blur" translatesAutoresizingMaskIntoConstraints="NO" id="pb8-bn-68U">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="радиоприёмник unлимитед" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ehR-4x-ucr">
-                                <rect key="frame" x="75" y="377" width="235" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appTitle" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EkL-C8-ZCJ">
+                                <rect key="frame" x="34.5" y="234" width="238" height="96.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EkL-C8-ZCJ" secondAttribute="height" multiplier="279:113" id="Ecm-fM-AT0"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KyZ-SP-iRr" secondAttribute="trailing" id="2si-Ml-Aya"/>
+                            <constraint firstItem="pb8-bn-68U" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="F2x-7q-5IN"/>
+                            <constraint firstItem="EkL-C8-ZCJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" multiplier="0.96" id="Lqa-j3-CvR"/>
+                            <constraint firstAttribute="bottom" secondItem="KyZ-SP-iRr" secondAttribute="bottom" id="MNf-kD-aL5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pb8-bn-68U" secondAttribute="trailing" id="Mi8-o5-0ee"/>
+                            <constraint firstItem="KyZ-SP-iRr" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Zk8-pO-kZK"/>
+                            <constraint firstAttribute="bottom" secondItem="pb8-bn-68U" secondAttribute="bottom" id="bxQ-xX-gxY"/>
+                            <constraint firstItem="EkL-C8-ZCJ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.96" id="dcD-PF-gYT"/>
+                            <constraint firstItem="EkL-C8-ZCJ" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="279/375" id="lNv-h2-zKP"/>
+                            <constraint firstItem="pb8-bn-68U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vbo-wh-5Cs"/>
+                            <constraint firstItem="KyZ-SP-iRr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zcV-rs-EVG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -43,7 +53,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="appTitle" width="247" height="77"/>
-        <image name="spiral" width="92" height="143"/>
+        <image name="Blur" width="375" height="667"/>
+        <image name="PatternBackgroundNew" width="414" height="896"/>
+        <image name="appTitle" width="279" height="113"/>
     </resources>
 </document>

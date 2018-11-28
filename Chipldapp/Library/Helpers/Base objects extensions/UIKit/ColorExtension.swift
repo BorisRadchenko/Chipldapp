@@ -18,4 +18,5 @@ extension UIColor {
     static let highlitedButtonColor = #colorLiteral(red: 0.9921568627, green: 0.4745098039, blue: 0.1411764706, alpha: 1)
     static let whiteColor: UIColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     static let blackColor: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    static let noColor: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
 }

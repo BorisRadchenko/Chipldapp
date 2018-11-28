@@ -80,6 +80,13 @@ class MainScreenController: UIViewController {
     
     // MARK: - M E T H O D S / private
     private func setup() {
+        volumeParentView.backgroundColor = .noColor
+        middleQualityButton.superview?.backgroundColor = .noColor
+        middleQualityButton.backgroundColor = .noColor
+        highQualityButton.backgroundColor = .noColor
+        highestQualityButton.backgroundColor = .noColor
+        switchOnOffButton.backgroundColor = .noColor
+        
         qualityByButton = [middleQualityButton  : SoundQuality.middle,
                            highQualityButton    : SoundQuality.high,
                            highestQualityButton : SoundQuality.highest]
@@ -100,10 +107,6 @@ class MainScreenController: UIViewController {
             switchOnOffButton.setImage(UIImage(named: "playButton"), for: .normal)
         case .loading:
             switchOnOffButton.setImage(UIImage(named: "stopButton"), for: .normal)
-            /* switchOnOffButton.fadeOut(1.0, delay: 0.1) { (finished: Bool) in
-                self.switchOnOffButton.fadeIn(1.0, delay: 0.1, completion: { (finished: Bool) in
-                })
-            } */
         case .error:
             switchOnOffButton.setImage(UIImage(named: "playButton"), for: .normal)
         case .playing:
@@ -145,6 +148,7 @@ class MainScreenController: UIViewController {
         if let text = button.titleLabel!.text {
             let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
             button.setAttributedTitle(attributes, for: .normal)
+            button.titleLabel?.lineBreakMode = .byClipping
         }
     }
     private func markAsUnselected(_ button: UIButton) {
@@ -152,6 +156,7 @@ class MainScreenController: UIViewController {
         if let text = button.titleLabel!.text {
             let attributes = NSAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
             button.setAttributedTitle(attributes, for: .normal)
+            button.titleLabel?.lineBreakMode = .byClipping
         }
     }
     private func fillBackground() {

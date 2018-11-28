@@ -96,7 +96,7 @@ class FancyHeader: NSObject {
         }
         parentView.addSubview(headerContentView)
         // При необходимости масштабировать headerView
-        let scale = parentView.bounds.height / totalHeaderHeight
+        let scale = parentView.bounds.height / (totalHeaderHeight + indent)
         if scale < 1 {
             headerContentView.transform = CGAffineTransform(scaleX: scale, y: scale)
         }
@@ -108,10 +108,15 @@ class FancyHeader: NSObject {
     }
     private func createArtistHeader() -> UILabel {
         let label = UILabel()
-        label.text = artist!
-        label.font = artistFont
         label.numberOfLines = 0
-        label.textAlignment = .center
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.hyphenationFactor = 0.4
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        let hyphenAttribute = [NSAttributedString.Key.paragraphStyle : paragraphStyle,
+                               NSAttributedString.Key.font : artistFont as Any] as [NSAttributedString.Key : Any]
+        let attributedString = NSMutableAttributedString(string: artist!, attributes: hyphenAttribute)
+        label.attributedText = attributedString
         label.sizeToFit()
         return label
     }
