@@ -30,11 +30,15 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - [x] [Full documentation](https://fethica.github.io/FRadioPlayer/)
 - [x] Network interruptions handling
 - [x] Support for Carthage
+- [x] Support for macOS
+- [x] Support for tvOS
 - [ ] Support for Audio Taps
 - [ ] Support for Audio Recording
 
 ## Requirements
-- iOS 10 +
+- macOS 10.12+
+- iOS 10.0+
+- tvOS 10.0+
 - Xcode 10
 - Swift 4.2
 
@@ -182,4 +186,3 @@ $ mint run yonaskolb/xcodegen
 ## License
 
 FRadioPlayer is available under the MIT license. See the LICENSE file for more info.
-

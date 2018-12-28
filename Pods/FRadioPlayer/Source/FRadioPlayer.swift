@@ -221,17 +221,30 @@ open class FRadioPlayer: NSObject {
     
     private override init() {
         super.init()
-        
+
+        #if !os(macOS)
+        let options: AVAudioSession.CategoryOptions
+
         // Enable bluetooth playback
+        #if os(iOS)
+        options = [.defaultToSpeaker, .allowBluetooth]
+        #else
+        options = []
+        #endif
+
+        // Start audio session
         let audioSession = AVAudioSession.sharedInstance()
-        try? audioSession.setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: [.defaultToSpeaker, .allowBluetooth])
-        
+        try? audioSession.setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.default, options: options)
+        #endif
+
         // Notifications
         setupNotifications()
         
         // Check for headphones
+        #if os(iOS)
         checkHeadphonesConnection(outputs: AVAudioSession.sharedInstance().currentRoute.outputs)
-        
+        #endif
+
         // Reachability config
         try? reachability.startNotifier()
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
@@ -411,20 +424,22 @@ open class FRadioPlayer: NSObject {
     // MARK: - Notifications
     
     private func setupNotifications() {
+        #if os(iOS)
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(handleInterruption), name: AVAudioSession.interruptionNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(handleRouteChange), name: AVAudioSession.routeChangeNotification, object: nil)
+        #endif
     }
     
     // MARK: - Responding to Interruptions
     
     @objc private func handleInterruption(notification: Notification) {
+        #if os(iOS)
         guard let userInfo = notification.userInfo,
             let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
             let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
                 return
         }
-        
         switch type {
         case .began:
             DispatchQueue.main.async { self.pause() }
@@ -433,6 +448,7 @@ open class FRadioPlayer: NSObject {
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
             DispatchQueue.main.async { options.contains(.shouldResume) ? self.play() : self.pause() }
         }
+        #endif
     }
     
     @objc func reachabilityChanged(note: Notification) {
@@ -464,7 +480,7 @@ open class FRadioPlayer: NSObject {
     }
     
     // MARK: - Responding to Route Changes
-    
+    #if os(iOS)
     private func checkHeadphonesConnection(outputs: [AVAudioSessionPortDescription]) {
         for output in outputs where output.portType == .headphones {
             headphonesConnected = true
@@ -474,6 +490,7 @@ open class FRadioPlayer: NSObject {
     }
     
     @objc private func handleRouteChange(notification: Notification) {
+
         guard let userInfo = notification.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
             let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else { return }
@@ -488,7 +505,7 @@ open class FRadioPlayer: NSObject {
         default: break
         }
     }
-    
+    #endif
     // MARK: - KVO
     
     /// :nodoc:
@@ -516,7 +533,7 @@ open class FRadioPlayer: NSObject {
             case "playbackLikelyToKeepUp":
                 
                 self.state = item.isPlaybackLikelyToKeepUp ? .loadingFinished : .loading
-            
+
             case "timedMetadata":
                 let rawValue = item.timedMetadata?.first?.value as? String
                 timedMetadataDidChange(rawValue: rawValue)

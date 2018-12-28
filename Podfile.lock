@@ -1,5 +1,5 @@
 PODS:
-  - FRadioPlayer (0.1.11)
+  - FRadioPlayer (0.1.15)
 
 DEPENDENCIES:
   - FRadioPlayer (~> 0.1.11)
@@ -9,7 +9,7 @@ SPEC REPOS:
     - FRadioPlayer
 
 SPEC CHECKSUMS:
-  FRadioPlayer: 27b1b7dd33d12ff01b67dc57c89999baf0bbb3e6
+  FRadioPlayer: 0ad8b63756c3597af3c4a2672334c5dc22e026e4
 
 PODFILE CHECKSUM: b615ba88dea9c660aaddde9a406487cf79f72ad6
 

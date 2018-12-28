@@ -29,7 +29,7 @@ class ChiplRadioController: NSObject {
                 print("\(Date()) CHIPL PLAYER NEW STATE = \(state)")
                 switch state {
                 case .loading:
-                    loadingCountdown = BackgroundTimer(timeInterval: 6)
+                    loadingCountdown = BackgroundTimer(timeInterval: 9)
                     guard let countdown = loadingCountdown else { return }
                     countdown.eventHandler = {
                         DispatchQueue.main.async {
@@ -90,10 +90,10 @@ class ChiplRadioController: NSObject {
     // MARK: M E T H O D S / private
     private override init() {
         // default values:
-        urlBySoundQuality = [SoundQuality.low    : URL(string: "http://radio.4duk.ru:80/4duk40.mp3")!,
-                             SoundQuality.middle : URL(string: "http://radio.4duk.ru:80/4duk64.mp3")!,
-                             SoundQuality.high   : URL(string: "http://radio.4duk.ru:80/4duk128.mp3")!,
-                             SoundQuality.highest: URL(string: "http://radio.4duk.ru:80/4duk256.mp3")!] 
+        urlBySoundQuality = [SoundQuality.low    : URL(string: "http://radio.4duk.ru/4duk40.mp3")!, // http://radio.4duk.ru:80/4duk40.mp3
+                             SoundQuality.middle : URL(string: "http://radio.4duk.ru/4duk64.mp3")!, // http://radio.4duk.ru:80/4duk64.mp3
+                             SoundQuality.high   : URL(string: "http://radio.4duk.ru/4duk128.mp3")!, // http://radio.4duk.ru:80/4duk128.mp3
+                             SoundQuality.highest: URL(string: "http://radio.4duk.ru/4duk256.mp3")!]  // http://radio.4duk.ru:80/4duk256.mp3
         soundQualityKey = "soundQuality"
         defaultSoundQuality = SoundQuality.middle
         soundQuality = defaultSoundQuality
