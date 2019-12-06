@@ -59,7 +59,7 @@ class ChiplRadioController: NSObject {
             }
         }
     }
-    var metadataDidChangeHandler: ((_ currentArtist: String?,_ currentTitle: String?) -> ())?
+    var metadataDidChangeHandler: ((_ currentArtist: String?, _ currentTitle: String?) -> ())?
     var qualityDidChangeHandler: (()->())? 
     var errorDidHappenHandler: (()->())?
     var playbackStateDidChangeHandler: (()->())?
@@ -68,13 +68,12 @@ class ChiplRadioController: NSObject {
     private let radioPlayer = FRadioPlayer.shared
     private var defaultSoundQuality: SoundQuality
     private var soundQualityKey: String
-    private var urlBySoundQuality: [SoundQuality:URL]
     private var loadingCountdown: BackgroundTimer?
     
     // MARK: - P R O P E R T I E S / private / outlets
     // MARK: M E T H O D S / public
     func play() {
-        radioPlayer.radioURL = urlBySoundQuality[soundQuality]!
+        radioPlayer.radioURL = soundQuality.url
         state = .loading
         radioPlayer.play()
     }
@@ -83,17 +82,11 @@ class ChiplRadioController: NSObject {
         radioPlayer.stop()
         state = .idle
     }
-    @objc func doNothing(){ // Needed to disable buttons on Lock Screen
-    }
     
     // MARK: - M E T H O D S / public / actions
     // MARK: M E T H O D S / private
     private override init() {
         // default values:
-        urlBySoundQuality = [SoundQuality.low    : URL(string: "http://radio.4duk.ru/4duk40.mp3")!, // http://radio.4duk.ru:80/4duk40.mp3
-                             SoundQuality.middle : URL(string: "http://radio.4duk.ru/4duk64.mp3")!, // http://radio.4duk.ru:80/4duk64.mp3
-                             SoundQuality.high   : URL(string: "http://radio.4duk.ru/4duk128.mp3")!, // http://radio.4duk.ru:80/4duk128.mp3
-                             SoundQuality.highest: URL(string: "http://radio.4duk.ru/4duk256.mp3")!]  // http://radio.4duk.ru:80/4duk256.mp3
         soundQualityKey = "soundQuality"
         defaultSoundQuality = SoundQuality.middle
         soundQuality = defaultSoundQuality
@@ -134,12 +127,22 @@ class ChiplRadioController: NSObject {
          center.ratingCommand,
          center.likeCommand,
          center.dislikeCommand,
-         center.playCommand,
-         center.stopCommand,
+         center.playCommand,//
+         center.stopCommand,//
          center.bookmarkCommand].forEach {
-            $0.addTarget(self, action: #selector(doNothing))
+            $0.addTarget{(commandEvent) -> MPRemoteCommandHandlerStatus in
+                return MPRemoteCommandHandlerStatus.commandFailed
+            }
             $0.isEnabled = false
         }
+//        center.playCommand.addTarget{[unowned self](commandEvent) -> MPRemoteCommandHandlerStatus in
+//            self.play()
+//            return MPRemoteCommandHandlerStatus.success
+//        }
+//        center.stopCommand.addTarget{[unowned self](commandEvent) -> MPRemoteCommandHandlerStatus in
+//            self.stop()
+//            return MPRemoteCommandHandlerStatus.success
+//        }
     }
 }
 
@@ -200,6 +203,19 @@ enum SoundQuality: Int {
     case middle = 64
     case high = 128
     case highest = 256
+    var url: URL {
+        switch self {
+        case .low:
+            return URL(string: "http://radio.4duk.ru/4duk40.mp3")! // http://radio.4duk.ru:80/4duk40.mp3
+        case .middle:
+            return URL(string: "http://radio.4duk.ru/4duk64.mp3")! // http://radio.4duk.ru:80/4duk64.mp3
+        case .high:
+            return URL(string: "http://radio.4duk.ru/4duk128.mp3")! // http://radio.4duk.ru:80/4duk128.mp3
+        case .highest:
+            return URL(string: "http://radio.4duk.ru/4duk256.mp3")!  // http://radio.4duk.ru:80/4duk256.mp3
+        }
+    }
+
 }
 enum ChiplPlayerState {
     case idle

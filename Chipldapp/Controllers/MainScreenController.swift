@@ -16,7 +16,7 @@
 import UIKit
 import MediaPlayer
 
-class MainScreenController: UIViewController {
+final class MainScreenController: UIViewController {
     // MARK: - P R O P E R T I E S / public    
     override var prefersStatusBarHidden: Bool {
         return true
@@ -42,7 +42,7 @@ class MainScreenController: UIViewController {
     }
 
     // MARK: - M E T H O D S / public / actions
-    @IBAction func switchOnOffPressed(_ sender: UIButton) {
+    @IBAction private func switchOnOffPressed(_ sender: UIButton) {
         switch tunerController.state {
         case .idle:
             tunerController.play()
@@ -188,6 +188,10 @@ class MainScreenController: UIViewController {
         mpVolumeSlider.setThumbImage(#imageLiteral(resourceName: "speakerSign"), for: .normal)
         mpVolumeSlider.tintColor = .blackColor
     }
+    private func showError() {
+        performSegue(withIdentifier: "errorSegue", sender: self)
+        showPlaceholder()
+    }
     // MARK: - T E S T:
     var mockIndex = 0
     @IBAction func mockHeadersButtonPushed(_ sender: UIButton) {
@@ -206,10 +210,6 @@ class MainScreenController: UIViewController {
     }
     @IBAction func crashButtonPressed(_ sender: UIButton) {
         showError()
-    }
-    private func showError() {
-        performSegue(withIdentifier: "errorSegue", sender: self)
-        showPlaceholder()
     }
     
 }

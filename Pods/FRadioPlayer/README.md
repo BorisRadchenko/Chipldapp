@@ -1,5 +1,5 @@
 <p align="center">
-<img alt="FRadioPlayer" src="https://fethica.com/img/web/repo-hero.png" width="749">
+<img alt="FRadioPlayer" src="https://fethica.com/assets/img/web/repo-hero.png" width="749">
 </p>
 
 # FRadioPlayer
@@ -16,7 +16,7 @@ FRadioPlayer is a wrapper around AVPlayer to handle internet radio playback.
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 <p align="center">
-    <img alt="FRadioPlayer" src="https://fethica.com/img/web/fradioplayer-example.png" width="485">
+    <img alt="FRadioPlayer" src="https://fethica.com/assets/img/web/fradioplayer-example.png" width="485">
 </p>
 
 ## Features
@@ -26,12 +26,13 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - [x] Automatic handling of interruptions
 - [x] Automatic handling of route changes
 - [x] Support bluetooth playback
-- [x] Swift 4.2
+- [x] Swift 5
 - [x] [Full documentation](https://fethica.github.io/FRadioPlayer/)
 - [x] Network interruptions handling
 - [x] Support for Carthage
 - [x] Support for macOS
 - [x] Support for tvOS
+- [x] Support for Swift Package Manager SPM
 - [ ] Support for Audio Taps
 - [ ] Support for Audio Recording
 
@@ -39,8 +40,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 - macOS 10.12+
 - iOS 10.0+
 - tvOS 10.0+
-- Xcode 10
-- Swift 4.2
+- Xcode 10.2+
+- Swift 5
 
 ## Installation
 
@@ -59,6 +60,14 @@ FRadioPlayer is available through [Carthage](https://github.com/Carthage/Carthag
 
 ```text
 github "fethica/FRadioPlayer" ~> 0.1.10
+```
+
+### Swift Package Manager
+
+FRadioPlayer is available through [SPM](https://github.com/apple/swift-package-manager). To install it, simply add the following dependency to your `Package.swift` file:
+
+```text
+.package(url: "https://github.com/fethica/FRadioPlayer.git", from: "0.1.18")
 ```
 
 ### Manual
@@ -167,7 +176,7 @@ func radioPlayer(_ player: FRadioPlayer, artworkDidChange artworkURL: URL?)
 For more complete app features, check out [Swift Radio App](https://github.com/analogcode/Swift-Radio-Pro) based on **FRadioPlayer**
 
 <p align="center">
-    <img alt="Swift Radio" src="https://fethica.com/img/web/swift-radio.jpg">
+    <img alt="Swift Radio" src="https://fethica.com/assets/img/web/swift-radio.jpg">
 </p>
 
 ## Hacking

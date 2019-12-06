@@ -1,16 +1,16 @@
 PODS:
-  - FRadioPlayer (0.1.15)
+  - FRadioPlayer (0.1.19)
 
 DEPENDENCIES:
-  - FRadioPlayer (~> 0.1.11)
+  - FRadioPlayer (~> 0.1.19)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - FRadioPlayer
 
 SPEC CHECKSUMS:
-  FRadioPlayer: 0ad8b63756c3597af3c4a2672334c5dc22e026e4
+  FRadioPlayer: 626ffefdd3d77b8737f9f907cc335a09f9016895
 
-PODFILE CHECKSUM: b615ba88dea9c660aaddde9a406487cf79f72ad6
+PODFILE CHECKSUM: 2d7178b75a2ce201ec82a17a7f087cc231ca0cd5
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

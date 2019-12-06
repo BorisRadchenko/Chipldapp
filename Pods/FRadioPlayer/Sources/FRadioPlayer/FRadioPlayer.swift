@@ -177,6 +177,19 @@ open class FRadioPlayer: NSObject {
         }
     }
     
+    /// Read and set the current AVPlayer volume, a value of 0.0 indicates silence; a value of 1.0 indicates full audio volume for the player instance.
+    open var volume: Float? {
+        get {
+            return player?.volume
+        }
+        set {
+            guard
+                let newValue = newValue,
+                0.0...1.0 ~= newValue else { return }
+            player?.volume = newValue
+        }
+    }
+    
     /// Player current state of type `FRadioPlayerState`
     open private(set) var state = FRadioPlayerState.urlNotSet {
         didSet {
@@ -227,7 +240,7 @@ open class FRadioPlayer: NSObject {
 
         // Enable bluetooth playback
         #if os(iOS)
-        options = [.defaultToSpeaker, .allowBluetooth]
+        options = [.defaultToSpeaker, .allowBluetooth, .allowAirPlay]
         #else
         options = []
         #endif
@@ -283,9 +296,9 @@ open class FRadioPlayer: NSObject {
      */
     open func stop() {
         guard let player = player else { return }
+        playbackState = .stopped
         player.replaceCurrentItem(with: nil)
         timedMetadataDidChange(rawValue: nil)
-        playbackState = .stopped
     }
     
     /**
@@ -317,6 +330,8 @@ open class FRadioPlayer: NSObject {
     private func setupPlayer(with asset: AVAsset) {
         if player == nil {
             player = AVPlayer()
+            // Removes black screen when connecting to appleTV
+            player?.allowsExternalPlayback = false
         }
         
         playerItem = AVPlayerItem(asset: asset)
@@ -397,7 +412,7 @@ open class FRadioPlayer: NSObject {
             return
         }
         
-        FRadioAPI.getArtwork(for: rawValue, size: artworkSize, completionHandler: { [unowned self] artworlURL in
+        FRadioAPI.getArtwork(for: rawValue as String, size: artworkSize, completionHandler: { [unowned self] artworlURL in
             DispatchQueue.main.async {
                 self.delegate?.radioPlayer?(self, artworkDidChange: artworlURL)
             }
@@ -447,6 +462,8 @@ open class FRadioPlayer: NSObject {
             guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { break }
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
             DispatchQueue.main.async { options.contains(.shouldResume) ? self.play() : self.pause() }
+        @unknown default:
+            break
         }
         #endif
     }

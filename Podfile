@@ -7,6 +7,6 @@ target 'Chipldapp' do
   use_frameworks!
 
   # Pods for Chipldapp
-  pod 'FRadioPlayer', '~> 0.1.11'
+  pod 'FRadioPlayer', '~> 0.1.19'
 
 end
