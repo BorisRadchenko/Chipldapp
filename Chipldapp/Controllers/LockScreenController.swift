@@ -33,9 +33,7 @@ class LockScreen {
         center.stopCommand.addTarget{ commandEvent -> MPRemoteCommandHandlerStatus in
             let player = ChiplRadioController.shared
             switch player.state {
-            case .idle:
-                return .commandFailed
-            case .stopping:
+            case .idle, .stopping:
                 return .commandFailed
             default:
                 ChiplRadioController.shared.stop()
