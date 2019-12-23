@@ -11,193 +11,164 @@ import FRadioPlayer
 import MediaPlayer
 
 class ChiplRadioController: NSObject {
-    // MARK: P R O P E R T I E S / public
+    
+    // MARK: - Properties / public
+    
     static let shared = ChiplRadioController()
+    
+    var currentArtist: String? = nil
+    
+    var currentTitle: String? = nil
+    
     var soundQuality: SoundQuality {
-        didSet { // Обработчик наблюдателя значения
-            if oldValue != soundQuality { // Новое значение отличается от предыдущего
-                UserDefaults.standard.set(soundQuality.rawValue, forKey: soundQualityKey) // Новое значение сохранено в UserDefaults
-                if let handler = qualityDidChangeHandler { // Запуск обработчика смены качества
-                    handler()
-                }
-            }
-        }
-    }
-    var state: ChiplPlayerState = .idle {
         didSet {
-            if oldValue != state {
-                print("\(Date()) CHIPL PLAYER NEW STATE = \(state)")
-                switch state {
-                case .loading:
-                    loadingCountdown = BackgroundTimer(timeInterval: 9)
-                    guard let countdown = loadingCountdown else { return }
-                    countdown.eventHandler = {
-                        DispatchQueue.main.async {
-                            self.state = .error // нельзя из background вызывать обновление UI!
-                        }
-                        self.loadingCountdown = nil
+            guard oldValue != soundQuality else { return }
+            UserDefaults.standard.set(soundQuality.rawValue, forKey: soundQualityKey)
+            switch state {
+            case .idle: break
+            case .loading: restart()
+            case .error: break
+            case .playing: restart()
+            case .stopping: break
+            }
+            if let reactToChanges = qualityDidChangeHandler { reactToChanges() }
+        }
+    }
+    
+    public private(set) var state: ChiplPlayerState {
+        didSet {
+            guard oldValue != state  else { return }
+            printNicely(" → → → Player state changed to '\(state)'.")
+            switch state {
+            case .loading:
+                let timeoutLimit: TimeInterval = 9
+                printNicely("Trying to load media (timeout limit = '\(timeoutLimit)'s)...")
+                loadingCountdown = BackgroundTimer(timeInterval: timeoutLimit)
+                guard let countdown = loadingCountdown else { return }
+                countdown.eventHandler = {
+                    DispatchQueue.main.sync {
+                        printNicely("Loading failed! Time limit is out!")
+                        self.state = .error
+                        self.radioPlayer.stop()
                     }
-                    countdown.resume()
-                case .error:
-                    if let handler = errorDidHappenHandler {
-                            handler()
-                    }
-                    loadingCountdown = nil
-                    DispatchQueue.main.async {
-                        self.stop()
-                    }
-                case .playing:
-                    loadingCountdown = nil
-                case .idle:
-                    loadingCountdown = nil
-                case .stopping:
-                    loadingCountdown = nil
                 }
-                if let handler = playbackStateDidChangeHandler {
-                    handler()
-                }
+                countdown.resume()
+            default:
+                loadingCountdown = nil
+            }
+            if let reactToPlaybackDidChange = playbackStateDidChangeHandler {
+                reactToPlaybackDidChange()
             }
         }
     }
-    var metadataDidChangeHandler: ((_ currentArtist: String?, _ currentTitle: String?) -> ())?
-    var qualityDidChangeHandler: (()->())? 
-    var errorDidHappenHandler: (()->())?
+
+    var metadataDidChangeHandler: (() -> ())?
+    
+    var qualityDidChangeHandler: (()->())?
+        
     var playbackStateDidChangeHandler: (()->())?
     
-    // MARK: - P R O P E R T I E S / private
-    private let radioPlayer = FRadioPlayer.shared
-    private var defaultSoundQuality: SoundQuality
-    private var soundQualityKey: String
-    private var loadingCountdown: BackgroundTimer?
+    // MARK: - Properties / private
     
-    // MARK: - P R O P E R T I E S / private / outlets
-    // MARK: M E T H O D S / public
+    private let radioPlayer = FRadioPlayer.shared
+    
+    private var loadingCountdown: BackgroundTimer?
+
+    private let defaultSoundQuality = SoundQuality.middle
+    
+    private let soundQualityKey = "soundQuality"
+
+    
+    // MARK: - Methods / public
+    
     func play() {
         radioPlayer.radioURL = soundQuality.url
         state = .loading
+        radioPlayer.isAutoPlay = true
         radioPlayer.play()
     }
+    
     func stop() {
         state = .stopping
+        radioPlayer.isAutoPlay = false
         radioPlayer.stop()
+        clearCurrentTrackInfo()
         state = .idle
     }
     
-    // MARK: - M E T H O D S / public / actions
-    // MARK: M E T H O D S / private
+    // MARK: - Methods / private
+    
     private override init() {
-        // default values:
-        soundQualityKey = "soundQuality"
-        defaultSoundQuality = SoundQuality.middle
         soundQuality = defaultSoundQuality
-        // last saved values:
         if let lastSavedQualityRawValue = UserDefaults.standard.object(forKey: soundQualityKey) as? Int {
             if let lastSavedQuality = SoundQuality(rawValue: lastSavedQualityRawValue) {
-                soundQuality = lastSavedQuality // Установлено значение из UserDefaults, didSet из init'а вызван не будет
+                soundQuality = lastSavedQuality // Начальное значение soundQuality; didSet на init не срабатывает
             }
         }
-        // super:
+        state = .idle
         super.init()
-        // delegate:
         radioPlayer.delegate = self
+        radioPlayer.enableArtwork = false // Enable fetching albums artwork from the iTunes API. (default == true)
     }
-    private func updateLockScreen(artist: String?, title: String?) {
-        var nowPlayingInfo = [String : Any]()
-        if let artist = artist {
-            nowPlayingInfo[MPMediaItemPropertyArtist] = artist
-        }
-        if let title = title {
-            nowPlayingInfo[MPMediaItemPropertyTitle] = title
-        }
-        nowPlayingInfo[MPNowPlayingInfoPropertyIsLiveStream] = true
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-        let center = MPRemoteCommandCenter.shared()
-        [center.pauseCommand,
-         center.togglePlayPauseCommand,
-         center.nextTrackCommand,
-         center.previousTrackCommand,
-         center.changeRepeatModeCommand,
-         center.changeShuffleModeCommand,
-         center.changePlaybackRateCommand,
-         center.seekBackwardCommand,
-         center.seekForwardCommand,
-         center.skipBackwardCommand,
-         center.skipForwardCommand,
-         center.changePlaybackPositionCommand,
-         center.ratingCommand,
-         center.likeCommand,
-         center.dislikeCommand,
-         center.playCommand,//
-         center.stopCommand,//
-         center.bookmarkCommand].forEach {
-            $0.addTarget{(commandEvent) -> MPRemoteCommandHandlerStatus in
-                return MPRemoteCommandHandlerStatus.commandFailed
-            }
-            $0.isEnabled = false
-        }
-//        center.playCommand.addTarget{[unowned self](commandEvent) -> MPRemoteCommandHandlerStatus in
-//            self.play()
-//            return MPRemoteCommandHandlerStatus.success
-//        }
-//        center.stopCommand.addTarget{[unowned self](commandEvent) -> MPRemoteCommandHandlerStatus in
-//            self.stop()
-//            return MPRemoteCommandHandlerStatus.success
-//        }
+    
+    private func restart() {
+        stop()
+        play()
     }
+    
+    private func clearCurrentTrackInfo() {
+        currentArtist = nil
+        currentTitle = nil
+    }
+
 }
 
-// MARK: - E X T / ChiplTuner : FRadioPlayerDelegate
+// MARK: - EXT / FRadioPlayerDelegate
+
 extension ChiplRadioController: FRadioPlayerDelegate {
-    func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) { // print("~ \(Date()) ~ \(self.className) ~ Player state = '\(state.description)'")
+    
+    // Called when player changes state
+    func radioPlayer(_ player: FRadioPlayer, playerStateDidChange state: FRadioPlayerState) {
+        //printNicely("⚙️ PLAYER state = '\(state.description)'")
         switch player.state {
-        case .error:
-            self.state = .error
         case .loading:
             self.state = .loading
         case.loadingFinished:
+            // Исключаем случаи, когда данные загружаются при выключенном воспроизведении
+            guard player.isPlaying else { return }
             self.state = .playing
         default:
-            loadingCountdown = nil
+            return
         }
     }
+    
+    // Called when the player changes the playing state
     func radioPlayer(_ player: FRadioPlayer, playbackStateDidChange state: FRadioPlaybackState) {
-        // print("~ \(Date()) ~ Playback state = '\(state.description)'")
+        //printNicely("▶️ PLAYBACK state = '\(state.description)'")
     }
-    func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) {
-        print("~ \(Date()) ~ Stream metadata = '\(artistName ?? "-")', '\(trackName ?? "-")'.")
-        guard self.state != .stopping, player.state == .loadingFinished, player.playbackState == .playing else {
-            return
-        }
-        var metadata: String = ""
+    
+    func radioPlayer(_ player: FRadioPlayer, metadataDidChange artistName: String?, trackName: String?) { 
+        guard self.state == .playing else { return }
+        printNicely("Received new metadata (artist = '\(artistName ?? "")', track = '\(trackName ?? "")').")
+        guard let metadata = artistName ?? trackName else { return }
         var metadataParts: [String] = []
-        var currentArtist: String = ""
-        var currentTitle: String = ""
-        if artistName != nil {
-            metadata = artistName!
-        }
-        if metadata == "" && trackName != nil { // Если artistName пустой, пробуем получить данные из trackName
-            metadata = trackName!
-        }
         if metadata.count > 0 {
-             metadataParts = metadata.components(separatedBy: "/")
-            if metadataParts.count > 0 {
-                currentArtist = metadataParts[0]
-                if metadataParts.count > 1 {
-                    currentTitle = metadataParts[1]
-                }
-            }
+            metadataParts = metadata.components(separatedBy: "/")
+            currentArtist = metadataParts[0]
+            if metadataParts.count > 1 { currentTitle = metadataParts[1] }
         } else {
-            print("~ \(Date()) ~ Не удалось прочитать метаданные из аудиопотока.")
+            printNicely("Could not parse metadata")
+            currentArtist = nil
+            currentTitle = nil
         }
-        guard let handler = metadataDidChangeHandler else {
-            print("~ \(Date()) ~ Отсутствует обработчик обновления метаданных.")
-            return
-        }
-        handler(currentArtist, currentTitle)
-        updateLockScreen(artist: currentArtist, title: currentTitle)
+        guard let reactToMetadataDidChange = metadataDidChangeHandler else { return }
+        reactToMetadataDidChange()
     }
+    
 }
-// MARK: -
+
+// MARK: - SoundQuality
+
 enum SoundQuality: Int {
     case low = 40
     case middle = 64
@@ -206,17 +177,19 @@ enum SoundQuality: Int {
     var url: URL {
         switch self {
         case .low:
-            return URL(string: "http://radio.4duk.ru/4duk40.mp3")! // http://radio.4duk.ru:80/4duk40.mp3
+            return URL(string: "http://radio.4duk.ru/4duk40.mp3")! // альтернативный вариант: http://radio.4duk.ru:80/4duk40.mp3
         case .middle:
-            return URL(string: "http://radio.4duk.ru/4duk64.mp3")! // http://radio.4duk.ru:80/4duk64.mp3
+            return URL(string: "http://radio.4duk.ru/4duk64.mp3")! // альтернативный вариант: http://radio.4duk.ru:80/4duk64.mp3
         case .high:
-            return URL(string: "http://radio.4duk.ru/4duk128.mp3")! // http://radio.4duk.ru:80/4duk128.mp3
+            return URL(string: "http://radio.4duk.ru/4duk128.mp3")! // альтернативный вариант: http://radio.4duk.ru:80/4duk128.mp3
         case .highest:
-            return URL(string: "http://radio.4duk.ru/4duk256.mp3")!  // http://radio.4duk.ru:80/4duk256.mp3
+            return URL(string: "http://radio.4duk.ru/4duk256.mp3")!  // альтернативный вариант: http://radio.4duk.ru:80/4duk256.mp3
         }
     }
-
 }
+
+// MARK: - ChiplPlayerState
+
 enum ChiplPlayerState {
     case idle
     case loading
